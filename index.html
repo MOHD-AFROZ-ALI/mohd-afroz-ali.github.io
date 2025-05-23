@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohd Afroz Ali | AI/ML Engineer & SDE Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+     <!-- Header/Navigation -->
+    <header class="fixed w-full z-50 transition-colors duration-300" id="header">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">
+                <span class="gradient-text">Afroz</span><span class="text-gray-500">Ali</span>
+            </a>
+            <div class="flex items-center space-x-2 md:space-x-8">
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link font-medium">About</a>
+                    <a href="#skills" class="nav-link font-medium">Skills</a>
+                    <a href="#certifications" class="nav-link font-medium">Certifications</a>
+                    <a href="#projects" class="nav-link font-medium">Projects</a>
+                    <a href="#contact" class="nav-link font-medium">Contact</a>
+                </nav>
+                <button class="md:hidden focus:outline-none" id="menuToggle">
+                    <i class="fas fa-bars text-gray-300 text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu hidden bg-gray-900 w-full absolute shadow-lg py-4 px-6 md:hidden transition-all duration-300" id="mobileMenu">
+            <nav class="flex flex-col space-y-4">
+                <a href="#about" class="nav-link font-medium">About</a>
+                <a href="#skills" class="nav-link font-medium">Skills</a>
+                <a href="#certifications" class="nav-link font-medium">Certifications</a>
+                <a href="#projects" class="nav-link font-medium">Projects</a>
+                <a href="#contact" class="nav-link font-medium">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center py-20 px-4 hero-bg section-odd">
+        <div class="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-gray-900 z-0"></div>
+        <div class="container mx-auto z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 text-center md:text-left fade-in" style="animation-delay: 0.2s;">
+                    <p class="text-purple-400 font-medium mb-2">Hello, I'm</p>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 shine">
+                        <span class="gradient-text">MOHD AFROZ ALI</span>
+                    </h1>
+                    <div class="flex items-center justify-center md:justify-start space-x-2 mb-8">
+                        <div class="h-1 w-12 bg-purple-500 rounded"></div>
+                        <p class="mono text-lg md:text-xl text-gray-300">AI/ML Engineer & SDE</p>
+                    </div>
+                    <p class="text-gray-300 text-lg mb-8 max-w-lg mx-auto md:mx-0">
+                        Translating business problems into data-driven solutions with expertise in Machine Learning, Deep Learning, and scalable software systems that deliver real business value.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                        <a href="#projects" class="py-3 px-8 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                            View Projects
+                        </a>
+                        <a href="https://drive.google.com/file/d/1-l6QUmUjwxK7ASjyh87vrhaj2hqgPNiG/view?usp=sharing" target="_blank" class="resume-btn py-3 px-8 border-2 border-purple-500 text-white hover:bg-purple-900/30 rounded-full transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-download mr-2"></i> Download Resume
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center fade-in" style="animation-delay: 0.4s;">
+                    <div class="relative">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full blur opacity-30 animate-pulse"></div>
+                        <img src="projects\ML 1-ml phishing detector\p1slides\afroz_pic.jpg" alt="Mohd Afroz Ali" class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-purple-900 profile-img relative">
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#about" class="text-purple-400">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 section-even">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center section-title">About Me</h2>
+            <div class="flex flex-col md:flex-row items-start gap-12">
+                <div class="md:w-1/2 fade-in" style="animation-delay: 0.2s;">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-300">Who I Am</h3>
+                    <p class="text-gray-300 mb-4 leading-relaxed">
+                        <span class="font-bold text-purple-400">Hi, I'm Afroz Ali</span>, a results-driven <span class="font-medium text-purple-300">AI/ML Engineer</span> passionate about building intelligent systems that solve real business challenges.
+                    </p>
+                    <p class="text-gray-300 mb-4 leading-relaxed">
+                        With a strong foundation in <span class="font-medium text-purple-300">Information Technology Engineering</span>, I combine technical expertise in <span class="font-medium text-purple-300">Machine Learning, Deep Learning, Software Development, and Data Structures & Algorithms</span> with a keen business mindset.
+                    </p>
+                    <p class="text-gray-300 mb-8 leading-relaxed">
+                        I'm not just a coder—I'm a <span class="font-medium text-purple-300">problem solver</span> who can communicate technical concepts clearly to non-technical stakeholders and collaborate effectively in cross-functional teams to deliver impactful AI solutions.
+                    </p>
+                </div>
+                <div class="md:w-1/2 fade-in" style="animation-delay: 0.4s;">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-300">Why I'm the Right Candidate</h3>
+                    <div class="mb-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-medal text-purple-400"></i>
+                            </div>
+                            <h4 class="font-bold text-lg text-purple-200">Technical Excellence</h4>
+                        </div>
+                        <ul class="list-disc pl-14 text-gray-300 space-y-2">
+                            <li>Strong foundation in <span class="font-medium text-purple-300">Data Structures & Algorithms</span> with practical implementation experience</li>
+                            <li>Built end-to-end ML pipelines from data preprocessing to deployment and monitoring</li>
+                            <li>Skilled in <span class="font-medium text-purple-300">Python, SQL, TensorFlow, PyTorch, and LangChain</span></li>
+                        </ul>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-brain text-purple-400"></i>
+                            </div>
+                            <h4 class="font-bold text-lg text-purple-200">Growth-Oriented Mindset</h4>
+                        </div>
+                        <ul class="list-disc pl-14 text-gray-300 space-y-2">
+                            <li>Continuously expanding my knowledge in <span class="font-medium text-purple-300">AI/ML best practices and emerging technologies</span></li>
+                            <li>Proactive problem-solver who thrives in fast-paced environments</li>
+                            <li>Quick learner who adapts rapidly to new technologies and business domains</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-lightbulb text-purple-400"></i>
+                            </div>
+                            <h4 class="font-bold text-lg text-purple-200">Impact-Driven Approach</h4>
+                        </div>
+                        <ul class="list-disc pl-14 text-gray-300 space-y-2">
+                            <li>Focus on delivering <span class="font-medium text-purple-300">measurable business value</span> through technical solutions</li>
+                            <li>Strong communicator who can translate technical concepts for diverse audiences</li>
+                            <li>Collaborative team player with experience in agile development environments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+   
+
+    <!-- Projects Section with Horizontal Scrolling -->
+    <section id="projects" class="py-20 px-4 section-odd">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center section-title">My Projects</h2>
+
+            <!-- ML Projects -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold mb-8 flex items-center">
+                    <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-robot text-purple-400"></i>
+                    </div>
+                    Machine Learning Projects
+                </h3>
+                <div class="relative">
+                    <div class="scroll-container">
+                        <!-- ML Project 1 -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="ML Phishing Detector" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">ML Phishing Detector</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">A machine learning-based system that detects phishing websites using URL analysis and feature extraction.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <a href="https://github.com/MOHD-AFROZ-ALI/ml-phish-detector" target="_blank" class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </a>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <a href="projects\ML 1-ml phishing detector\p1index\p1index.html" target="_blank" class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </a>
+                                        <a href="projects\ML 1-ml phishing detector\p1slides\s1.html" target="_blank" class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ML Project 2 -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="Customer Segmentation" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Customer Segmentation</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">Used clustering algorithms to segment customers by behavior, enabling targeted marketing strategies.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ML Project 3 (Future addition) -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="Fraud Detection System" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Fraud Detection System</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">An anomaly detection system for identifying fraudulent transactions with high precision and recall.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Scroll indicators -->
+                    <div class="flex justify-center mt-6 gap-2">
+                        <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NLP Projects -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold mb-8 flex items-center">
+                    <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-comment-alt text-purple-400"></i>
+                    </div>
+                    NLP Projects
+                </h3>
+                <div class="relative">
+                    <div class="scroll-container">
+                        <!-- NLP Project 1 -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/resume.png" alt="Smart Resume Analyzer" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Smart Resume Analyzer</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">An NLP-powered application that extracts and analyzes key information from resumes for efficient candidate screening.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NLP Project 2 -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/resume.png" alt="Intelligent Document QA" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Intelligent Document QA</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">A RAG-based question answering system for enterprise documents using LangChain and vector databases.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- NLP Project 3 (Future addition) -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/resume.png" alt="Sentiment Analysis System" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Sentiment Analysis System</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">Real-time sentiment analysis for customer feedback, featuring aspect-based emotion detection.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Scroll indicators -->
+                    <div class="flex justify-center mt-6 gap-2">
+                        <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Learning Projects -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-bold mb-8 flex items-center">
+                    <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-network-wired text-purple-400"></i>
+                    </div>
+                    Deep Learning Projects
+                </h3>
+                <div class="relative">
+                    <div class="scroll-container">
+                        <!-- DL Project 1 -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/potato.webp" alt="Plant Disease Detection" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Plant Disease Detection</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                
+                                <p class="text-gray-400 text-sm mb-4">CNN-based system for identifying diseases in plants from images, helping farmers take early action.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1" ></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DL Project 2 -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/potato.webp" alt="Image Generation Model" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Image Generation Model</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">Implementation of a generative model for creating realistic images from textual descriptions.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DL Project 3 (Future addition) -->
+                        <div class="project-card rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            <div class="relative">
+                                <img src="https://mohd-afroz-ali.github.io/assets/img/potato.webp" alt="Object Detection System" class="w-full h-48 object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                    <h4 class="text-white text-lg font-bold">Object Detection System</h4>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-gray-800">
+                                <p class="text-gray-400 text-sm mb-4">Real-time object detection using YOLOv5 with custom training for specific use cases.</p>
+                                <div class="project-buttons-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-code mr-1"></i> Code
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-eye mr-1"></i> Demo
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-file-alt mr-1"></i> Report
+                                        </button>
+                                        <button class="project-button bg-purple-900/30 text-purple-400 py-2 px-4 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Scroll indicators -->
+                    <div class="flex justify-center mt-6 gap-2">
+                        <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mt-12">
+                <h4 class="text-xl font-semibold mb-4 text-purple-300">Why My Projects Matter to Employers</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-code-branch text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-gray-200">End-to-End Development</h5>
+                            <p class="text-gray-400 text-sm">My projects demonstrate complete implementation from research to deployment, showcasing my ability to deliver full solutions.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-bullseye text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-gray-200">Business-Focused Solutions</h5>
+                            <p class="text-gray-400 text-sm">Each project addresses real-world problems with measurable outcomes and business value implications.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-cogs text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-gray-200">Technical Versatility</h5>
+                            <p class="text-gray-400 text-sm">Projects showcase my ability to work across different domains and technologies, adapting to various technical challenges.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-tasks text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-gray-200">Structured Approach</h5>
+                            <p class="text-gray-400 text-sm">My methodology demonstrates clear planning, efficient execution, and thorough documentation—key skills for any tech role.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Completely Redesigned Skills Section ---------------------------------------------------------------------------------------------------->
+    <section id="skills" class="py-20 px-4 section-odd">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center section-title">Technical Expertise</h2>
+            
+            <!-- Role-based skills cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Software Development Engineer -->
+                <div class="skill-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="skill-header" >
+                        <h3 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-code mr-3" ></i>
+                            Software Development
+                        </h3>
+                    </div>
+                    <div class="skill-body">
+                        <span class="role-badge">SDE</span>
+                        
+                        <div class="mb-5">
+                            <h4 class="font-semibold text-purple-300 mb-2">Core Programming</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Python</span>
+                                    <span class="text-sm text-gray-400">Advanced</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Data Structures & Algorithms</span>
+                                    <span class="text-sm text-gray-400">Proficient</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <h4 class="font-semibold text-purple-300 mb-2">Web Technologies</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">RESTful APIs</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Flask/FastAPI</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-purple-300 mb-2">Database & DevOps</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">SQL</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Git/GitHub</span>
+                                    <span class="text-sm text-gray-400">Advanced</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-5 text-sm">
+                            <p class="text-purple-300 font-semibold mb-2">Key Strengths:</p>
+                            <p class="text-gray-300">Strong problem-solving skills with focus on clean, maintainable code and optimal algorithmic solutions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI/ML Engineer ---------------------->
+                <div class="skill-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="skill-header">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-brain mr-3"></i>
+                            Machine Learning & AI
+                        </h3>
+                    </div>
+                    <div class="skill-body">
+                        <span class="role-badge">AI/ML Engineer</span>
+                        
+                        <div class="mb-5">
+                            <h4 class="font-semibold text-purple-300 mb-2">Machine Learning</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Statistical Modeling</span>
+                                    <span class="text-sm text-gray-400">Advanced</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Model Evaluation</span>
+                                    <span class="text-sm text-gray-400">Advanced</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <h4 class="font-semibold text-purple-300 mb-2">Deep Learning</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Neural Networks</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">NLP & GenAI</span>
+                                    <span class="text-sm text-gray-400">Proficient</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-purple-300 mb-2">Data Engineering</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Data Preprocessing</span>
+                                    <span class="text-sm text-gray-400">Advanced</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Feature Engineering</span>
+                                    <span class="text-sm text-gray-400">Advanced</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-5 text-sm">
+                            <p class="text-purple-300 font-semibold mb-2">Key Strengths:</p>
+                            <p class="text-gray-300">End-to-end ML pipeline development with focus on business impact and model interpretability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MLOps -->
+                <div class="skill-card fade-in" style="animation-delay: 0.6s;">
+                    <div class="skill-header">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-cogs mr-3"></i>
+                            MLOps & Deployment
+                        </h3>
+                    </div>
+                    <div class="skill-body">
+                        <span class="role-badge">MLOps Practitioner</span>
+                        
+                        <div class="mb-5">
+                            <h4 class="font-semibold text-purple-300 mb-2">Cloud Services</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">AWS Services</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">GCP</span>
+                                    <span class="text-sm text-gray-400">Beginner</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <h4 class="font-semibold text-purple-300 mb-2">Model Lifecycle</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Model Deployment</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">CI/CD for ML</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-purple-300 mb-2">Monitoring & Scaling</h4>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Model Monitoring</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Docker & Containerization</span>
+                                    <span class="text-sm text-gray-400">Intermediate</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-5 text-sm">
+                            <p class="text-purple-300 font-semibold mb-2">Key Strengths:</p>
+                            <p class="text-gray-300">Building scalable, production-ready ML systems with focus on reliability and reproducibility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools and Technologies Section -->
+            <div class="mb-10 fade-in" style="animation-delay: 0.8s;">
+                <h3 class="text-2xl font-bold mb-8 text-center text-purple-300">Frameworks & Tools</h3>
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <div class="skill-bullet"><i class="fab fa-python mr-2"></i>Python & Libraries</div>
+                    <div class="skill-bullet"><i class="fas fa-database mr-2"></i>SQL</div>
+                    <div class="skill-bullet"><i class="fas fa-code-branch mr-2"></i>Git & GitHub</div>
+                    <div class="skill-bullet"><i class="fas fa-brain mr-2"></i>TensorFlow</div>
+                    <div class="skill-bullet"><i class="fas fa-fire mr-2"></i>PyTorch</div>
+                    <div class="skill-bullet"><i class="fas fa-chart-bar mr-2"></i>Pandas</div>
+                    <div class="skill-bullet"><i class="fas fa-calculator mr-2"></i>NumPy</div>
+                    <div class="skill-bullet"><i class="fas fa-cogs mr-2"></i>Scikit-Learn</div>
+                    <!-- <div class="skill-bullet"><i class="fas fa-comments mr-2"></i>LangChain</div> -->
+                    <!-- <div class="skill-bullet"><i class="fas fa-robot mr-2"></i>LlamaIndex</div> -->
+                    <div class="skill-bullet"><i class="fas fa-server mr-2"></i>Docker</div>
+                    <div class="skill-bullet"><i class="fas fa-cloud mr-2"></i>AWS</div>
+                    <div class="skill-bullet"><i class="fas fa-desktop mr-2"></i>Streamlit</div>
+                    <div class="skill-bullet"><i class="fas fa-flask mr-2"></i>Flask</div>
+                    <!-- <div class="skill-bullet"><i class="fas fa-database mr-2"></i>Vector Databases</div> -->
+                    <div class="skill-bullet"><i class="fas fa-microchip mr-2"></i>Hugging Face</div>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <h4 class="text-xl font-semibold mb-3 text-purple-300 flex items-center">
+                        <i class="fas fa-star-half-alt mr-2"></i>
+                        What Sets Me Apart
+                    </h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-500 mt-1 mr-2"></i>
+                            <span>Strong foundation in both <span class="text-purple-300 font-medium">theoretical concepts and practical implementation</span> of ML algorithms</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-500 mt-1 mr-2"></i>
+                            <span>Ability to <span class="text-purple-300 font-medium">architect end-to-end ML solutions</span> from data processing to deployment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-500 mt-1 mr-2"></i>
+                            <span>Experience with <span class="text-purple-300 font-medium">Generative AI</span> and implementing LLM-based applications</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-500 mt-1 mr-2"></i>
+                            <span>Continuous learning mindset with focus on <span class="text-purple-300 font-medium">emerging AI technologies and best practices</span></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-500 mt-1 mr-2"></i>
+                            <span>Strong problem-solving approach with emphasis on <span class="text-purple-300 font-medium">clean code and optimal algorithmic solutions</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                     <!-- Certifications Section with Horizontal Scrolling ----------------------------------->
+    <section id="certifications" class="py-20 px-4 section-even">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center section-title">Certifications</h2>
+            
+            <div class="relative">
+                <div class="scroll-container">
+                    <!-- Certification 1 -->
+                    <div class="certificate-card shadow-lg overflow-hidden fade-in" style="animation-delay: 0.2s;">
+                        <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="Machine Learning Certification" class="w-full h-48 object-cover">
+                        <div class="p-6 bg-gray-800">
+                            <h3 class="text-xl font-bold mb-2 text-purple-300">Machine Learning Specialization</h3>
+                            <p class="text-gray-400 mb-3">Krish Naik | Udemy</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Issued Dec 2023</span>
+                                <a href="#" class="text-purple-400 hover:underline text-sm font-medium">View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certification 2 -->
+                    <div class="certificate-card shadow-lg overflow-hidden fade-in" style="animation-delay: 0.4s;">
+                        <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="Deep Learning Certification" class="w-full h-48 object-cover">
+                        <div class="p-6 bg-gray-800">
+                            <h3 class="text-xl font-bold mb-2 text-purple-300">Deep Learning Fundamentals</h3>
+                            <p class="text-gray-400 mb-3">Krish Naik | Udemy</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Issued Feb 2024</span>
+                                <a href="#" class="text-purple-400 hover:underline text-sm font-medium">View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certification 3 -->
+                    <!-- <div class="certificate-card shadow-lg overflow-hidden fade-in" style="animation-delay: 0.6s;">
+                        <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="NLP Certification" class="w-full h-48 object-cover">
+                        <div class="p-6 bg-gray-800">
+                            <h3 class="text-xl font-bold mb-2 text-purple-300">Natural Language Processing</h3>
+                            <p class="text-gray-400 mb-3">Krish Naik | Udemy</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Issued Apr 2024</span>
+                                <a href="#" class="text-purple-400 hover:underline text-sm font-medium">View Certificate</a>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                    <!-- Certification 4 (Placeholder for future additions) -->
+                    <!-- <div class="certificate-card shadow-lg overflow-hidden fade-in" style="animation-delay: 0.8s;">
+                        <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="GenAI Certification" class="w-full h-48 object-cover">
+                        <div class="p-6 bg-gray-800">
+                            <h3 class="text-xl font-bold mb-2 text-purple-300">Generative AI Foundations</h3>
+                            <p class="text-gray-400 mb-3">Google Cloud | Coursera</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Future Certification</span>
+                                <a href="#" class="text-purple-400 hover:underline text-sm font-medium">View Certificate</a>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                    <!-- Certification 5 (Placeholder for future additions) -->
+                    <!-- <div class="certificate-card shadow-lg overflow-hidden fade-in" style="animation-delay: 1s;">
+                        <img src="https://mohd-afroz-ali.github.io/assets/img/graduate_img.jpg" alt="AWS Certification" class="w-full h-48 object-cover">
+                        <div class="p-6 bg-gray-800">
+                            <h3 class="text-xl font-bold mb-2 text-purple-300">AWS Machine Learning</h3>
+                            <p class="text-gray-400 mb-3">Amazon Web Services</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Future Certification</span>
+                                <a href="#" class="text-purple-400 hover:underline text-sm font-medium">View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                </div>
+                
+                <!-- Scroll indicators -->
+                <!-- <div class="flex justify-center mt-6 gap-2">
+                    <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+                    <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                    <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                </div> -->
+                
+                <!-- <div class="text-center mt-8 text-gray-400 text-sm">
+                    <p><i class="fas fa-arrow-left mr-2"></i> Scroll horizontally to see more certifications <i class="fas fa-arrow-right ml-2"></i></p>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -------------------------------------------------------------------------------------------->
+    <section id="contact" class="py-20 px-4 section-even">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center section-title">Contact Me</h2>
+            
+            <div class="flex flex-col md:flex-row gap-12 items-start">
+                <!-- Contact Info -->
+                <div class="md:w-1/2 fade-in" style="animation-delay: 0.2s;">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-300">Get In Touch</h3>
+                    <p class="text-gray-300 mb-8">
+                        I'm currently seeking opportunities to apply my AI/ML and software development skills in innovative projects. Whether you're looking to fill a role or discuss a potential collaboration, I'd love to connect!
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-900/30 rounded-full flex items-center justify-center">
+                                <i class="fas fa-envelope text-purple-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Email</p>
+                                <p class="font-medium text-gray-200">afrozali3001.aa@gmail.com</p>
+                                <a href="mailto:afrozali3001.aa@gmail.com" class="text-purple-400 text-sm hover:underline">Write me</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-900/30 rounded-full flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-purple-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Location</p>
+                                <p class="font-medium text-gray-200">Hyderabad,India</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-900/30 rounded-full flex items-center justify-center">
+                                <i class="fab fa-whatsapp text-purple-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">WhatsApp</p>
+                                <p class="font-medium text-gray-200">+91 9959786710</p>
+                                <a href="https://api.whatsapp.com/send?phone=9959786710&text=Hey%20there!" target="_blank" class="text-purple-400 text-sm hover:underline">Message me</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h4 class="font-bold mb-4 text-purple-300">Connect with me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/MOHD-AFROZ-ALI" target="_blank" class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center text-purple-400 hover:bg-purple-800/50 transition-colors">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="www.linkedin.com/in/mohd-afroz-ali" target="_blank" class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center text-purple-400 hover:bg-purple-800/50 transition-colors">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <!-- <a href="https://x.com/" target="_blank" class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center text-purple-400 hover:bg-purple-800/50 transition-colors">
+                                <i class="ri-twitter-x-line"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center text-purple-400 hover:bg-purple-800/50 transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- Contact Form -->
+                <div class="md:w-1/2 w-full mt-10 md:mt-0 fade-in" style="animation-delay: 0.4s;">
+                    <div class="card rounded-xl shadow-lg p-8 border border-gray-700 bg-gray-800">
+                        <h3 class="text-xl font-bold mb-6 text-purple-300">Send Me a Message</h3>
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white" placeholder="John Doe">
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white" placeholder="john@example.com">
+                            </div>
+                            <div class="mb-6">
+                                <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white" placeholder="Job opportunity">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 text-white" placeholder="Your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-purple-900 hover:from-purple-700 hover:to-purple-800 text-white py-3 px-6 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 mt-8">
+                        <h4 class="font-semibold mb-3 flex items-center text-purple-300">
+                            <i class="fas fa-lightbulb mr-2"></i> Ready to Contribute
+                        </h4>
+                        <p class="text-gray-400 text-sm">Looking for a motivated AI/ML Engineer who can hit the ground running? I'm available for immediate start and eager to make an impact on your team's success.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-4 bg-black text-white">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-2xl font-bold">
+                        <span class="gradient-text">Afroz</span><span class="text-gray-500">Ali</span>
+                    </a>
+                    <p class="text-gray-400 mt-2">AI/ML Engineer & Software Developer</p>
+                </div>
+                <div class="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4">
+                    <a href="#about" class="text-gray-300 hover:text-purple-400 transition-colors">About</a>
+                    <a href="#skills" class="text-gray-300 hover:text-purple-400 transition-colors">Skills</a>
+                    <a href="#certifications" class="text-gray-300 hover:text-purple-400 transition-colors">Certifications</a>
+                    <a href="#projects" class="text-gray-300 hover:text-purple-400 transition-colors">Projects</a>
+                    <a href="#contact" class="text-gray-300 hover:text-purple-400 transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2025 Mohd Afroz Ali. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="https://github.com/MOHD-AFROZ-ALI" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="www.linkedin.com/in/mohd-afroz-ali" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <!-- <a href="https://x.com/" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors">
+                        <i class="ri-twitter-x-line"></i>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

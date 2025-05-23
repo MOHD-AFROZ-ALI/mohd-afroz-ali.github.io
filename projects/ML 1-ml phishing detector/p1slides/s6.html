@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Phish Detector - Data Ingestion & ETL Pipeline</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+        .pipeline-step {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .pipeline-step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.1);
+        }
+        .step-icon {
+            background: rgba(116, 235, 213, 0.15);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+        .code-block {
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 12px;
+            color: #b4e0fa;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .code-comment {
+            color: #74ebd5;
+            opacity: 0.8;
+        }
+        .arrow {
+            color: rgba(116, 235, 213, 0.7);
+            font-size: 24px;
+            margin: 0 15px;
+        }
+        .hamburger {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar.style.display === 'block') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
+        }
+    </script>
+    <div class="slide flex flex-col">
+        <div class="cyber-grid"></div>
+        
+        <div class="content-container w-full h-full py-10 px-16">
+            <h1 class="text-4xl font-bold mb-6 text-center gradient-text">DATA INGESTION & ETL PIPELINE</h1>
+            
+            <!-- Pipeline Overview -->
+            <div class="flex justify-center items-center mb-8">
+                <div class="pipeline-step p-3 w-44 text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <i class="fas fa-database text-xl gradient-text"></i>
+                    </div>
+                    <p class="font-medium">Data Source</p>
+                    <p class="text-xs text-blue-200">MongoDB Collection</p>
+                </div>
+                
+                <i class="fas fa-arrow-right arrow"></i>
+                
+                <div class="pipeline-step p-3 w-44 text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <i class="fas fa-file-import text-xl gradient-text"></i>
+                    </div>
+                    <p class="font-medium">Data Extraction</p>
+                    <p class="text-xs text-blue-200">Export as DataFrame</p>
+                </div>
+                
+                <i class="fas fa-arrow-right arrow"></i>
+                
+                <div class="pipeline-step p-3 w-44 text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <i class="fas fa-check-circle text-xl gradient-text"></i>
+                    </div>
+                    <p class="font-medium">Schema Validation</p>
+                    <p class="text-xs text-blue-200">Against schema.yaml</p>
+                </div>
+                
+                <i class="fas fa-arrow-right arrow"></i>
+                
+                <div class="pipeline-step p-3 w-44 text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <i class="fas fa-random text-xl gradient-text"></i>
+                    </div>
+                    <p class="font-medium">Train/Test Split</p>
+                    <p class="text-xs text-blue-200">80/20 Ratio</p>
+                </div>
+            </div>
+            
+            <!-- Implementation Details -->
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Left Column - ETL Components -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-blue-200">ETL Components</h2>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <div class="step-icon">
+                                <i class="fas fa-file-code gradient-text"></i>
+                            </div>
+                            <h3 class="font-medium text-lg">Data Schema Validation</h3>
+                        </div>
+                        <p class="text-sm mb-3 ml-14">Enforces strict schema compliance using <code>schema.yaml</code>, ensuring data quality and consistency</p>
+                        
+                        <div class="code-block ml-14 text-xs">
+<span class="code-comment"># schema.yaml sample</span>
+columns:
+  - having_IP_Address: int64
+  - URL_Length: int64
+  - Shortining_Service: int64
+  - having_At_Symbol: int64
+  ...
+numerical_columns:
+  - having_IP_Address
+  - URL_Length
+  ...
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <div class="step-icon">
+                                <i class="fas fa-exchange-alt gradient-text"></i>
+                            </div>
+                            <h3 class="font-medium text-lg">Data Transformation</h3>
+                        </div>
+                        <ul class="ml-14 list-disc pl-5 text-sm space-y-2">
+                            <li>Handling missing values with KNNImputer</li>
+                            <li>Type casting & normalization</li>
+                            <li>Replacing -1 values with 0 in target column</li>
+                            <li>Serialization of preprocessor for inference</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Implementation Code -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-blue-200">Implementation Highlights</h2>
+                    
+                    <div class="code-block text-xs mb-4">
+<span class="code-comment"># Data Ingestion from MongoDB</span>
+def export_collection_as_dataframe(self):
+    database_name = self.data_ingestion_config.database_name
+    collection_name = self.data_ingestion_config.collection_name
+    collection = self.mongo_client[database_name][collection_name]
+    
+    df = pd.DataFrame(list(collection.find()))
+    if "_id" in df.columns.to_list():
+        df = df.drop(columns=["_id"], axis=1)
+    
+    df.replace({"na": np.nan}, inplace=True)
+    return df
+                    </div>
+                    
+                    <div class="code-block text-xs">
+<span class="code-comment"># Train/Test Split Operation</span>
+def split_data_as_train_test(self, dataframe: pd.DataFrame):
+    train_set, test_set = train_test_split(
+        dataframe, 
+        test_size=self.data_ingestion_config.train_test_split_ratio
+    )
+    
+    train_set.to_csv(
+        self.data_ingestion_config.training_file_path,
+        index=False, header=True
+    )
+
+    test_set.to_csv(
+        self.data_ingestion_config.testing_file_path,
+        index=False, header=True
+    )
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Section - Additional Features -->
+            <div class="mt-8">
+                <h2 class="text-xl font-semibold mb-3 text-center text-blue-200">Pipeline Features</h2>
+                
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-cloud-upload-alt text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">S3 Synchronization</h3>
+                        </div>
+                        <p class="text-xs">Automatically syncs processed data to AWS S3 for persistence and downstream access</p>
+                    </div>
+                    
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-chart-bar text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Drift Detection</h3>
+                        </div>
+                        <p class="text-xs">Uses Kolmogorov-Smirnov test to detect and report data drift between train and test sets</p>
+                    </div>
+                    
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bug text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Exception Handling</h3>
+                        </div>
+                        <p class="text-xs">Custom NetworkSecurityException class for robust error tracking and handling</p>
+                    </div>
+                </div>
+            </div>
+<!-- 
+            <div class="sidebar fixed top-0 left-0 h-full overflow-y-auto bg-gray-800 text-white p-4">
+                <ul>
+                    <li><a href="s1.html" class="block py-2 px-4 hover:bg-gray-700">Slide 1</a></li>
+                    <li><a href="s2.html" class="block py-2 px-4 hover:bg-gray-700">Slide 2</a></li>
+                    <li><a href="s3.html" class="block py-2 px-4 hover:bg-gray-700">Slide 3</a></li>
+                    <li><a href="s4.html" class="block py-2 px-4 hover:bg-gray-700">Slide 4</a></li>
+                    <li><a href="s5.html" class="block py-2 px-4 hover:bg-gray-700">Slide 5</a></li>
+                    <li><a href="s6.html" class="block py-2 px-4 hover:bg-gray-700">Slide 6</a></li>
+                    <li><a href="s7.html" class="block py-2 px-4 hover:bg-gray-700">Slide 7</a></li>
+                    <li><a href="s8.html" class="block py-2 px-4 hover:bg-gray-700">Slide 8</a></li>
+                    <li><a href="s9.html" class="block py-2 px-4 hover:bg-gray-700">Slide 9</a></li>
+                    <li><a href="s10.html" class="block py-2 px-4 hover:bg-gray-700">Slide 10</a></li>
+                    <li><a href="s11.html" class="block py-2 px-4 hover:bg-gray-700">Slide 11</a></li>
+                    <li><a href="s12.html" class="block py-2 px-4 hover:bg-gray-700">Slide 12</a></li>
+                </ul>
+            </div> -->
+
+            <div class="absolute bottom-4 left-4 text-sm text-gray-400"><a href="s5.html" class="text-white text-base">Prev</a></div>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-400">Slide 6/12</div>
+            <div class="absolute bottom-4 right-4 text-sm text-gray-400"><a href="s7.html" class="text-white text-base">Next</a></div>
+        </div>
+        
+       
+    </div>
+</body>
+</html>

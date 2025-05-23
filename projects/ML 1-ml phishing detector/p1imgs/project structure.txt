@@ -1,0 +1,113 @@
+mohd-afroz-ali-ml-phish-detector/
+├── app.py                    # 🌐 Flask app for serving predictions
+├── main.py                   # 🚀 Entry point to run the training pipeline
+├── Dockerfile                # 📦 Containerization for deployment
+├── requirements.txt          # 📜 Python dependencies
+├── setup.py                  # 📦 Packaging/installing the module
+├── README.md                 # 📘 Project documentation
+├── test_mongodb.py           # 🧪 MongoDB integration test
+
+├── data_schema/
+│   └── schema.yaml           # 🧾 Schema definition for data validation
+
+├── final_model/
+│   ├── model.pkl             # 🤖 Trained ML model
+│   └── preprocessor.pkl      # 🧼 Preprocessing pipeline
+
+├── Network_Data/
+│   └── phisingData.csv       # 📂 Raw phishing dataset
+
+├── valid_data/
+│   └── test.csv              # 📊 Cleaned/test data
+
+├── prediction_output/
+│   └── output.csv            # 📤 Model predictions (output)
+
+├── templates/
+│   └── table.html            # 🖼️ HTML template for rendering results
+
+├── .github/
+│   └── workflows/
+│       └── main.yml          # ⚙️ GitHub Actions workflow (CI/CD)
+
+└── networksecurity/          # 🧠 Modular ML engine (core logic)
+    ├── cloud/                # ☁️ Cloud utilities (e.g., S3 sync)
+    ├── components/           # 🔧 Pipeline stages (ingestion → training)
+    ├── constant/             # 📌 Constants and training configs
+    ├── entity/               # 📦 Structured config and artifact classes
+    ├── exception/            # 🚨 Custom error handling
+    ├── logging/              # 📝 Project-wide logging
+    ├── pipeline/             # 🔄 Training and prediction orchestrators
+    └── utils/                # 🛠️ Helper utilities (metrics, estimators, tools)
+
+
+
+
+networksecurity/
+├── __init__.py                         # Marks the package root
+
+├── cloud/                              # ☁️ Cloud utilities (e.g., AWS S3)
+│   ├── __init__.py
+│   ├── s3_syncer.py                    # Logic for syncing files with S3
+│   └── __pycache__/
+
+├── components/                         # 🔧 Core pipeline steps (ML lifecycle)
+│   ├── __init__.py
+│   ├── data_ingestion.py              # Reads raw data from source
+│   ├── data_validation.py            # Validates schema & checks for missing/corrupt data
+│   ├── data_transformation.py        # Preprocessing (scaling, encoding)
+│   ├── model_trainer.py              # Trains the ML model
+│   └── __pycache__/
+
+├── constant/                           # 📌 Project-level constants
+│   ├── __init__.py
+│   ├── __pycache__/
+│   └── training_pipeline/
+│       ├── __init__.py
+│       └── __pycache__/
+
+├── entity/                             # 📦 Structured configuration & artifact classes
+│   ├── __init__.py
+│   ├── artifact_entity.py            # Classes for storing intermediate outputs (artifacts)
+│   ├── config_entity.py              # Classes for storing pipeline configuration
+│   └── __pycache__/
+
+├── exception/                          # 🚨 Custom error handling
+│   ├── __init__.py
+│   ├── exception.py                  # Centralized custom exception class
+│   └── __pycache__/
+
+├── logging/                            # 📝 Logging utilities
+│   ├── __init__.py
+│   ├── logger.py                     # Custom logger setup
+│   └── __pycache__/
+
+├── pipeline/                           # 🔄 Pipeline orchestration
+│   ├── __init__.py
+│   ├── training_pipeline.py          # Executes full training workflow
+│   ├── batch_prediction.py          # Handles batch inference on new data
+│   └── __pycache__/
+
+└── utils/                              # 🛠️ Utility modules (organized by purpose)
+    ├── __init__.py
+    ├── __pycache__/
+
+    ├── main_utils/
+    │   ├── __init__.py
+    │   ├── utils.py                  # General-purpose helpers (e.g., file I/O, paths)
+    │   └── __pycache__/
+
+    └── ml_utils/                     # 🧠 ML-specific helpers
+        ├── __init__.py
+        ├── __pycache__/
+
+        ├── metric/
+        │   ├── __init__.py
+        │   ├── classification_metric.py  # Functions for computing metrics like accuracy, F1
+        │   └── __pycache__/
+
+        └── model/
+            ├── __init__.py
+            ├── estimator.py         # Wrapper classes for model + preprocessing
+            └── __pycache__/
+

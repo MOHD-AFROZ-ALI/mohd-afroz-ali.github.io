@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Phish Detector - Data Validation & Schema</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+        .code-block {
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 12px;
+            color: #b4e0fa;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .code-comment {
+            color: #74ebd5;
+            opacity: 0.8;
+        }
+        .validation-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .validation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.1);
+        }
+        .card-icon {
+            background: rgba(116, 235, 213, 0.15);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .report-item {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .drift-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .no-drift {
+            background-color: #4ade80;
+        }
+        .drift {
+            background-color: #f87171;
+        }
+        .hamburger {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar.style.display === 'block') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
+        }
+    </script>
+    <div class="slide flex flex-col">
+        <div class="cyber-grid"></div>
+        
+        <div class="content-container w-full h-full py-10 px-16">
+            <h1 class="text-4xl font-bold mb-6 text-center gradient-text">DATA VALIDATION & SCHEMA</h1>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Left Column - Schema Validation -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-blue-200">Schema Validation</h2>
+                    
+                    <div class="validation-card p-4 mb-6">
+                        <div class="flex items-center mb-3">
+                            <div class="card-icon mr-3">
+                                <i class="fas fa-check-circle gradient-text"></i>
+                            </div>
+                            <h3 class="font-medium text-lg">Column Validation</h3>
+                        </div>
+                        <p class="text-sm mb-3">Ensures all required features are present and conform to expected data types</p>
+                        
+                        <div class="code-block text-xs">
+<span class="code-comment"># Column validation method</span>
+def validate_number_of_columns(self, dataframe: pd.DataFrame) -> bool:
+    number_of_columns = len(self._schema_config)
+    logging.info(f"Required columns: {number_of_columns}")
+    logging.info(f"DataFrame columns: {len(dataframe.columns)}")
+    
+    if len(dataframe.columns) == number_of_columns:
+        return True
+    return False
+                        </div>
+                    </div>
+                    
+                    <div class="validation-card p-4">
+                        <div class="flex items-center mb-3">
+                            <div class="card-icon mr-3">
+                                <i class="fas fa-file-alt gradient-text"></i>
+                            </div>
+                            <h3 class="font-medium text-lg">Schema Definition</h3>
+                        </div>
+                        <p class="text-sm mb-3">YAML-based schema with 30 features (URL & website attributes) + target</p>
+                        
+                        <div class="code-block text-xs h-44 overflow-y-auto">
+<span class="code-comment"># schema.yaml excerpt</span>
+columns:
+  - having_IP_Address: int64
+  - URL_Length: int64
+  - Shortining_Service: int64
+  - having_At_Symbol: int64
+  - double_slash_redirecting: int64
+  - Prefix_Suffix: int64
+  - having_Sub_Domain: int64
+  - SSLfinal_State: int64
+  - Domain_registeration_length: int64
+  - Favicon: int64
+  - port: int64
+  <span class="code-comment"># ...19 additional features</span>
+  - Result: int64  <span class="code-comment"># Target variable</span>
+
+numerical_columns:
+  - having_IP_Address
+  - URL_Length
+  <span class="code-comment"># ...28 additional features</span>
+  - Result
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Drift Detection -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-blue-200">Drift Detection</h2>
+                    
+                    <div class="validation-card p-4 mb-6">
+                        <div class="flex items-center mb-3">
+                            <div class="card-icon mr-3">
+                                <i class="fas fa-chart-bar gradient-text"></i>
+                            </div>
+                            <h3 class="font-medium text-lg">Statistical Drift Testing</h3>
+                        </div>
+                        <p class="text-sm mb-3">Uses Kolmogorov-Smirnov test to detect distribution shifts between train & test data</p>
+                        
+                        <div class="code-block text-xs">
+<span class="code-comment"># Drift detection with KS test</span>
+def detect_dataset_drift(self, base_df, current_df, threshold=0.05) -> bool:
+    status = True
+    report = {}
+    
+    for column in base_df.columns:
+        d1 = base_df[column]
+        d2 = current_df[column]
+        is_same_dist = ks_2samp(d1, d2)
+        
+        if threshold <= is_same_dist.pvalue:
+            is_found = False
+        else:
+            is_found = True
+            status = False
+            
+        report.update({
+            column: {
+                "p_value": float(is_same_dist.pvalue),
+                "drift_status": is_found
+            }
+        })
+    
+    <span class="code-comment"># Write report to YAML</span>
+    write_yaml_file(file_path=drift_report_file_path, content=report)
+    return status
+                        </div>
+                    </div>
+                    
+                    <div class="validation-card p-4">
+                        <div class="flex items-center mb-3">
+                            <div class="card-icon mr-3">
+                                <i class="fas fa-file-medical-alt gradient-text"></i>
+                            </div>
+                            <h3 class="font-medium text-lg">Drift Report Sample</h3>
+                        </div>
+                        <p class="text-sm mb-3">Sample report showing p-values and drift status for features</p>
+                        
+                        <div class="h-44 overflow-y-auto">
+                            <div class="report-item">
+                                <span class="drift-dot no-drift"></span>
+                                <span class="text-sm"><b>having_IP_Address</b>: p-value=0.89 (No Drift)</span>
+                            </div>
+                            <div class="report-item">
+                                <span class="drift-dot no-drift"></span>
+                                <span class="text-sm"><b>URL_Length</b>: p-value=0.76 (No Drift)</span>
+                            </div>
+                            <div class="report-item">
+                                <span class="drift-dot drift"></span>
+                                <span class="text-sm"><b>Shortining_Service</b>: p-value=0.03 (Drift Detected)</span>
+                            </div>
+                            <div class="report-item">
+                                <span class="drift-dot no-drift"></span>
+                                <span class="text-sm"><b>having_At_Symbol</b>: p-value=0.68 (No Drift)</span>
+                            </div>
+                            <div class="report-item">
+                                <span class="drift-dot no-drift"></span>
+                                <span class="text-sm"><b>double_slash_redirecting</b>: p-value=0.91 (No Drift)</span>
+                            </div>
+                            <div class="report-item">
+                                <span class="drift-dot drift"></span>
+                                <span class="text-sm"><b>Domain_registeration_length</b>: p-value=0.04 (Drift Detected)</span>
+                            </div>
+                            <div class="report-item">
+                                <span class="drift-dot no-drift"></span>
+                                <span class="text-sm"><b>HTTPS_token</b>: p-value=0.56 (No Drift)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Section - Validation Pipeline -->
+            <div class="mt-8">
+                <h2 class="text-xl font-semibold mb-3 text-center text-blue-200">Validation Pipeline Benefits</h2>
+                
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-shield-alt text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Data Quality Assurance</h3>
+                        </div>
+                        <p class="text-xs">Prevents garbage-in, garbage-out by ensuring all data meets expected structure before training</p>
+                    </div>
+                    
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-exclamation-triangle text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Early Warning System</h3>
+                        </div>
+                        <p class="text-xs">Identifies distribution shifts that could impact model performance before deployment</p>
+                    </div>
+                    
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-history text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Pipeline Robustness</h3>
+                        </div>
+                        <p class="text-xs">Creates audit trail of validation reports for tracing and reproducing model performance</p>
+                    </div>
+                </div>
+            </div>
+<!-- 
+            <div class="sidebar fixed top-0 left-0 h-full overflow-y-auto bg-gray-800 text-white p-4">
+                <ul>
+                    <li><a href="s1.html" class="block py-2 px-4 hover:bg-gray-700">Slide 1</a></li>
+                    <li><a href="s2.html" class="block py-2 px-4 hover:bg-gray-700">Slide 2</a></li>
+                    <li><a href="s3.html" class="block py-2 px-4 hover:bg-gray-700">Slide 3</a></li>
+                    <li><a href="s4.html" class="block py-2 px-4 hover:bg-gray-700">Slide 4</a></li>
+                    <li><a href="s5.html" class="block py-2 px-4 hover:bg-gray-700">Slide 5</a></li>
+                    <li><a href="s6.html" class="block py-2 px-4 hover:bg-gray-700">Slide 6</a></li>
+                    <li><a href="s7.html" class="block py-2 px-4 hover:bg-gray-700">Slide 7</a></li>
+                    <li><a href="s8.html" class="block py-2 px-4 hover:bg-gray-700">Slide 8</a></li>
+                    <li><a href="s9.html" class="block py-2 px-4 hover:bg-gray-700">Slide 9</a></li>
+                    <li><a href="s10.html" class="block py-2 px-4 hover:bg-gray-700">Slide 10</a></li>
+                    <li><a href="s11.html" class="block py-2 px-4 hover:bg-gray-700">Slide 11</a></li>
+                    <li><a href="s12.html" class="block py-2 px-4 hover:bg-gray-700">Slide 12</a></li>
+                </ul>
+            </div> -->
+
+            <div class="absolute bottom-4 left-4 text-sm text-gray-400"><a href="s6.html" class="text-white text-base">Prev</a></div>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-400">Slide 7/12</div>
+            <div class="absolute bottom-4 right-4 text-sm text-gray-400"><a href="s8.html" class="text-white text-base">Next</a></div>
+        </div>
+        
+       
+    </div>
+</body>
+</html>

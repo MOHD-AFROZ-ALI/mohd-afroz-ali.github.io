@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Phish Detector - Conclusion</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+        .conclusion-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .conclusion-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.1);
+        }
+        .card-icon {
+            background: rgba(116, 235, 213, 0.15);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .skill-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            margin: 5px;
+            border-radius: 20px;
+            background: rgba(116, 235, 213, 0.15);
+            border: 1px solid rgba(116, 235, 213, 0.3);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            background: rgba(116, 235, 213, 0.25);
+        }
+        .skill-icon {
+            margin-right: 8px;
+        }
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            margin: 0 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: white;
+        }
+        .contact-link:hover {
+            background: rgba(116, 235, 213, 0.3);
+            transform: translateY(-3px);
+        }
+        .github-btn {
+            background: linear-gradient(135deg, rgba(116, 235, 213, 0.6), rgba(159, 172, 230, 0.6));
+            color: white;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .github-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, rgba(116, 235, 213, 0.8), rgba(159, 172, 230, 0.8));
+        }
+        .hamburger {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar.style.display === 'block') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
+        }
+    </script>
+    <div class="slide flex flex-col">
+        <div class="cyber-grid"></div>
+        
+        <div class="content-container w-full h-full py-10 px-16">
+            <h1 class="text-4xl font-bold mb-6 text-center gradient-text">CONCLUSION & FUTURE WORK</h1>
+            
+            <div class="grid grid-cols-2 gap-8 mb-6">
+                <!-- Left Column - Project Summary -->
+                <div class="conclusion-card p-5">
+                    <div class="flex items-center mb-4">
+                        <div class="card-icon mr-3">
+                            <i class="fas fa-check-circle gradient-text"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Project Achievements</h3>
+                    </div>
+                    
+                    <ul class="space-y-3 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Developed an end-to-end ML pipeline for phishing URL detection with 96% F1 score</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Implemented robust validation and drift detection to ensure model reliability</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Established comprehensive MLOps practices with experiment tracking and CI/CD automation</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Deployed containerized solution to AWS with real-time and batch prediction capabilities</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Right Column - Future Work -->
+                <div class="conclusion-card p-5">
+                    <div class="flex items-center mb-4">
+                        <div class="card-icon mr-3">
+                            <i class="fas fa-road gradient-text"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Future Extensions</h3>
+                    </div>
+                    
+                    <ul class="space-y-3 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Implement feature extraction from raw URLs to eliminate manual feature engineering</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Incorporate deep learning models (LSTM/Transformers) for improved accuracy</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Add A/B testing framework for production model updates and continuous improvement</p>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-angle-right text-blue-300 mt-1 mr-2"></i>
+                            <p>Create browser extension for seamless end-user protection and feedback loop</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Skills Showcase -->
+            <div class="conclusion-card p-5 mb-6">
+                <div class="flex items-center mb-4">
+                    <div class="card-icon mr-3">
+                        <i class="fas fa-laptop-code gradient-text"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Skills Showcased</h3>
+                </div>
+                
+                <div class="flex flex-wrap justify-center">
+                    <div class="skill-badge">
+                        <i class="fab fa-python skill-icon"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-database skill-icon"></i>
+                        <span>MongoDB</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-brain skill-icon"></i>
+                        <span>Machine Learning</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-cogs skill-icon"></i>
+                        <span>MLOps</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fab fa-docker skill-icon"></i>
+                        <span>Docker</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fab fa-aws skill-icon"></i>
+                        <span>AWS</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-chart-line skill-icon"></i>
+                        <span>MLflow</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-code-branch skill-icon"></i>
+                        <span>CI/CD</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-shield-alt skill-icon"></i>
+                        <span>Security</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-cloud skill-icon"></i>
+                        <span>Cloud Architecture</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GitHub Link and Contact -->
+            <div class="flex flex-col items-center justify-center mt-6">
+                <a href="https://github.com/MOHD-AFROZ-ALI/ml-phish-detector" class="github-btn px-6 py-3 flex items-center mb-8 text-lg font-semibold">
+                    <i class="fab fa-github mr-3 text-2xl"></i>
+                    <span>View Project on GitHub</span>
+                </a>
+                
+                <div class="text-center">
+                    <p class="text-xl mb-4">Thank you for reviewing my project!</p>
+                    <div class="flex justify-center mt-2">
+                        <a href="mailto:afrozali3001.aa@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope mr-2"></i> Email
+                        </a>
+                        <a href="https://linkedin.com/in/mohd-afroz-ali" class="contact-link">
+                            <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                        </a>
+
+                        <a href="https://api.whatsapp.com/send?phone=9959786710&text=Hey%20there!" class="contact-link">
+                            <i class="fas fa-folder-open mr-2"></i> Contact me 
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="sidebar fixed top-0 left-0 h-full overflow-y-auto bg-gray-800 text-white p-4">
+                <ul>
+                    <li><a href="s1.html" class="block py-2 px-4 hover:bg-gray-700">Slide 1</a></li>
+                    <li><a href="s2.html" class="block py-2 px-4 hover:bg-gray-700">Slide 2</a></li>
+                    <li><a href="s3.html" class="block py-2 px-4 hover:bg-gray-700">Slide 3</a></li>
+                    <li><a href="s4.html" class="block py-2 px-4 hover:bg-gray-700">Slide 4</a></li>
+                    <li><a href="s5.html" class="block py-2 px-4 hover:bg-gray-700">Slide 5</a></li>
+                    <li><a href="s6.html" class="block py-2 px-4 hover:bg-gray-700">Slide 6</a></li>
+                    <li><a href="s7.html" class="block py-2 px-4 hover:bg-gray-700">Slide 7</a></li>
+                    <li><a href="s8.html" class="block py-2 px-4 hover:bg-gray-700">Slide 8</a></li>
+                    <li><a href="s9.html" class="block py-2 px-4 hover:bg-gray-700">Slide 9</a></li>
+                    <li><a href="s10.html" class="block py-2 px-4 hover:bg-gray-700">Slide 10</a></li>
+                    <li><a href="s11.html" class="block py-2 px-4 hover:bg-gray-700">Slide 11</a></li>
+                    <li><a href="s12.html" class="block py-2 px-4 hover:bg-gray-700">Slide 12</a></li>
+                </ul>
+            </div> -->
+
+            <div class="absolute bottom-4 left-4 text-sm text-gray-400"><a href="s11.html" class="text-white text-base">Prev</a></div>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-400">Slide 12/12</div>
+            <!-- <div class="absolute bottom-4 right-4 text-sm text-gray-400"><a href="s2.html" class="text-white text-base">Next</a></div> -->
+        </div>
+        
+       
+    </div>
+</body>
+</html>

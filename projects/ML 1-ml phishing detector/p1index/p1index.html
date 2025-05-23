@@ -1,0 +1,855 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Phish Detector - Securing the Web, One URL at a Time</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #1a365d;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a365d;
+            color: #1a365d;
+        }
+        h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 25px 0 10px;
+            color: #2c5282;
+        }
+        h4 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0 10px;
+            color: #2d3748;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        .icon-list li {
+            margin-bottom: 8px;
+        }
+        .bg-accent {
+            background-color: #edf2f7;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .table-of-contents {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 15px 25px;
+            margin: 20px 0;
+        }
+        .table-of-contents a {
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+        .table-of-contents a:hover {
+            text-decoration: underline;
+        }
+        .code-block {
+            background-color: #2d3748;
+            color: #f7fafc;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+        .feature-box {
+            background-color: #e6f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .tech-badge {
+            display: inline-block;
+            background-color: #e2e8f0;
+            color: #1a202c;
+            border-radius: 15px;
+            padding: 5px 10px;
+            margin: 3px;
+            font-size: 14px;
+        }
+        .tech-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .pipeline-box {
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f8fafc;
+        }
+        .info-graphic {
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .dagshub-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .dagshub-img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        @media screen and (min-width: 768px) {
+            .dagshub-gallery {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .dagshub-img {
+                max-width: 32%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>ML PHISH DETECTOR</h1>
+            <p class="text-xl">"Securing the Web, One URL at a Time"</p>
+            <p>Developed as an AI/ML Showcase Project</p>
+            <p class="font-bold mt-4">MOHAMMAD AFROZ ALI</p>
+            <p class="text-sm mt-2">Data Science | Machine Learning Enthusiast</p>
+            <div class="mt-3">
+                <span class="bg-blue-700 text-white text-xs px-2 py-1 rounded">Python</span>
+                <span class="bg-blue-700 text-white text-xs px-2 py-1 rounded">EDA</span>
+                <span class="bg-blue-700 text-white text-xs px-2 py-1 rounded">ML Models</span>
+                <span class="bg-blue-700 text-white text-xs px-2 py-1 rounded">Model Tracking</span>
+                <span class="bg-blue-700 text-white text-xs px-2 py-1 rounded">AWS Deployment</span>
+            </div>
+        </div>
+
+        <!-- Table of Content -->
+        <h2 id="table-of-contents">Table of Contents</h2>
+        <div class="table-of-contents">
+            <ol class="list-decimal ml-6 space-y-2">
+                <li><a href="#about-me">About Me</a></li>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#project-overview">Project Overview</a></li>
+                <li><a href="#data-ingestion">Data Ingestion</a></li>
+                <li><a href="#data-validation">Data Validation</a></li>
+                <li><a href="#data-transformation">Data Transformation</a></li>
+                <li><a href="#model-training">Model Training & Hyperparameter Tuning</a></li>
+                <li><a href="#model-evaluation">Model Evaluation</a></li>
+                <li><a href="#experiment-tracking">Experiment Tracking with MLflow</a></li>
+                <li><a href="#deployment">Deployment</a>
+                    <ul class="list-disc ml-5 mt-1">
+                        <li><a href="#docker-containerization">Docker Containerization</a></li>
+                        <li><a href="#ci-cd">CI/CD Pipeline</a></li>
+                        <li><a href="#cloud-deployment">Cloud Deployment (AWS)</a></li>
+                    </ul>
+                </li>
+                <li><a href="#conclusion">Conclusion</a></li>
+                <li><a href="#skills-showcased">Skills Showcased</a></li>
+                <li><a href="#github-link">GitHub & Contact Details</a></li>
+            </ol>
+        </div>
+
+        <!-- About Me Section -->
+        <h2 id="about-me">About Me</h2>
+        <div class="flex flex-col md:flex-row items-start gap-6">
+            <div class="md:w-2/3">
+                <h3 class="mt-0">MOHAMMAD AFROZ ALI</h3>
+                <p class="text-lg font-semibold">Aspiring SDE, AIML Intern</p>
+                
+                <div class="mt-4">
+                    <h4>🎓 Education</h4>
+                    <p>Final Semester – B.Tech (Information Technology) - 8.0/10 CGPA<br>
+                    Muffakham Jah College of Engineering & Technology</p>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>Focused on:</h4>
+                    <p>AI/ML • Software Engineering • Cloud Technologies</p>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>💡 Interests</h4>
+                    <p>Keen on Artificial Intelligence & Machine Learning<br>
+                    Focus on building end-to-end solutions that combine ML with software engineering best practices</p>
+                </div>
+            </div>
+            <div class="md:w-1/3">
+                <div class="bg-accent h-full p-4">
+                    <h4 class="text-center">Technical Proficiency</h4>
+                    <div class="tech-section">
+                        <span class="tech-badge"><i class="fab fa-python mr-1"></i>Python</span>
+                        <span class="tech-badge"><i class="fas fa-database mr-1"></i>SQL</span>
+                        <span class="tech-badge"><i class="fas fa-chart-bar mr-1"></i>Pandas</span>
+                        <span class="tech-badge"><i class="fas fa-brain mr-1"></i>Scikit-learn</span>
+                        <span class="tech-badge"><i class="fas fa-server mr-1"></i>MLflow</span>
+                        <span class="tech-badge"><i class="fab fa-docker mr-1"></i>Docker</span>
+                        <span class="tech-badge"><i class="fab fa-aws mr-1"></i>AWS</span>
+                        <span class="tech-badge"><i class="fab fa-github mr-1"></i>GitHub Actions</span>
+                        <span class="tech-badge"><i class="fas fa-database mr-1"></i>MongoDB</span>
+                        <span class="tech-badge"><i class="fas fa-cloud mr-1"></i>Cloud Deployment</span>
+                        <span class="tech-badge"><i class="fas fa-code-branch mr-1"></i>CI/CD</span>
+                        <span class="tech-badge"><i class="fas fa-cogs mr-1"></i>MLOps</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Introduction Section -->
+        <h2 id="introduction">Introduction</h2>
+        <div class="bg-accent">
+            <p>Phishing attacks represent a significant cybersecurity threat, targeting users through deceptive websites that mimic legitimate services to steal sensitive information. This project delivers an end-to-end machine learning solution to accurately identify phishing URLs using their structural and behavioral characteristics.</p>
+        </div>
+        <h3>Project Motivation</h3>
+        <p>With the increasing sophistication of phishing attacks, traditional rule-based detection methods often fall short. Machine learning approaches can adapt to evolving threats by identifying subtle patterns in URL characteristics, enabling more robust protection for users navigating the web.</p>
+        
+        <h3>Dataset Information</h3>
+        <p>The project utilizes a comprehensive dataset containing 30 features extracted from URLs, all designed to capture different aspects of potential phishing indicators. These features include:</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2 my-4">
+            <div class="feature-box">having_IP_Address</div>
+            <div class="feature-box">URL_Length</div>
+            <div class="feature-box">Shortining_Service</div>
+            <div class="feature-box">having_At_Symbol</div>
+            <div class="feature-box">double_slash_redirecting</div>
+            <div class="feature-box">Prefix_Suffix</div>
+            <div class="feature-box">SSLfinal_State</div>
+            <div class="feature-box">Domain_registeration_length</div>
+            <div class="feature-box">Favicon</div>
+            <div class="feature-box">port</div>
+            <div class="feature-box">HTTPS_token</div>
+            <div class="feature-box">Request_URL</div>
+        </div>
+        <p>The target variable <span class="highlight">Result</span> identifies URLs as either legitimate (0) or phishing (1).</p>
+
+        <!-- Project Overview -->
+        <h2 id="project-overview">Project Overview</h2>
+        <h3>Key Features of the Project</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-layer-group text-blue-600 mr-2"></i>Modular Pipeline Architecture</h4>
+                <p>Each component (ingestion, validation, transformation, training, prediction) is implemented as a separate module with clear interfaces, enabling maintainability and extensibility.</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-robot text-blue-600 mr-2"></i>Automated Workflow</h4>
+                <p>Complete automation from data ingestion to model deployment, with robust logging and exception handling at each stage to ensure reliability.</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-chart-line text-blue-600 mr-2"></i>Experiment Tracking</h4>
+                <p>Integration with MLflow for tracking experiments, storing metrics, and managing model artifacts with version control.</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-cloud text-blue-600 mr-2"></i>Cloud-Native Design</h4>
+                <p>Seamless deployment to AWS infrastructure with storage in S3, containerization via Docker, and CI/CD through GitHub Actions.</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-database text-blue-600 mr-2"></i>Schema Validation</h4>
+                <p>Strict schema enforcement using YAML configuration to ensure data quality and consistency across the pipeline.</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-code-branch text-blue-600 mr-2"></i>Version Control Integration</h4>
+                <p>DAGsHub integration for model versioning and experiment tracking with Git-like capabilities for ML artifacts.</p>
+            </div>
+        </div>
+
+        <h3>Project Flow Overview</h3>
+        
+        <img src="../p1imgs/1. complete flow.png" alt="ML Phish Detector Complete Pipeline Flow" class="info-graphic">
+        
+        <div class="pipeline-box">
+            <ol class="list-decimal ml-6 space-y-2">
+                <li><strong>Data Ingestion:</strong> Extract data from MongoDB, validate schema, and split into train/test sets</li>
+                <li><strong>Data Validation:</strong> Verify dataset schema, check for drift between train/test datasets</li>
+                <li><strong>Data Transformation:</strong> Handle missing values with KNN imputation, prepare features for training</li>
+                <li><strong>Model Training:</strong> Benchmark multiple classifiers with hyperparameter tuning</li>
+                <li><strong>Model Evaluation:</strong> Assess performance using classification metrics (F1, precision, recall)</li>
+                <li><strong>Experiment Tracking:</strong> Log metrics, parameters, and artifacts to MLflow</li>
+                <li><strong>Model Serialization:</strong> Save preprocessor and best model for deployment</li>
+                <li><strong>Containerization:</strong> Package application with Docker for consistent deployment</li>
+                <li><strong>CI/CD Pipeline:</strong> Automate testing, building, and deployment with GitHub Actions</li>
+                <li><strong>Cloud Deployment:</strong> Deploy to AWS (EC2/ECR) with appropriate IAM roles</li>
+            </ol>
+        </div>
+
+        <!-- Data Ingestion Section -->
+        <h2 id="data-ingestion">Data Ingestion</h2>
+        
+        <img src="../p1imgs/3.Data ingestion edit .png" alt="Data Ingestion Pipeline Diagram" class="info-graphic">
+        
+        <h3>Data Sources and Integration</h3>
+        <p>The data ingestion pipeline extracts phishing URL data from a MongoDB database, which serves as the primary data source. The implementation leverages PyMongo to connect to the database and retrieve the dataset using the configured database and collection names.</p>
+        
+        <div class="code-block">
+            <pre>
+# MongoDB Connection and Data Export
+def export_collection_as_dataframe(self):
+    database_name = self.data_ingestion_config.database_name
+    collection_name = self.data_ingestion_config.collection_name
+    self.mongo_client = pymongo.MongoClient(MONGO_DB_URL)
+    collection = self.mongo_client[database_name][collection_name]
+
+    df = pd.DataFrame(list(collection.find()))
+    if "_id" in df.columns.to_list():
+        df = df.drop(columns=["_id"], axis=1)
+            
+    df.replace({"na": np.nan}, inplace=True)
+    return df</pre>
+        </div>
+
+        <h3>Train-Test Split</h3>
+        <p>After extraction, the data is split into training and test sets using scikit-learn's train_test_split function with a configurable split ratio. This ensures that model evaluation is performed on unseen data.</p>
+
+        <h3>Feature Store Integration</h3>
+        <p>The raw dataset is persisted to a feature store file path for future reference and to maintain a historical record of the data used in each training run. This supports reproducibility and model versioning.</p>
+
+        <!-- Data Validation -->
+        <h2 id="data-validation">Data Validation</h2>
+        
+        <img src="../p1imgs/5.1. data validation merged.png" alt="Data Validation Process Diagram" class="info-graphic">
+        
+        <h3>Schema-Based Validation</h3>
+        <p>Data validation is a critical step to ensure the quality and integrity of the input data. The process involves validating the dataset against a predefined schema (schema.yaml) that specifies the expected column names and data types.</p>
+        
+        <div class="code-block">
+            <pre>
+# Column Validation Function
+def validate_number_of_columns(self, dataframe: pd.DataFrame) -> bool:
+    try:
+        number_of_columns = len(self._schema_config)
+        logging.info(f"Required number of columns: {number_of_columns}")
+        logging.info(f"Data frame has columns: {len(dataframe.columns)}")
+        if len(dataframe.columns) == number_of_columns:
+            return True
+        return False
+    except Exception as e:
+        raise NetworkSecurityException(e, sys)</pre>
+        </div>
+
+        <h3>Drift Detection</h3>
+        <p>The validation process also includes checking for data drift between the training and test datasets using the Kolmogorov-Smirnov statistical test. This helps identify shifts in data distribution that could impact model performance.</p>
+        
+        <p>For each feature, the p-value from the KS test is compared against a predefined threshold (0.05). Values below this threshold indicate significant drift that may require attention.</p>
+
+        <div class="pipeline-box">
+            <h4 class="mt-0">Validation Artifacts</h4>
+            <ul class="list-disc ml-6">
+                <li>Validated train and test datasets</li>
+                <li>Drift detection report (YAML format)</li>
+                <li>Validation status indicator</li>
+            </ul>
+        </div>
+
+        <!-- Data Transformation Section -->
+        <h2 id="data-transformation">Data Transformation</h2>
+        
+        <img src="../p1imgs/7.1 datatransformation merged.png" alt="Data Transformation Pipeline Diagram" class="info-graphic">
+        
+        <h3>Feature Processing Pipeline</h3>
+        <p>Data transformation is a crucial step that prepares the raw input features for model training. The process focuses on handling missing values and ensuring consistent feature representation across training and inference.</p>
+        
+        <h4>KNN Imputation for Missing Values</h4>
+        <p>The transformation pipeline uses scikit-learn's KNNImputer to handle missing values in the dataset. This approach replaces missing values with the values from the K nearest neighbors in the feature space, which preserves the relationships between features better than simpler methods like mean or median imputation.</p>
+        
+        <div class="code-block">
+            <pre>
+# KNN Imputer Configuration
+DATA_TRANSFORMATION_IMPUTER_PARAMS: dict = {
+    "missing_values": np.nan,
+    "n_neighbors": 3,
+    "weights": "uniform",
+}</pre>
+        </div>
+        
+        <p>The imputer is configured with n_neighbors=3 and uniform weights, meaning it uses the 3 closest neighbors with equal weighting to determine the replacement value for each missing data point.</p>
+        
+        <h3>Transformation Process</h3>
+        <p>The transformation process follows these steps:</p>
+        <ol class="list-decimal ml-6 space-y-2">
+            <li>Load validated training and testing datasets</li>
+            <li>Separate features (X) from target variable (y)</li>
+            <li>Handle negative target values (converting -1 to 0 for binary compatibility)</li>
+            <li>Create and fit the KNN preprocessing pipeline on training features</li>
+            <li>Transform both training and testing feature sets</li>
+            <li>Combine transformed features with target variables</li>
+            <li>Save the transformed datasets as NumPy arrays (.npy files)</li>
+            <li>Serialize the preprocessor object for future use during inference</li>
+        </ol>
+        
+        <div class="pipeline-box">
+            <h4 class="mt-0">Transformation Artifacts</h4>
+            <ul class="list-disc ml-6">
+                <li><strong>transformed_train.npy:</strong> Processed training dataset</li>
+                <li><strong>transformed_test.npy:</strong> Processed test dataset</li>
+                <li><strong>preprocessor.pkl:</strong> Serialized preprocessing pipeline for consistent transformation during inference</li>
+            </ul>
+        </div>
+        
+        <h3>Feature Importance for Phishing Detection</h3>
+        <p>The 30 features in the dataset capture various URL and webpage characteristics that are indicative of phishing attempts. These include structural elements (presence of IP addresses, URL length), security indicators (SSL certificates, domain registration details), and behavioral aspects (redirect patterns, form submission targets).</p>
+        
+        <p>By maintaining these features' integrity through proper transformation, the model can effectively learn the patterns that distinguish legitimate websites from phishing attempts.</p>
+
+        <!-- Model Training Section -->
+        <h2 id="model-training">Model Training & Hyperparameter Tuning</h2>
+        
+        <img src="../p1imgs/9. model trainer merged.png" alt="Model Training Pipeline Diagram" class="info-graphic">
+        
+        <h3>Model Selection Strategy</h3>
+        <p>The training pipeline evaluates multiple classification algorithms to identify the most effective approach for phishing detection. Each algorithm is rigorously tested with various hyperparameter configurations through GridSearchCV to determine the optimal settings.</p>
+        
+        <h4>Candidate Models</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-tree text-green-600 mr-2"></i>Random Forest</h4>
+                <p>Ensemble of decision trees that performs well on structured data with mixed feature types and importance.</p>
+                <p class="italic text-sm">Tuned parameters: n_estimators</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-sitemap text-green-600 mr-2"></i>Decision Tree</h4>
+                <p>Single decision tree offering good interpretability and feature importance rankings.</p>
+                <p class="italic text-sm">Tuned parameters: criterion</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-chart-line text-green-600 mr-2"></i>Gradient Boosting</h4>
+                <p>Sequential ensemble method that builds trees to correct errors of previous trees.</p>
+                <p class="italic text-sm">Tuned parameters: learning_rate, subsample, n_estimators</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-cogs text-green-600 mr-2"></i>Logistic Regression</h4>
+                <p>Linear model for binary classification that provides probability estimates.</p>
+                <p class="italic text-sm">Default parameters</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-layer-group text-green-600 mr-2"></i>AdaBoost</h4>
+                <p>Boosting algorithm that weights misclassified samples higher in subsequent iterations.</p>
+                <p class="italic text-sm">Tuned parameters: learning_rate, n_estimators</p>
+            </div>
+        </div>
+        
+        <h3>Hyperparameter Tuning</h3>
+        <p>Each model undergoes extensive hyperparameter tuning to optimize performance. The implementation uses scikit-learn's GridSearchCV to perform exhaustive search over specified parameter values for each classifier.</p>
+        
+        <div class="code-block">
+            <pre>
+# Parameter Grid Example
+params = {
+    "Random Forest": {
+        'n_estimators': [8, 16, 32, 128, 256]
+    },
+    "Gradient Boosting": {
+        'learning_rate': [.1, .01, .05, .001],
+        'subsample': [0.6, 0.7, 0.75, 0.85, 0.9],
+        'n_estimators': [8, 16, 32, 64, 128, 256]
+    },
+    "AdaBoost": {
+        'learning_rate': [.1, .01, .001],
+        'n_estimators': [8, 16, 32, 64, 128, 256]
+    }
+}</pre>
+        </div>
+        
+        <h3>Best Model Selection</h3>
+        <p>After evaluating all models with their optimal hyperparameters, the best performing model is selected based on test set performance. This model is then wrapped with the preprocessor to create a unified prediction pipeline that handles both preprocessing and inference.</p>
+        
+        <div class="pipeline-box">
+            <h4 class="mt-0">Network Model Wrapper Class</h4>
+            <p>A custom <code>NetworkModel</code> class encapsulates both the preprocessor and the trained model to ensure consistent feature transformation during inference:</p>
+            <pre class="bg-gray-100 p-2 rounded text-sm">
+class NetworkModel:
+    def __init__(self, preprocessor, model):
+        self.preprocessor = preprocessor
+        self.model = model
+        
+    def predict(self, x):
+        x_transform = self.preprocessor.transform(x)
+        return self.model.predict(x_transform)</pre>
+        </div>
+
+        <!-- Model Evaluation -->
+        <h2 id="model-evaluation">Model Evaluation</h2>
+        <h3>Performance Metrics</h3>
+        <p>The project uses comprehensive classification metrics to evaluate model performance, with a focus on balanced assessment that considers both false positives and false negatives:</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-balance-scale text-indigo-600 mr-2"></i>F1 Score</h4>
+                <p>Harmonic mean of precision and recall, providing a balanced measure for classification performance.</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-bullseye text-indigo-600 mr-2"></i>Precision</h4>
+                <p>Ratio of correctly predicted positive observations to total predicted positives, measuring false positive rate.</p>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-search text-indigo-600 mr-2"></i>Recall</h4>
+                <p>Ratio of correctly predicted positive observations to all actual positives, measuring false negative rate.</p>
+            </div>
+        </div>
+        
+        <h3>Evaluation Process</h3>
+        <p>The evaluation framework assesses each model on both training and test datasets to monitor for overfitting and ensure generalization capability. The metrics are logged in MLflow for experiment tracking and comparison.</p>
+        
+        <div class="code-block">
+            <pre>
+# Classification Metric Function
+def get_classification_score(y_true, y_pred):
+    f1 = f1_score(y_true, y_pred)
+    precision = precision_score(y_true, y_pred)
+    recall = recall_score(y_true, y_pred)
+    
+    return ClassificationMetricArtifact(
+        f1_score=f1,
+        precision_score=precision,
+        recall_score=recall
+    )</pre>
+        </div>
+        
+        <h3>Drift Analysis</h3>
+        <p>Beyond typical model evaluation, the pipeline also analyzes data drift between training and testing datasets. This helps identify potential distribution shifts that could impact model performance in production.</p>
+        
+        <p>The Kolmogorov-Smirnov test is used to compare feature distributions, with a threshold of 0.05 for the p-value to flag significant drift.</p>
+
+        <!-- Experiment Tracking Section -->
+        <h2 id="experiment-tracking">Experiment Tracking with MLflow</h2>
+       
+        <img src="../p1imgs/10. MLFLOW.png" alt="MLflow Experiment Tracking Workflow" class="info-graphic">
+       
+        <h3>MLflow Integration</h3>
+        <p>MLflow is integrated into the training pipeline to track experiments, metrics, parameters, and model artifacts. This provides versioning capabilities and reproducibility for the machine learning workflow.</p>
+        
+        <div class="code-block">
+            <pre>
+# MLflow Tracking with DAGsHub Integration
+import mlflow
+import dagshub
+dagshub.init(repo_owner='MOHD-AFROZ-ALI', repo_name='ml-phish-detector', mlflow=True)
+
+def track_mlflow(self, best_model, classificationmetric):
+    with mlflow.start_run():
+        f1_score = classificationmetric.f1_score
+        precision_score = classificationmetric.precision_score
+        recall_score = classificationmetric.recall_score
+
+        mlflow.log_metric("f1_score", f1_score)
+        mlflow.log_metric("precision", precision_score)
+        mlflow.log_metric("recall_score", recall_score)
+        mlflow.sklearn.log_model(best_model, "model")</pre>
+        </div>
+        
+        <h3>Experiment Management</h3>
+        <p>Each training run is tracked as a separate experiment in MLflow, capturing:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="pipeline-box">
+                <h4 class="mt-0">Tracked Parameters</h4>
+                <ul class="list-disc ml-6">
+                    <li>Model hyperparameters</li>
+                    <li>Training parameters (train-test split ratio, etc.)</li>
+                    <li>Preprocessing configuration</li>
+                </ul>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0">Tracked Metrics</h4>
+                <ul class="list-disc ml-6">
+                    <li>F1 score (train and test)</li>
+                    <li>Precision score (train and test)</li>
+                    <li>Recall score (train and test)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3>DAGsHub Integration</h3>
+        <p>The project leverages DAGsHub for remote storage of ML experiments, providing a GitHub-like interface for ML artifacts. This enables team collaboration and experiment comparison in a centralized repository.</p>
+
+        <div class="dagshub-gallery">
+            <img src="../p1imgs/11. dagshub 1.png" alt="DAGsHub Interface - Experiment Tracking" class="dagshub-img">
+            <img src="../p1imgs/12 .dagshub 2.png" alt="DAGsHub Repository Management" class="dagshub-img">
+            <img src="../p1imgs/13.dagshub 3.png" alt="DAGsHub Metrics Visualization" class="dagshub-img">
+        </div>
+
+        <!-- Deployment Section -->
+        <h2 id="deployment">Deployment</h2>
+        <h3 id="docker-containerization">Docker Containerization</h3>
+        <p>The application is containerized using Docker to ensure consistent deployment across environments. The Dockerfile packages the entire application, including dependencies and trained models.</p>
+        
+        <div class="code-block">
+            <pre>
+FROM python:3.10-slim-buster
+WORKDIR /app
+COPY . /app
+
+RUN apt update -y && apt install awscli -y
+
+RUN apt-get update && pip install -r requirements.txt
+CMD ["python3", "app.py"]</pre>
+        </div>
+        
+        <p>The containerized application can be deployed to any environment that supports Docker, ensuring consistency between development, testing, and production environments.</p>
+        
+        <h3 id="ci-cd">CI/CD Pipeline</h3>
+        
+        <img src="../p1imgs/14.1 CICD .png" alt="CI/CD Pipeline Diagram" class="info-graphic">
+        
+        <p>A CI/CD pipeline is implemented using GitHub Actions to automate the testing, building, and deployment process. The workflow is triggered on each push to the main branch and performs the following tasks:</p>
+        
+        <div class="pipeline-box">
+            <ol class="list-decimal ml-6 space-y-2">
+                <li>Code linting and formatting checks</li>
+                <li>Unit test execution</li>
+                <li>Docker image building</li>
+                <li>Publishing to AWS ECR (Elastic Container Registry)</li>
+                <li>Deployment to AWS ECS (Elastic Container Service) or EC2</li>
+            </ol>
+        </div>
+        
+        <h3 id="cloud-deployment">Cloud Deployment (AWS)</h3>
+        <p>The project utilizes AWS services for cloud deployment, with the following components:</p>
+        
+        <div class="flex flex-col gap-4">
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fab fa-aws text-orange-600 mr-2"></i>S3 (Simple Storage Service)</h4>
+                <p>Used for storing data artifacts, model versioning, and dataset backups. The S3 syncer module facilitates seamless file transfer between local and cloud storage.</p>
+                <img src="../p1imgs/15. aws s3 bucket 1.png" alt="AWS S3 Bucket" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+                <img src="../p1imgs/16. aws s3 bucket 2.png" alt="AWS S3 Bucket 2" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+                <img src="../p1imgs/17. aws s3 bucket 3.png" alt="AWS S3 Bucket 3" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+                <img src="../p1imgs/18. aws s3 bucket 4.png" alt="AWS S3 Bucket 4" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fab fa-aws text-orange-600 mr-2"></i>ECR (Elastic Container Registry)</h4>
+                <p>Hosts Docker images built by the CI/CD pipeline, providing version control and secure storage for container images.</p>
+                <img src="../p1imgs/19 .aws ecr repo.png" alt="AWS ECR Repository" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fab fa-aws text-orange-600 mr-2"></i>EC2 (Elastic Compute Cloud)</h4>
+                <p>Hosts the deployed application, providing scalable compute resources for the phishing detection service.</p>
+                <img src="../p1imgs/21. aws ec2 running instance.png" alt="AWS EC2 Instance" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+                <img src="../p1imgs/22. aws ec2 running.png" alt="AWS EC2 Instance" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fab fa-aws text-orange-600 mr-2"></i>IAM (Identity and Access Management)</h4>
+                <p>Manages access permissions for different AWS services, ensuring secure operation with least privilege principles.</p>
+                <img src="../p1imgs/14.aws IAM user.png" alt="AWS IAM User" class="mt-3 w-full rounded-lg shadow-md" style="width: 50%;">
+            </div>
+        </div>
+        
+        <h3>Web Service API</h3>
+        <img src="../p1imgs/23. final flask page.png" alt="Final Flask Page" class="info-graphic">
+        <p>The deployed application exposes a FastAPI endpoint that accepts URL features for analysis and returns phishing probability. This RESTful API allows integration with other systems and services.</p>
+        
+        <div class="code-block">
+            <pre>
+@app.post("/predict")
+async def predict_route(request: Request, file: UploadFile = File(...)):
+    try:
+        df = pd.read_csv(file.file)
+        preprocesor = load_object("final_model/preprocessor.pkl")
+        final_model = load_object("final_model/model.pkl")
+        network_model = NetworkModel(preprocessor=preprocesor, model=final_model)
+        y_pred = network_model.predict(df)
+        df['predicted_column'] = y_pred
+        df.to_csv('prediction_output/output.csv')
+        table_html = df.to_html(classes='table table-striped')
+        return templates.TemplateResponse("table.html", {"request": request, "table": table_html})
+    except Exception as e:
+        raise NetworkSecurityException(e, sys)</pre>
+        </div>
+
+        <!-- Conclusion Section -->
+        <h2 id="conclusion">Conclusion</h2>
+        <div class="bg-accent">
+            <p>The ML Phish Detector project demonstrates a comprehensive approach to building an end-to-end machine learning solution for cybersecurity. By combining robust data pipelines, advanced model training techniques, and automated deployment workflows, the system provides reliable phishing detection capabilities that can adapt to evolving threats.</p>
+        </div>
+        
+        <h3>Project Achievements</h3>
+        <div class="pipeline-box">
+            <ul class="list-disc ml-6 space-y-2">
+                <li>Successfully implemented a modular ML pipeline with clear separation of concerns and robust error handling.</li>
+                <li>Developed schema-based validation to ensure data quality and consistency throughout the pipeline.</li>
+                <li>Integrated experiment tracking with MLflow to maintain reproducibility and facilitate model comparison.</li>
+                <li>Created an automated CI/CD pipeline that streamlines the deployment process from code push to production.</li>
+                <li>Deployed a scalable solution on AWS with appropriate security controls and monitoring.</li>
+            </ul>
+        </div>
+        
+        <h3>Future Improvements</h3>
+        <p>While the current implementation provides robust phishing detection capabilities, several enhancements could further improve the system:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="pipeline-box">
+                <h4 class="mt-0">Technical Enhancements</h4>
+                <ul class="list-disc ml-6">
+                    <li>Implement model monitoring to detect drift in production data</li>
+                    <li>Add A/B testing framework for model deployment</li>
+                    <li>Explore deep learning approaches for feature extraction from raw URLs</li>
+                    <li>Implement online learning capabilities for continuous model updating</li>
+                </ul>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0">User Experience Improvements</h4>
+                <ul class="list-disc ml-6">
+                    <li>Develop a browser extension for real-time URL scanning</li>
+                    <li>Create detailed explainability features to highlight phishing indicators</li>
+                    <li>Add API rate limiting and authentication for production use</li>
+                    <li>Design an administrative dashboard for monitoring system performance</li>
+                </ul>
+            </div>
+        </div>
+        
+        <p class="mt-4">The ML Phish Detector project stands as a practical demonstration of MLOps principles applied to cybersecurity, showcasing how automated ML pipelines can be leveraged to address real-world security challenges at scale.</p>
+
+        <!-- Skills Showcased Section -->
+        <h2 id="skills-showcased">Skills Showcased</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-brain text-purple-600 mr-2"></i>Machine Learning</h4>
+                <ul class="list-disc ml-6">
+                    <li>Classification algorithms</li>
+                    <li>Feature preprocessing</li>
+                    <li>Hyperparameter tuning</li>
+                    <li>Model evaluation</li>
+                    <li>Drift detection</li>
+                </ul>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-cogs text-purple-600 mr-2"></i>Software Engineering</h4>
+                <ul class="list-disc ml-6">
+                    <li>Modular code design</li>
+                    <li>Exception handling</li>
+                    <li>Logging frameworks</li>
+                    <li>API development</li>
+                    <li>Schema validation</li>
+                </ul>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-cloud text-purple-600 mr-2"></i>MLOps & DevOps</h4>
+                <ul class="list-disc ml-6">
+                    <li>Docker containerization</li>
+                    <li>CI/CD automation</li>
+                    <li>Cloud deployment (AWS)</li>
+                    <li>Experiment tracking</li>
+                    <li>Model versioning</li>
+                </ul>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-database text-purple-600 mr-2"></i>Data Engineering</h4>
+                <ul class="list-disc ml-6">
+                    <li>MongoDB integration</li>
+                    <li>ETL pipeline design</li>
+                    <li>Data validation</li>
+                    <li>Feature store implementation</li>
+                </ul>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-layer-group text-purple-600 mr-2"></i>Pipeline Architecture</h4>
+                <ul class="list-disc ml-6">
+                    <li>End-to-end ML workflow</li>
+                    <li>Component modularity</li>
+                    <li>Pipeline orchestration</li>
+                    <li>Artifact management</li>
+                </ul>
+            </div>
+            <div class="pipeline-box">
+                <h4 class="mt-0"><i class="fas fa-shield-alt text-purple-600 mr-2"></i>Security Engineering</h4>
+                <ul class="list-disc ml-6">
+                    <li>Phishing detection</li>
+                    <li>Feature engineering for security</li>
+                    <li>URL analysis</li>
+                    <li>Threat identification</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- GitHub Links Section -->
+        <h2 id="github-link">GitHub & Contact Details</h2>
+        <div class="bg-accent p-6 text-center">
+            <h3 class="mt-0">Project Repository</h3>
+            <p class="text-lg mb-4"><a href="https://github.com/MOHD-AFROZ-ALI/ml-phish-detector" class="text-blue-600 hover:underline" target="_blank"><i class="fab fa-github mr-2"></i>github.com/MOHD-AFROZ-ALI/ml-phish-detector</a></p>
+            
+            <h3>Contact Information</h3>
+            <p class="text-lg mb-2">
+            <i class="fas fa-envelope mr-2"></i>
+            <a href="mailto:afrozali3001.aa@gmail.com" class="text-blue-600 hover:underline">afrozali3001.aa@gmail.com</a>
+            </p>
+            <p class="text-lg mb-2">
+            <i class="fas fa-phone mr-2"></i>
+            +91 9959786710
+            </p>
+         
+            <p class="text-lg mb-2"><i class="fab fa-linkedin mr-2"></i><a href="https://linkedin.com/in/mohd-afroz-ali"  target="_blank"><i class="fab fa-github mr-2"></i>linkedin.com/in/mohd-afroz-ali</a></p>
+            
+            <div class="mt-8">
+                <p class="font-bold">© 2025 Mohammad Afroz Ali. All rights reserved.</p>
+                <p class="text-sm mt-2">Built with Python, scikit-learn, MLflow, Docker, and AWS</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>ML Phish Detector - Securing the Web, One URL at a Time</p>
+            <p>Developed as an AI/ML Showcase Project by Mohammad Afroz Ali</p>
+        </div>
+    </div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
+<script id="html_badge_script1">
+    window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+        "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrhPXYbFTh8BD0NcVXvC%2FgsrEbMsBvzEQg9A7C5veRmCXuKpVcy5pbEXdh6hMUheS%2BRQ6F%2BiIeE%2B5EsS0tKUaQxNYZWLTIzchDW6TCb8O9XvV3ja5GJ1Y1vuaPTfYNsjNvqReejCU2SjdNBemPyAU6%2BQ4FAHF0mDfv8tHWc9%2Bx2pxCepXU6THmsZJGEHb3KfDEmYmD3qnx%2F6g6h7KwXoO0GYoxi0M2u8SGY6HDStm7L%2FvESXjwJmNlSPzjHby5MiGEaeyDgohjxIVo3fwfFznKmrPixkDPmKZe%2FzMOU8YA%2B9%2FGNcz7%2BhIKHpedbH1998aFkN9PPbAGvxiFuKI2bNaofc%2Byo8hb%2FQpaocBq%2FIxucnRIvzClyS4VqXjuhJ7mn4UxADiGzjLOahqNI1Z7fnjknUyFhPklcn%2FQsLkqQkj7Hgzel%2F3cUFhTDSOLINF22GrnmJyqQCkWWvWZFJWXeSheTN%2BAtnJUjr4p30ODczjB30agJxEDtzaI78FqCMwwKyHKKdXqFS7SGuJuzYhbPFxsQ%3D";
+    window.__genspark_locale = "en-US";
+    window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrhPXYbFTh8BD0NcVXvC/gsrEbMsBvzEQg9A7C5veRmCXuKpVcy5pbEXdh6hMUheS+RQ6F+iIeE+5EsS0tKUaQxNYZWLTIzchDW6TCb8O9XvV3ja5GJ1Y1vuaPTfYNsjNvqReejCU2SjdNBemPyAU6+Q4FAHF0mDfv8tHWc9+x2pxCepXU6THmsZJGEHb3KfDEmYmD3qnx/6g6h7KwXoO0GYoxi0M2u8SGY6HDStm7L/vESXjwJmNlSPzjHby5MiGEaeyDgohjxIVo3fwfFznKmrPixkDPmKZe/zMOU8YA+9/GNcz7+hIKHpedbH1998aFkN9PPbAGvxiFuKI2bNaofc+yo8hb/QpaocBq/IxucnRIvzClyS4VqXjuhJ7mn4UxADiGzjLOahqNI1Z7fnjknUyFhPklcn/QsLkqQkj7Hgzel/3cUFhTDSOLINF22GrnmJyqQCkWWvWZFJWXeSheTN+AtnJUjr4p30ODczjB30agJxEDtzaI78FqCMwwKyHKKdXqFS7SGuJuzYhbPFxsQ=";
+</script>
+    
+<!-- <script id="html_badge_script2" src="https://www.genspark.ai/html_badge.js"></script> -->
+        
+<script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

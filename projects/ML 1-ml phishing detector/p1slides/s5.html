@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Phish Detector - Project Architecture</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .slide {
+            width: 100%;
+            max-width: 1280px;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+        .arch-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            height: 100%;
+        }
+        .arch-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.1);
+        }
+        .arch-arrow {
+            position: absolute;
+            color: rgba(116, 235, 213, 0.6);
+            font-size: 24px;
+            z-index: 2;
+        }
+        .tech-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 12px;
+            background: rgba(116, 235, 213, 0.15);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .component-icon {
+            background: rgba(116, 235, 213, 0.15);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+            height: auto;
+        }
+        .arch-box-container {
+            position: relative;
+            padding: 0.5rem;
+        }
+        .arch-box-container:not(:last-child)::after {
+            content: '\f061';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(116, 235, 213, 0.6);
+            z-index: 2;
+            font-size: 1.5rem;
+        }
+        .arch-box-container:nth-child(3n)::after {
+            content: '';
+        }
+        @media (max-width: 1024px) {
+            .architecture-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1rem;
+            }
+            .arch-box-container::after {
+                content: '\f063' !important;
+                right: 50% !important;
+                top: auto !important;
+                bottom: -2rem !important;
+                transform: translateX(50%) !important;
+            }
+            .arch-box-container:last-child::after {
+                display: none;
+            }
+            .arch-box {
+                width: 100%;
+            }
+        }
+        .hamburger {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar.style.display === 'block') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
+        }
+    </script>
+    <div class="slide">
+        <div class="cyber-grid"></div>
+        
+        <div class="content-container w-full py-10 px-4 md:px-16">
+            <h1 class="text-3xl md:text-4xl font-bold mb-6 text-center gradient-text">PROJECT ARCHITECTURE & OVERVIEW</h1>
+            
+            <!-- Architecture Diagram -->
+            <div class="architecture-grid">
+                <!-- Data Sources -->
+                <div class="arch-box-container">
+                    <div class="arch-box">
+                        <div class="flex items-center mb-2">
+                            <div class="component-icon">
+                                <i class="fas fa-database gradient-text"></i>
+                            </div>
+                            <h3 class="font-semibold">Data Sources</h3>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">URL & website features captured from network traffic</p>
+                        <div>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">CSV</span>
+                            <span class="tech-tag">S3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Pipeline -->
+                <div class="arch-box-container">
+                    <div class="arch-box">
+                        <div class="flex items-center mb-2">
+                            <div class="component-icon">
+                                <i class="fas fa-exchange-alt gradient-text"></i>
+                            </div>
+                            <h3 class="font-semibold">Data Pipeline</h3>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">Ingestion, validation & transformation</p>
+                        <div>
+                            <span class="tech-tag">KNNImputer</span>
+                            <span class="tech-tag">Schema Validation</span>
+                            <span class="tech-tag">Drift Detection</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Model Registry -->
+                <div class="arch-box-container">
+                    <div class="arch-box">
+                        <div class="flex items-center mb-2">
+                            <div class="component-icon">
+                                <i class="fas fa-chart-line gradient-text"></i>
+                            </div>
+                            <h3 class="font-semibold">Model Tracking</h3>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">Version control & experiment tracking</p>
+                        <div>
+                            <span class="tech-tag">MLflow</span>
+                            <span class="tech-tag">DagsHub</span>
+                            <span class="tech-tag">F1/Precision/Recall</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Model Training -->
+                <div class="arch-box-container">
+                    <div class="arch-box">
+                        <div class="flex items-center mb-2">
+                            <div class="component-icon">
+                                <i class="fas fa-brain gradient-text"></i>
+                            </div>
+                            <h3 class="font-semibold">Model Training</h3>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">Multiple classifiers with hyperparameter tuning</p>
+                        <div>
+                            <span class="tech-tag">scikit-learn</span>
+                            <span class="tech-tag">GridSearchCV</span>
+                            <span class="tech-tag">RandomForest</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Deployment -->
+                <div class="arch-box-container">
+                    <div class="arch-box">
+                        <div class="flex items-center mb-2">
+                            <div class="component-icon">
+                                <i class="fas fa-rocket gradient-text"></i>
+                            </div>
+                            <h3 class="font-semibold">CI/CD Pipeline</h3>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">Automated testing & deployment</p>
+                        <div>
+                            <span class="tech-tag">GitHub Actions</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">AWS ECR</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Inference -->
+                <div class="arch-box-container">
+                    <div class="arch-box">
+                        <div class="flex items-center mb-2">
+                            <div class="component-icon">
+                                <i class="fas fa-server gradient-text"></i>
+                            </div>
+                            <h3 class="font-semibold">Inference Service</h3>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">Real-time & batch prediction</p>
+                        <div>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">model.pkl</span>
+                            <span class="tech-tag">preprocessor.pkl</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Key Features -->
+            <div class="mt-8">
+                <h2 class="text-xl font-semibold mb-3 text-center text-blue-200">Key Architecture Features</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-puzzle-piece text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Modular Components</h3>
+                        </div>
+                        <p class="text-sm">Independent pipeline stages for ingestion, validation, transformation, training, and deployment</p>
+                    </div>
+                    
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-sync-alt text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Automated Workflow</h3>
+                        </div>
+                        <p class="text-sm">End-to-end automation from data ingestion to model deployment with CI/CD pipeline</p>
+                    </div>
+                    
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-shield-alt text-blue-300 mr-2"></i>
+                            <h3 class="font-medium">Robust Error Handling</h3>
+                        </div>
+                        <p class="text-sm">Custom exception hierarchy and logging framework for traceability and stability</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="sidebar fixed top-0 left-0 h-full overflow-y-auto bg-gray-800 text-white p-4">
+            <ul>
+                <li><a href="s1.html" class="block py-2 px-4 hover:bg-gray-700">Slide 1</a></li>
+                <li><a href="s2.html" class="block py-2 px-4 hover:bg-gray-700">Slide 2</a></li>
+                <li><a href="s3.html" class="block py-2 px-4 hover:bg-gray-700">Slide 3</a></li>
+                <li><a href="s4.html" class="block py-2 px-4 hover:bg-gray-700">Slide 4</a></li>
+                <li><a href="s5.html" class="block py-2 px-4 hover:bg-gray-700">Slide 5</a></li>
+                <li><a href="s6.html" class="block py-2 px-4 hover:bg-gray-700">Slide 6</a></li>
+                <li><a href="s7.html" class="block py-2 px-4 hover:bg-gray-700">Slide 7</a></li>
+                <li><a href="s8.html" class="block py-2 px-4 hover:bg-gray-700">Slide 8</a></li>
+                <li><a href="s9.html" class="block py-2 px-4 hover:bg-gray-700">Slide 9</a></li>
+                <li><a href="s10.html" class="block py-2 px-4 hover:bg-gray-700">Slide 10</a></li>
+                <li><a href="s11.html" class="block py-2 px-4 hover:bg-gray-700">Slide 11</a></li>
+                <li><a href="s12.html" class="block py-2 px-4 hover:bg-gray-700">Slide 12</a></li>
+            </ul>
+        </div> -->
+        
+        <div class="absolute bottom-4 left-4 text-sm text-gray-400"><a href="s4.html" class="text-white text-base">Prev</a></div>
+<div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-400">Slide 5/12</div>
+<div class="absolute bottom-4 right-4 text-sm text-gray-400"><a href="s6.html" class="text-white text-base">Next</a></div>
+    </div>
+</body>
+</html>

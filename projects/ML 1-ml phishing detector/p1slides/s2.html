@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Phish Detector - Table of Contents</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+        .toc-item {
+            transition: all 0.3s ease;
+        }
+        .toc-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        .toc-number {
+            background: rgba(116, 235, 213, 0.2);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        .toc-icon {
+            width: 26px;
+            text-align: center;
+            margin-right: 15px;
+            opacity: 0.8;
+        }
+        .hamburger {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .slide {
+                width: 100%;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar.style.display === 'block') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
+        }
+    </script>
+    <div class="slide flex flex-col items-center">
+        <div class="cyber-grid"></div>
+        
+        <div class="content-container w-full py-12 px-20">
+            <h1 class="text-4xl font-bold mb-10 text-center gradient-text">TABLE OF CONTENTS</h1>
+            
+            <div class="grid grid-cols-2 gap-6 mt-8">
+                <!-- Left Column -->
+                <div class="space-y-4">
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">1</div>
+                        <i class="fas fa-rocket toc-icon"></i>
+                        <span>Introduction & Problem Statement</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">2</div>
+                        <i class="fas fa-project-diagram toc-icon"></i>
+                        <span>Project Architecture & Overview</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">3</div>
+                        <i class="fas fa-database toc-icon"></i>
+                        <span>Data Ingestion & ETL Pipeline</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">4</div>
+                        <i class="fas fa-clipboard-check toc-icon"></i>
+                        <span>Data Validation & Schema</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">5</div>
+                        <i class="fas fa-exchange-alt toc-icon"></i>
+                        <span>Data Transformation Techniques</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">6</div>
+                        <i class="fas fa-brain toc-icon"></i>
+                        <span>Model Selection & Training</span>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="space-y-4">
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">7</div>
+                        <i class="fas fa-chart-line toc-icon"></i>
+                        <span>Model Evaluation & Metrics</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">8</div>
+                        <i class="fas fa-eye toc-icon"></i>
+                        <span>MLflow Experiment Tracking</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">9</div>
+                        <i class="fab fa-docker toc-icon"></i>
+                        <span>Containerization & CI/CD</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">10</div>
+                        <i class="fab fa-aws toc-icon"></i>
+                        <span>AWS Cloud Deployment</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">11</div>
+                        <i class="fas fa-laptop-code toc-icon"></i>
+                        <span>Skills & Technologies Used</span>
+                    </div>
+                    
+                    <div class="flex items-center toc-item p-2">
+                        <div class="toc-number">12</div>
+                        <i class="fas fa-flag-checkered toc-icon"></i>
+                        <span>Conclusion & Future Work</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="sidebar fixed top-0 left-0 h-full overflow-y-auto bg-gray-800 text-white p-4">
+            <ul>
+                <li><a href="s1.html" class="block py-2 px-4 hover:bg-gray-700">Slide 1</a></li>
+                <li><a href="s2.html" class="block py-2 px-4 hover:bg-gray-700">Slide 2</a></li>
+                <li><a href="s3.html" class="block py-2 px-4 hover:bg-gray-700">Slide 3</a></li>
+                <li><a href="s4.html" class="block py-2 px-4 hover:bg-gray-700">Slide 4</a></li>
+                <li><a href="s5.html" class="block py-2 px-4 hover:bg-gray-700">Slide 5</a></li>
+                <li><a href="s6.html" class="block py-2 px-4 hover:bg-gray-700">Slide 6</a></li>
+                <li><a href="s7.html" class="block py-2 px-4 hover:bg-gray-700">Slide 7</a></li>
+                <li><a href="s8.html" class="block py-2 px-4 hover:bg-gray-700">Slide 8</a></li>
+                <li><a href="s9.html" class="block py-2 px-4 hover:bg-gray-700">Slide 9</a></li>
+                <li><a href="s10.html" class="block py-2 px-4 hover:bg-gray-700">Slide 10</a></li>
+                <li><a href="s11.html" class="block py-2 px-4 hover:bg-gray-700">Slide 11</a></li>
+                <li><a href="s12.html" class="block py-2 px-4 hover:bg-gray-700">Slide 12</a></li>
+            </ul>
+        </div> -->
+
+        <div class="absolute bottom-4 left-4 text-sm text-gray-400"><a href="s1.html" class="text-white text-base">Prev</a></div>
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-400">Slide 2/12</div>
+        <div class="absolute bottom-4 right-4 text-sm text-gray-400"><a href="s3.html" class="text-white text-base">Next</a></div>
+    </div>
+</body>
+</html>
