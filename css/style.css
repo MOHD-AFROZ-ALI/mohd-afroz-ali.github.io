@@ -1,9 +1,9 @@
 
         :root {
-            --primary-color: #9c01d9; /* Deep violet */
-            --primary-dark: #7b2cbf; /* Darker violet */
-            --primary-light: #c77dff; /* Lighter violet */
-            --accent-color: #aa00ff; /* Bright violet for accents */
+            --primary-color: #380aae; /* Deep violet -#9c01d9*/
+            --primary-dark: #1c17b3; /* Darker violet -#7b2cbf*/
+            --primary-light: #0846b9; /* Lighter violet -#c77dff*/
+            --accent-color: #1b068f; /* Bright violet for accents -#aa00ff */
             --dark-bg: #121212; /* Very dark gray, almost black */
             --darker-bg: #0a0a0a; /* Even darker background */
             --card-bg: #1e1e1e; /* Dark card background */
