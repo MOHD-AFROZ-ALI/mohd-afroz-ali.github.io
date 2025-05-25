@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Predictor | Project Overview</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a56db;
+            --secondary: #4f46e5;
+            --accent: #0ea5e9;
+            --light: #f0f9ff;
+            --dark: #1e3a8a;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            background: linear-gradient(165deg, #ffffff 0%, #f0f9ff 100%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 1.5rem 3rem;
+            color: white;
+        }
+        .slide-content {
+            padding: 2rem 3rem;
+            flex-grow: 1;
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+        .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 80px;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            opacity: 0.05;
+            background-image: radial-gradient(var(--primary) 2px, transparent 2px);
+            background-size: 30px 30px;
+            z-index: 0;
+        }
+        .feature-card {
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        .fade-in-delay-1 {
+            animation-delay: 0.2s;
+        }
+        .fade-in-delay-2 {
+            animation-delay: 0.4s;
+        }
+        .fade-in-delay-3 {
+            animation-delay: 0.6s;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="slide">
+        <div class="slide-header flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Project Overview</h1>
+            <div class="flex items-center">
+                <span class="text-lg font-medium mr-2">2/8</span>
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="bg-pattern"></div>
+            
+            <div class="w-1/2 pr-8">
+                <h2 class="text-2xl font-semibold text-gray-800">Problem Statement</h2>
+                <div class="accent-bar"></div>
+                <p class="text-gray-700 mb-6">Understanding how student performance (test scores) is affected by:</p>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center fade-in fade-in-delay-1">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        <span class="text-gray-700">Gender & Race/Ethnicity</span>
+                    </li>
+                    <li class="flex items-center fade-in fade-in-delay-2">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        <span class="text-gray-700">Parental level of education</span>
+                    </li>
+                    <li class="flex items-center fade-in fade-in-delay-3">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        <span class="text-gray-700">Lunch type (standard vs free/reduced)</span>
+                    </li>
+                    <li class="flex items-center fade-in fade-in-delay-3">
+                        <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                        <span class="text-gray-700">Test preparation course completion</span>
+                    </li>
+                </ul>
+                
+                <h2 class="text-2xl font-semibold text-gray-800 mt-6">Dataset</h2>
+                <div class="accent-bar"></div>
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-blue-500 text-white rounded-full h-10 w-10 flex items-center justify-center">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Kaggle: Students Performance in Exams</p>
+                            <p class="text-sm text-gray-600">1,000 records • 8 columns</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-1/2 pl-8 border-l border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-800">Pipeline Components</h2>
+                <div class="accent-bar"></div>
+                
+                <div class="space-y-4">
+                    <div class="feature-card bg-white p-4 rounded shadow-sm fade-in fade-in-delay-1">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-database text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Data Ingestion</h3>
+                                <p class="text-sm text-gray-600">CSV loading, train/test splitting, artifact storage</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card bg-white p-4 rounded shadow-sm fade-in fade-in-delay-2">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-broom text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Data Transformation</h3>
+                                <p class="text-sm text-gray-600">Imputation, encoding, scaling via preprocessing pipeline</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card bg-white p-4 rounded shadow-sm fade-in fade-in-delay-3">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-cogs text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Model Training</h3>
+                                <p class="text-sm text-gray-600">Multiple regression models with GridSearchCV tuning</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card bg-white p-4 rounded shadow-sm fade-in fade-in-delay-3">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fab fa-microsoft text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">Azure Deployment</h3>
+                                <p class="text-sm text-gray-600">Docker containerization with CI/CD via GitHub Actions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <div class="flex justify-between items-center">
+                <a href="p1.html" class="text-black text-2xl text-blue-500">Prev</a>
+                <span class="text-sm text-gray-400">Slide 2/8</span>
+                <a href="p3.html" class="text-black text-2xl text-blue-500">Next</a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

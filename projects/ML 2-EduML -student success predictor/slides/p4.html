@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Predictor | Data Pipeline</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a56db;
+            --secondary: #4f46e5;
+            --accent: #0ea5e9;
+            --light: #f0f9ff;
+            --dark: #1e3a8a;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            background: linear-gradient(165deg, #ffffff 0%, #f0f9ff 100%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 1.5rem 3rem;
+            color: white;
+        }
+        .slide-content {
+            padding: 2rem 3rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 80px;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .pipeline-path {
+            position: relative;
+        }
+        .pipeline-path::before {
+            content: "";
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 80%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: -1;
+            border-radius: 3px;
+        }
+        .pipeline-node {
+            position: relative;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        .pipeline-node:hover {
+            transform: translateY(-5px);
+        }
+        .pipeline-node::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            width: 15px;
+            height: 15px;
+            border-top: 3px solid var(--accent);
+            border-right: 3px solid var(--accent);
+            transform: translateY(-50%) rotate(45deg);
+        }
+        .pipeline-node:last-child::after {
+            display: none;
+        }
+        .node-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+        .delay-4 { animation-delay: 0.7s; }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .code-block {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #f8f9fc;
+            border-radius: 6px;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            overflow: auto;
+            white-space: pre;
+            color: #1a202c;
+        }
+        .keyword { color: #3182ce; }
+        .string { color: #38a169; }
+        .comment { color: #718096; font-style: italic; }
+        .function { color: #d69e2e; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="slide">
+        <div class="slide-header flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Data Pipeline Engineering</h1>
+            <div class="flex items-center">
+                <span class="text-lg font-medium mr-2">4/8</span>
+                <i class="fas fa-cogs"></i>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Left Column: Pipeline Overview -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-800">Pipeline Architecture</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <div class="pipeline-path mt-8 space-y-6">
+                        <div class="pipeline-node p-4 animate-fade-in delay-1">
+                            <div class="flex items-center">
+                                <div class="node-icon text-white">
+                                    <i class="fas fa-database fa-2x"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-800">Data Ingestion</h3>
+                                    <p class="text-sm text-gray-600">Load CSV → Train/Test Split → Save Artifacts</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-node p-4 animate-fade-in delay-2">
+                            <div class="flex items-center">
+                                <div class="node-icon text-white">
+                                    <i class="fas fa-bezier-curve fa-2x"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-800">Data Transformation</h3>
+                                    <p class="text-sm text-gray-600">Imputation → Encoding → Scaling → Pipeline</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-node p-4 animate-fade-in delay-3">
+                            <div class="flex items-center">
+                                <div class="node-icon text-white">
+                                    <i class="fas fa-brain fa-2x"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-800">Model Training</h3>
+                                    <p class="text-sm text-gray-600">Multiple Models → Hyperparameter Tuning → Best Model Selection</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-node p-4 animate-fade-in delay-4">
+                            <div class="flex items-center">
+                                <div class="node-icon text-white">
+                                    <i class="fas fa-cog fa-2x"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-800">Prediction Pipeline</h3>
+                                    <p class="text-sm text-gray-600">Load Model & Preprocessor → Transform Inputs → Predict</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Implementation Details -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-800">Implementation Highlights</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <div class="bg-white p-5 rounded-lg shadow-sm mb-6 animate-fade-in delay-2">
+                        <h3 class="text-lg font-medium text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-code text-blue-600 mr-2"></i> Data Transformation Pipeline
+                        </h3>
+                        
+                        <div class="code-block text-xs">
+<span class="comment"># Feature engineering with scikit-learn pipeline</span>
+<span class="keyword">num_pipeline</span> = Pipeline(
+    steps=[
+        (<span class="string">"imputer"</span>, SimpleImputer(<span class="keyword">strategy</span>=<span class="string">"median"</span>)),
+        (<span class="string">"scaler"</span>, StandardScaler())
+    ]
+)
+
+<span class="keyword">cat_pipeline</span> = Pipeline(
+    steps=[
+        (<span class="string">"imputer"</span>, SimpleImputer(<span class="keyword">strategy</span>=<span class="string">"most_frequent"</span>)),
+        (<span class="string">"encoder"</span>, OneHotEncoder())
+    ]
+)
+
+<span class="keyword">preprocessor</span> = ColumnTransformer([
+    (<span class="string">"num"</span>, num_pipeline, numerical_cols),
+    (<span class="string">"cat"</span>, cat_pipeline, categorical_cols)
+])
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-3">
+                            <h3 class="font-medium text-gray-800 mb-2 flex items-center">
+                                <i class="fas fa-table text-blue-600 mr-2"></i> Features Processing
+                            </h3>
+                            
+                            <div class="space-y-2 mt-3">
+                                <div class="flex justify-between items-center text-sm border-b pb-1">
+                                    <span class="font-medium">Numerical Features</span>
+                                    <span class="text-gray-500">3 features</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm border-b pb-1">
+                                    <span class="font-medium">Categorical Features</span>
+                                    <span class="text-gray-500">5 features</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm border-b pb-1">
+                                    <span class="font-medium">One-Hot Encoded</span>
+                                    <span class="text-gray-500">15 dimensions</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="font-medium">Final Feature Space</span>
+                                    <span class="text-gray-500">18 dimensions</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-4">
+                            <h3 class="font-medium text-gray-800 mb-2 flex items-center">
+                                <i class="fas fa-save text-blue-600 mr-2"></i> Artifacts Management
+                            </h3>
+                            
+                            <div class="space-y-2 mt-3">
+                                <div class="flex items-center text-sm border-b pb-1">
+                                    <i class="fas fa-file-csv text-green-500 mr-2"></i>
+                                    <span>train.csv & test.csv</span>
+                                </div>
+                                <div class="flex items-center text-sm border-b pb-1">
+                                    <i class="fas fa-cogs text-yellow-500 mr-2"></i>
+                                    <span>preprocessor.pkl</span>
+                                </div>
+                                <div class="flex items-center text-sm border-b pb-1">
+                                    <i class="fas fa-brain text-purple-500 mr-2"></i>
+                                    <span>model.pkl</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <i class="fas fa-project-diagram text-blue-500 mr-2"></i>
+                                    <span>Modular architecture</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons"> 
+            <div class="flex justify-between items-center"> 
+                <a href="p3.html" class="text-black text-2xl text-blue-500">Prev</a> 
+               <span class="text-sm text-gray-400">Slide 4/8</span>
+                <a href="p5.html" class="text-black text-2xl text-blue-500">Next</a>
+             </div> 
+            </div>
+    </div>
+</body>
+
+</html>

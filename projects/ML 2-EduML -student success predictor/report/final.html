@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Predictor - ML Project Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #232634 0%, #30253a 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        h1, h2, h3, h4 {
+            color: #1750ca;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.25rem;
+            text-align: center;
+            margin-top: 0;
+            padding-top: 2rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4 {
+            font-size: 1.25rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin: 1.5rem 0;
+        }
+        .workflow-diagram {
+            background-color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .workflow-step {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem;
+            background-color: #dbeafe;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        .workflow-arrow {
+            display: inline-block;
+            margin: 0 0.5rem;
+            color: #4b5563;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        table th, table td {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+        table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            text-align: left;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            padding: 0.1rem 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .profile-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+        .profile-content {
+            flex: 1;
+        }
+        .feature-card {
+            background-color: #f0f9ff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .container {
+            box-sizing: border-box;
+        }
+        .feature-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+        .primary-box {
+            background-color: rgba(74, 111, 165, 0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="page-container ">
+        <header class="bg-white p-6 rounded-lg shadow-md mb-8 ">
+            <h1 class="text-center text-3xl font-bold mb-4">EduML: Student Success Predictor</h1>
+            <p class="text-center text-gray-600 mb-2">An End-to-End Machine Learning Implementation for Educational Analytics</p>
+            <p class="text-center text-gray-500">By <strong>MOHAMMAD AFROZ ALI</strong></p>
+        </header>
+
+        <div class="container mx-auto">
+            <!-- Table of Contents -->
+            <div class="section mb-8" id="toc">
+                <h2>Table of Contents</h2>
+                <ol class="list-decimal list-inside">
+                    <li><a href="#about-me" class="text-blue-600 hover:text-blue-800">About Me</a></li>
+                    <li><a href="#introduction" class="text-blue-600 hover:text-blue-800">Introduction</a></li>
+                    <li><a href="#project-overview" class="text-blue-600 hover:text-blue-800">Project Overview</a></li>
+                    <li><a href="#eda" class="text-blue-600 hover:text-blue-800">Exploratory Data Analysis (EDA)</a></li>
+                    <li><a href="#data-ingestion" class="text-blue-600 hover:text-blue-800">Data Ingestion</a></li>
+                    <li><a href="#data-validation" class="text-blue-600 hover:text-blue-800">Data Validation</a></li>
+                    <li><a href="#data-transformation" class="text-blue-600 hover:text-blue-800">Data Transformation</a></li>
+                    <li><a href="#model-training" class="text-blue-600 hover:text-blue-800">Model Training & Hyperparameter Tuning</a></li>
+                    <li><a href="#model-evaluation" class="text-blue-600 hover:text-blue-800">Model Evaluation</a></li>
+                    <li><a href="#experiment-tracking" class="text-blue-600 hover:text-blue-800">Experiment Tracking</a></li>
+                    <li><a href="#deployment" class="text-blue-600 hover:text-blue-800">Deployment</a></li>
+                    <li><a href="#docker" class="text-blue-600 hover:text-blue-800">Docker Containerization</a></li>
+                    <li><a href="#cicd" class="text-blue-600 hover:text-blue-800">CI/CD Pipeline</a></li>
+                    <li><a href="#azure" class="text-blue-600 hover:text-blue-800">Cloud Deployment (Azure)</a></li>
+                    <li><a href="#conclusion" class="text-blue-600 hover:text-blue-800">Conclusion</a></li>
+                    <li><a href="#skills" class="text-blue-600 hover:text-blue-800">Skills Showcased</a></li>
+                    <li><a href="#contact" class="text-blue-600 hover:text-blue-800">GitHub & Contact Details</a></li>
+                </ol>
+            </div>
+
+            <!-- About Me Section -->
+            <div class="section" id="about-me">
+                <h2>About Me</h2>
+                <div class="profile-section">
+                    <div class="profile-content">
+                        <h3>MOHAMMAD AFROZ ALI</h3>
+                        <p class="mb-2"><strong>Aspiring SDE, AIML Intern</strong></p>
+                        
+                        <h4 class="mt-4">Education</h4>
+                        <p>Final Semester B.Tech (Information Technology) - 8.0/10 CGPA</p>
+                        <p>Muffakham Jah College of Engineering & Technology</p>
+                        
+                        <h4 class="mt-4">Focus Areas</h4>
+                        <ul class="list-disc list-inside">
+                            <li>AI/ML</li>
+                            <li>Software Engineering</li>
+                            <li>Cloud Technologies</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Interests</h4>
+                        <p>Keen on Artificial Intelligence & Machine Learning</p>
+                        <p>Focus on building end-to-end solutions that combine ML with software engineering best practices</p>
+                        
+                        <h4 class="mt-4">Technical Proficiency</h4>
+                        <div class="flex flex-wrap mt-2">
+                            <span class="tag">Python</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">Scikit-learn</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Azure</span>
+                            <span class="tag">GitHub Actions</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">Cloud Deployment</span>
+                            <span class="tag">CI/CD</span>
+                            <span class="tag">MLOps</span>
+                            <span class="tag">XGBoost</span>
+                            <span class="tag">CatBoost</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section mb-8"
+           <section id="introduction">
+            <h1>Introduction</h1>
+            
+            <p>Educational institutions constantly strive to understand the factors affecting student performance to enhance teaching strategies and provide targeted support. This project delivers an end-to-end machine learning solution to analyze and predict student performance based on various demographic and educational factors.</p>
+            
+            <h3>Project Motivation</h3>
+            <div class="feature-box primary-box">
+                <p>Many factors can influence a student's academic performance, from socioeconomic status to study habits. With machine learning, we can identify which factors have the strongest impact on student success and build predictive models that help educators proactively support students who may be at risk of underperforming.</p>
+            </div>
+            
+            <h3>Dataset Information</h3>
+            <p>The project utilizes the "Student Performance in Exams" dataset with 1000 records and the following features:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>gender</td>
+                        <td>Student's gender (male/female)</td>
+                        <td>Categorical</td>
+                    </tr>
+                    <tr>
+                        <td>race_ethnicity</td>
+                        <td>Ethnicity group (A through E)</td>
+                        <td>Categorical</td>
+                    </tr>
+                    <tr>
+                        <td>parental_level_of_education</td>
+                        <td>Highest education level of parents</td>
+                        <td>Categorical</td>
+                    </tr>
+                    <tr>
+                        <td>lunch</td>
+                        <td>Lunch type (standard/free/reduced)</td>
+                        <td>Categorical</td>
+                    </tr>
+                    <tr>
+                        <td>test_preparation_course</td>
+                        <td>Whether student completed a test prep course</td>
+                        <td>Categorical</td>
+                    </tr>
+                    <tr>
+                        <td>math_score</td>
+                        <td>Score in mathematics (0-100)</td>
+                        <td>Numerical</td>
+                    </tr>
+                    <tr>
+                        <td>reading_score</td>
+                        <td>Score in reading (0-100)</td>
+                        <td>Numerical</td>
+                    </tr>
+                    <tr>
+                        <td>writing_score</td>
+                        <td>Score in writing (0-100)</td>
+                        <td>Numerical</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>The primary prediction target is the math_score, while analyzing relationships with other scores and features.</p>
+        </section>
+            </div>
+
+            <!-- Project Overview Section -->
+            <div class="section" id="project-overview">
+                <h2>Project Overview</h2>
+                <p>The project aims to predict student math scores based on various features including gender, race/ethnicity, parental level of education, lunch type, test preparation course, reading score, and writing score.</p>
+                <img src="../images/architectur flow.png" alt="Architecture Flow" />
+                 <h3>Key Features of the Project</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h4 class="text-blue-800"><i class="fas fa-cubes mr-2"></i>Modular Pipeline Architecture</h4>
+                <p>Each component (ingestion, transformation, training, prediction) is implemented as a separate module with clear interfaces, enabling maintainability and extensibility.</p>
+            </div>
+            
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h4 class="text-green-800"><i class="fas fa-robot mr-2"></i>Automated Workflow</h4>
+                <p>Complete automation from data ingestion to model deployment, with robust logging and exception handling at each stage to ensure reliability.</p>
+            </div>
+            
+            <div class="bg-purple-50 p-6 rounded-lg">
+                <h4 class="text-purple-800"><i class="fas fa-chart-line mr-2"></i>Multi-Model Comparison</h4>
+                <p>Evaluation of seven regression algorithms with extensive hyperparameter tuning to find the optimal model for predicting student performance.</p>
+            </div>
+            
+            <div class="bg-yellow-50 p-6 rounded-lg">
+                <h4 class="text-yellow-800"><i class="fas fa-cloud mr-2"></i>Cloud-Native Design</h4>
+                <p>Seamless deployment to Azure Web App service with containerization via Docker, and CI/CD through GitHub Actions.</p>
+            </div>
+        </div>
+
+
+        
+            
+           
+                <h3 class="mt-4">Problem Statement</h3>
+                <p>The project aims to analyze and predict how student performance (test scores) is affected by various factors such as:</p>
+                <ul class="list-disc list-inside">
+                    <li>Gender</li>
+                    <li>Ethnicity</li>
+                    <li>Parental level of education</li>
+                    <li>Lunch type</li>
+                    <li>Test preparation course</li>
+                </ul>
+
+
+                     <h3>Project Flow Overview</h3>
+        <!-- image src="project_flow.png" alt="Project Flow" class="mx-auto"> ------------------------------------------------------------------------------->
+         
+        <div class="workflow-container">
+            <h4 class="mb-4">EduML Student Success Predictor Pipeline</h4>
+            <ol class="list-decimal ml-6">
+                <li><strong>Data Ingestion:</strong> Load dataset from CSV file, validate and split into train/test sets</li>
+                <li><strong>Data Validation:</strong> Verify dataset structure, check distributions and relationships</li>
+                <li><strong>Data Transformation:</strong> Handle categorical features, apply scaling to numerical features</li>
+                <li><strong>Model Training:</strong> Benchmark multiple regression models with hyperparameter tuning</li>
+                <li><strong>Model Evaluation:</strong> Assess performance using R² score, MAE, MSE, and RMSE metrics</li>
+                <li><strong>Model Serialization:</strong> Save preprocessor and best model for deployment</li>
+                <li><strong>Containerization:</strong> Package application with Docker for consistent deployment</li>
+                <li><strong>CI/CD Pipeline:</strong> Automate testing, building, and deployment with GitHub Actions</li>
+                <li><strong>Cloud Deployment:</strong> Deploy to Azure Web App with appropriate configurations</li>
+            </ol>
+        </div>
+            </div>
+
+       
+        
+
+            <!-- EDA Section -->
+            <div class="section" id="eda">
+                <h2>Exploratory Data Analysis (EDA)</h2>
+                <p>The EDA process involved analyzing a dataset of 1,000 students with 8 features to understand the relationships between different variables and their impact on student performance.</p>
+                <img src="../images/EDA workflow.png" alt="EDA Workflow" />
+                
+                
+                <h3 class="mt-4">Data Quality Checks</h3>
+                <div class="feature-card">
+                    <h4>Key Findings:</h4>
+                    <ul class="list-disc list-inside">
+                        <li>No missing values in the dataset</li>
+                        <li>No duplicate records found</li>
+                        <li>Appropriate data types for all columns</li>
+                        <li>Reasonable value ranges for all features</li>
+                    </ul>
+                </div>
+                
+                <h3 class="mt-4">Statistical Summary</h3>
+                <p>Basic statistics of numerical features:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Math Score</th>
+                            <th>Reading Score</th>
+                            <th>Writing Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mean</td>
+                            <td>66.09</td>
+                            <td>69.17</td>
+                            <td>68.05</td>
+                        </tr>
+                        <tr>
+                            <td>Std</td>
+                            <td>15.16</td>
+                            <td>14.60</td>
+                            <td>15.19</td>
+                        </tr>
+                        <tr>
+                            <td>Min</td>
+                            <td>0.00</td>
+                            <td>17.00</td>
+                            <td>10.00</td>
+                        </tr>
+                        <tr>
+                            <td>Max</td>
+                            <td>100.00</td>
+                            <td>100.00</td>
+                            <td>100.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 class="mt-4">Key Insights from EDA</h3>
+                
+                <div class="feature-card">
+                    <h4>1. Gender and Performance</h4>
+                       <ul class="list-disc pl-6">
+                    <li>The dataset has nearly balanced gender distribution (48% female, 52% male)</li>
+                    <li>Female students tend to perform better overall than male students</li>
+                    <li>Males slightly outperformed females in mathematics specifically</li>
+                    <li>Females had higher pass rates and were more represented among top scorers</li>
+                </ul>
+                </div>
+                
+                <div class="feature-card mt-4">
+                    <h4>2. Effect of Lunch Type</h4>
+                     <ul class="list-disc pl-6">
+                    <li>Students with standard lunch performed significantly better than those with free/reduced lunch</li>
+                    <li>This pattern was consistent across both genders</li>
+                    <li>Suggests socioeconomic factors strongly influence academic performance</li>
+                </ul>
+                </div>
+                
+                <div class="feature-card mt-4">
+                    <h4>3. Impact of Parental Education</h4>
+                     <ul class="list-disc pl-6">
+                    <li>Overall, parental education showed limited impact on student performance</li>
+                    <li>For male students, having parents with associate's or master's degrees correlated with better performance</li>
+                    <li>Female student performance showed little correlation with parental education level</li>
+                </ul>
+                </div>
+                
+                <div class="feature-card mt-4">
+                    <h4>4. Ethnic Group Differences</h4>
+                    <ul class="list-disc pl-6">
+                    <li>Group E students scored highest on average across all subjects</li>
+                    <li>Group A students had the lowest average scores</li>
+                    <li>Students from Groups A and B performed worse regardless of gender</li>
+                    <li>Students from lower socioeconomic status had lower averages in all subjects</li>
+                </ul>
+                
+                <div class="feature-card mt-4">
+                    <h4>5. Test Preparation Impact</h4>
+                     <ul class="list-disc pl-6">
+                    <li>Students who completed the test preparation course scored higher in all three categories</li>
+                    <li>This effect was consistent across demographic groups</li>
+                    <li>Completing preparation courses appears to be an effective intervention</li>
+                </ul>
+                </div>
+                
+                <div class="feature-card mt-4">
+                    <h4>6. Score Correlations</h4>
+                     <ul class="list-disc pl-6">
+                    <li>Strong positive correlations observed between all three test scores (math, reading, writing)</li>
+                    <li>Most math scores fell between 60-80</li>
+                    <li>Most reading and writing scores clustered between 50-80</li>
+                    <li>All scores increase linearly with each other</li>
+                </ul>
+
+                 <h3 class="text-xl font-semibold mt-6 mb-3">EDA Conclusions</h3>
+            <p>
+                The exploratory data analysis identified several key factors affecting student performance:
+            </p>
+            <ul class="list-disc pl-6">
+                <li>Lunch type (a proxy for socioeconomic status) was strongly correlated with performance</li>
+                <li>Ethnic group showed significant correlation with test scores</li>
+                <li>Test preparation course completion positively impacted scores across all subjects</li>
+                <li>Gender differences were observed, with females performing better overall but males slightly better in math</li>
+                <li>Parental education showed limited influence, particularly for female students</li>
+            </ul>
+                </div>
+
+               
+                
+                <h3 class="mt-4">EDA Workflow Diagram</h3>
+                <div class="workflow-diagram">
+                    <!-- imgaes+ --------------------------------------------------------------------------------->
+
+                    <div class="workflow-step">Data Loading</div>
+                    <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="workflow-step">Data Cleaning</div>
+                    <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="workflow-step">Statistical Analysis</div>
+                    <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="workflow-step">Feature Analysis</div>
+                    <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="workflow-step">Visualization</div>
+                    <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="workflow-step">Insight Generation</div>
+                </div>
+                
+                <div class="chart-container mt-6">
+                    <canvas id="scoreDistributionChart"></canvas>
+                </div>
+                
+                <div class="chart-container mt-6">
+                    <canvas id="genderPerformanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Data Ingestion Section -->
+            <div class="section" id="data-ingestion">
+                <h2>Data Ingestion</h2>
+                <p>The data ingestion process involves reading the raw dataset, performing initial processing, and splitting it into training and testing sets.</p>
+                <h3 class="mt-4">Data Ingestion Workflow</h3>
+                <img src="../images/data ingestion.png" alt="Data Ingestion Workflow" />
+                <h3 class="text-lg font-semibold mb-2">Implementation Details:</h3>
+            <ul class="list-disc pl-6 mb-4">
+                <li>Located in <code>src/components/data_ingestion.py</code></li>
+                <li>Reads the dataset from <code>notebooks/dataset/stud.csv</code></li>
+                <li>Splits the data into training (80%) and testing (20%) sets using <code>train_test_split</code> with <code>random_state=42</code></li>
+                <li>Saves the processed datasets as CSV files in the artifacts directory:
+                    <ul class="list-disc pl-6">
+                        <li><code>artifacts/data.csv</code> - Full dataset</li>
+                        <li><code>artifacts/train.csv</code> - Training split</li>
+                        <li><code>artifacts/test.csv</code> - Testing split</li>
+                    </ul>
+                </li>
+            </ul>
+                
+                <pre>
+# Key implementation details
+def initiate_data_ingestion(self):
+    # Read dataset
+    df = pd.read_csv('notebooks/dataset/stud.csv')
+    
+    # Create directories
+    os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
+    
+    # Split dataset
+    train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
+    
+    # Save datasets
+    train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
+    test_set.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
+    
+    return self.ingestion_config.train_data_path, self.ingestion_config.test_data_path
+                </pre>
+                
+            
+                <!-- images ---------------------------------------------------------------------------->
+                
+            <!-- </div> -->
+
+            <!-- Data Validation Section -->
+            <!-- <div class="section" id="data-validation"> -->
+                <!-- <h2>Data Validation</h2> -->
+                <p>Data validation ensures the quality and integrity of the dataset before proceeding to model training.</p>
+                
+                <h3 class="mt-4">Validation Checks</h3>
+                <ul class="list-disc list-inside">
+                    <li>Checking for missing values</li>
+                    <li>Validating data types</li>
+                    <li>Ensuring appropriate value ranges</li>
+                    <li>Checking for duplicates</li>
+                    <li>Verifying the schema consistency</li>
+                </ul>
+                
+                <div class="feature-card mt-4">
+                    <h4>Data Quality Results:</h4>
+                    <ul class="list-disc list-inside">
+                        <li><span class="text-green-600"><i class="fas fa-check"></i></span> No missing values detected</li>
+                        <li><span class="text-green-600"><i class="fas fa-check"></i></span> All data types match expected schema</li>
+                        <li><span class="text-green-600"><i class="fas fa-check"></i></span> All values within valid ranges</li>
+                        <li><span class="text-green-600"><i class="fas fa-check"></i></span> No duplicate records found</li>
+                        <li><span class="text-green-600"><i class="fas fa-check"></i></span> Schema consistent with requirements</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Data Transformation Section -->
+            <div class="section" id="data-transformation">
+                <h2>Data Transformation</h2>
+                <p>The data transformation process converts raw data into a format suitable for model training, including handling categorical features and scaling numerical values.</p>
+                <h3 class="mt-4">Data Transformation Workflow</h3>
+                <img src="../images/data transformation.png" alt="Data Transformation Workflow" />
+                <h3 class="mt-4">Implementation</h3>
+                <p>The <code>DataTransformation</code> class in <code>src/components/data_transformation.py</code> performs the following:</p>
+                
+                <ol class="list-decimal list-inside">
+                    <li>Identifying numerical and categorical features</li>
+                    <li>Creating preprocessing pipelines for both feature types</li>
+                    <li>Applying One-Hot Encoding for categorical features</li>
+                    <li>Applying StandardScaler for numerical features</li>
+                    <li>Combining transformations using ColumnTransformer</li>
+                    <li>Saving the preprocessor for later use in prediction</li>
+                </ol>
+                
+                <pre>
+# Key implementation details
+def get_data_transformer_object(self):
+    # Define numerical and categorical features
+    numerical_columns = ["writing_score", "reading_score"]
+    categorical_columns = [
+        "gender",
+        "race_ethnicity",
+        "parental_level_of_education",
+        "lunch",
+        "test_preparation_course",
+    ]
+    
+    # Create preprocessing pipelines
+    num_pipeline = Pipeline(
+        steps=[
+            ("scaler", StandardScaler())
+        ]
+    )
+    
+    cat_pipeline = Pipeline(
+        steps=[
+            ("one_hot_encoder", OneHotEncoder()),
+            ("scaler", StandardScaler(with_mean=False))
+        ]
+    )
+    
+    # Combine pipelines using ColumnTransformer
+    preprocessor = ColumnTransformer(
+        [
+            ("num_pipeline", num_pipeline, numerical_columns),
+            ("cat_pipeline", cat_pipeline, categorical_columns)
+        ]
+    )
+    
+    return preprocessor
+
+def initiate_data_transformation(self, train_path, test_path):
+    # Load train and test data
+    train_df = pd.read_csv(train_path)
+    test_df = pd.read_csv(test_path)
+    
+    # Get preprocessor object
+    preprocessing_obj = self.get_data_transformer_object()
+    
+    # Define target column
+    target_column_name = "math_score"
+    
+    # Split into features and target
+    input_feature_train_df = train_df.drop(columns=[target_column_name], axis=1)
+    target_feature_train_df = train_df[target_column_name]
+    
+    input_feature_test_df = test_df.drop(columns=[target_column_name], axis=1)
+    target_feature_test_df = test_df[target_column_name]
+    
+    # Apply transformations
+    input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
+    input_feature_test_arr = preprocessing_obj.transform(input_feature_test_df)
+    
+    # Convert to arrays for modeling
+    train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
+    test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
+    
+    # Save preprocessor object
+    save_object(
+        file_path=self.data_transformation_config.preprocessor_obj_file_path,
+        obj=preprocessing_obj
+    )
+    
+    return train_arr, test_arr, self.data_transformation_config.preprocessor_obj_file_path
+                </pre>
+                
+               
+
+                
+            </div>
+
+            <!-- Model Training & Hyperparameter Tuning Section -->
+            <div class="section" id="model-training">
+                <h2>Model Training & Hyperparameter Tuning</h2>
+                <p>The model training process involves evaluating multiple regression algorithms and selecting the best performing model through hyperparameter tuning.</p>
+
+                 <div class="workflow-diagram">
+               
+                <img src="../images/modeltrain clean.png" alt="Model Training Workflow Diagram">
+                 </div>
+                
+                 <h3>Model Selection Strategy</h3>
+        <p>The project employs a comprehensive approach to model selection, evaluating seven different regression algorithms with rigorous hyperparameter tuning to find the optimal predictor for student math scores.</p>
+        
+        <h4>Candidate Models</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h5 class="font-medium text-blue-800">Linear Regression</h5>
+                <p>A simple baseline model that assumes a linear relationship between features and target.</p>
+            </div>
+            
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h5 class="font-medium text-green-800">Random Forest Regressor</h5>
+                <p>Ensemble of decision trees that handles non-linear relationships and feature interactions well.</p>
+                <p class="text-sm text-gray-600">Tuned parameters: n_estimators</p>
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h5 class="font-medium text-yellow-800">Decision Tree Regressor</h5>
+                <p>Single decision tree offering good interpretability and feature importance rankings.</p>
+                <p class="text-sm text-gray-600">Tuned parameters: criterion</p>
+            </div>
+            
+            <div class="bg-indigo-50 p-4 rounded-lg">
+                <h5 class="font-medium text-indigo-800">Gradient Boosting Regressor</h5>
+                <p>Sequential ensemble method that builds trees to correct errors of previous trees.</p>
+                <p class="text-sm text-gray-600">Tuned parameters: learning_rate, subsample, n_estimators</p>
+            </div>
+            
+            <div class="bg-red-50 p-4 rounded-lg">
+                <h5 class="font-medium text-red-800">XGBoost Regressor</h5>
+                <p>Advanced gradient boosting implementation known for high performance and speed.</p>
+                <p class="text-sm text-gray-600">Tuned parameters: learning_rate, n_estimators</p>
+            </div>
+            
+            <div class="bg-purple-50 p-4 rounded-lg">
+                <h5 class="font-medium text-purple-800">CatBoost Regressor</h5>
+                <p>Gradient boosting algorithm that handles categorical features effectively.</p>
+                <p class="text-sm text-gray-600">Tuned parameters: depth, iterations, learning_rate</p>
+            </div>
+            
+            <div class="bg-pink-50 p-4 rounded-lg">
+                <h5 class="font-medium text-pink-800">AdaBoost Regressor</h5>
+                <p>Boosting algorithm that weights misclassified samples higher in subsequent iterations.</p>
+                <p class="text-sm text-gray-600">Tuned parameters: learning_rate, n_estimators</p>
+            </div>
+        </div>
+
+                     <h3 class="text-xl font-semibold mb-3">Training Process</h3>
+            <p class="mb-4">
+                The model training process is implemented in <code>src/components/model_trainer.py</code>. The key steps include:
+            </p>
+            <ol class="list-decimal pl-6 mb-4">
+                <li>Splitting preprocessed data into features (X) and target (y) for both training and testing sets</li>
+                <li>Initializing multiple regression models with default parameters</li>
+                <li>Training each model on the training data</li>
+                <li>Evaluating model performance on both training and testing sets</li>
+                <li>Selecting the best model based on R² score on the test set</li>
+                <li>Saving the best model as <code>artifacts/model.pkl</code></li>
+            </ol>
+                
+                <h3 class="mt-4">Implementation</h3>
+                <p>The <code>ModelTrainer</code> class in <code>src/components/model_trainer.py</code> handles model training and selection:</p>
+                
+                <pre>
+# Key implementation details
+def initiate_model_trainer(self, train_array, test_array):
+    try:
+        # Split arrays into features and target
+        X_train, y_train, X_test, y_test = (
+            train_array[:,:-1],
+            train_array[:,-1],
+            test_array[:,:-1],
+            test_array[:,-1]
+        )
+        
+        # Define models to evaluate
+        models = {
+            "Random Forest": RandomForestRegressor(),
+            "Decision Tree": DecisionTreeRegressor(),
+            "Gradient Boosting": GradientBoostingRegressor(),
+            "Linear Regression": LinearRegression(),
+            "XGBRegressor": XGBRegressor(),
+            "CatBoosting Regressor": CatBoostRegressor(verbose=False),
+            "AdaBoost Regressor": AdaBoostRegressor(),
+        }
+        
+        # Define hyperparameter grids
+        params = {
+            "Decision Tree": {
+                'criterion': ['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                'splitter': ['best', 'random'],
+                'max_features': ['sqrt', 'log2'],
+            },
+            "Random Forest": {
+                'n_estimators': [8, 16, 32, 64, 128, 256],
+                'criterion': ['squared_error', 'absolute_error'],
+                'max_features': ['sqrt', 'log2'],
+            },
+            "Gradient Boosting": {
+                'learning_rate': [.1, .01, .05, .001],
+                'subsample': [0.6, 0.7, 0.75, 0.8, 0.85, 0.9],
+                'n_estimators': [8, 16, 32, 64, 128, 256]
+            },
+            "Linear Regression": {},
+            "XGBRegressor": {
+                'learning_rate': [.1, .01, .05, .001],
+                'n_estimators': [8, 16, 32, 64, 128, 256]
+            },
+            "CatBoosting Regressor": {
+                'depth': [6, 8, 10],
+                'learning_rate': [0.01, 0.05, 0.1],
+                'iterations': [30, 50, 100]
+            },
+            "AdaBoost Regressor": {
+                'learning_rate': [.1, .01, 0.5, .001],
+                'n_estimators': [8, 16, 32, 64, 128, 256]
+            }
+        }
+        
+        # Evaluate models
+        model_report = evaluate_models(
+            X_train=X_train, 
+            y_train=y_train, 
+            X_test=X_test, 
+            y_test=y_test, 
+            models=models, 
+            param=params
+        )
+        
+        # Get the best model
+        best_model_score = max(sorted(model_report.values()))
+        best_model_name = list(model_report.keys())[
+            list(model_report.values()).index(best_model_score)
+        ]
+        best_model = models[best_model_name]
+        
+        # Save the best model
+        save_object(
+            file_path=self.model_trainer_config.trained_model_file_path,
+            obj=best_model
+        )
+        
+        return best_model_name, best_model_score
+    except Exception as e:
+        raise CustomException(e, sys)
+                </pre>
+                
+                <h3 class="mt-4">Hyperparameter Tuning</h3>
+                <p>The project uses GridSearchCV to find the optimal hyperparameters for each model:</p>
+                
+                <div class="feature-card">
+                    <h4>Key Hyperparameters by Model:</h4>
+                    <ul class="list-disc list-inside">
+                        <li><strong>Decision Tree:</strong> criterion, splitter, max_features</li>
+                        <li><strong>Random Forest:</strong> n_estimators, criterion, max_features</li>
+                        <li><strong>Gradient Boosting:</strong> learning_rate, subsample, n_estimators</li>
+                        <li><strong>XGBoost:</strong> learning_rate, n_estimators</li>
+                        <li><strong>CatBoost:</strong> depth, learning_rate, iterations</li>
+                        <li><strong>AdaBoost:</strong> learning_rate, n_estimators</li>
+                    </ul>
+                </div>
+                
+                <h3 class="mt-4">Model Training Results</h3>
+                <p>After evaluation, the models showed the following performance (R² Score):</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>R² Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ridge</td>
+                            <td><b>0.880593</b></td>  
+                        </tr>
+                        <tr>
+                            <td>Linear Regression</td>
+                            <td>0.880345</td>
+                        </tr>
+                        <tr>
+                            <td>CatBoosting Regressor</td>
+                            <td>0.851632</td>
+                        </tr>
+                        <tr>
+                            <td>AdaBoost Regressor</td>
+                            <td>0.849847</td>
+                        </tr>
+                        <tr>
+                            <td>Random Forest Regressor</td>
+                            <td>0.847291</td>
+                        </tr>
+                        <tr>
+                            <td>Lasso</td>
+                            <td>0.825320</td>
+                        </tr>
+                        <tr>
+                            <td>XGBRegressor</td>
+                            <td>0.821589</td>
+                        </tr>
+                        <tr>
+                            <td>K-Neighbors Regressor</td>
+                            <td>0.783813</td>
+                        </tr>
+                        <tr>
+                            <td>Decision Tree</td>
+                            <td>0.760313</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="chart-container mt-6">
+                    <canvas id="modelPerformanceChart"></canvas>
+                </div>
+
+                 <h3>Best Model Selection</h3>
+        <p>After evaluating all models with their optimal hyperparameters, the best performing model is selected based on the R² score on the test set. This model is then saved for deployment in the prediction pipeline.</p>
+        
+        <div class="code-block">
+            <pre>
+# Find best model
+best_model_score = max(sorted(model_report.values()))
+best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
+best_model = models[best_model_name]
+
+if best_model_score < 0.6:
+    raise CustomException("No best model found")
+
+logging.info(f"Best found model on both training and testing dataset: {best_model_name}")
+
+save_object(
+    file_path=self.model_trainer_config.trained_model_file_path,
+    obj=best_model
+)
+            </pre>
+                
+                <h3 class="mt-6">Model Training & Hyperparameter Tuning Workflow</h3>
+                <!-- imgaes ------------------------------------------------------------------------------->
+                <div class="workflow-box">
+                <div class="workflow-step">
+                    <i class="fas fa-project-diagram fa-2x text-blue-600"></i>
+                    <h5>Model Definition</h5>
+                </div>
+                <div class="workflow-step">
+                    <i class="fas fa-sliders-h fa-2x text-green-600"></i>
+                    <h5>Parameter Grid Definition</h5>
+                </div>
+                <div class="workflow-step">
+                    <i class="fas fa-retweet fa-2x text-purple-600"></i>
+                    <h5>Cross-Validation</h5>
+                </div>
+                <div class="workflow-step">
+                    <i class="fas fa-chart-line fa-2x text-yellow-600"></i>
+                    <h5>Model Evaluation</h5>
+                </div>
+                <div class="workflow-step">
+                    <i class="fas fa-trophy fa-2x text-red-600"></i>
+                    <h5>Best Model Selection</h5>
+                </div>
+                <div class="workflow-step">
+                    <i class="fas fa-save fa-2x text-indigo-600"></i>
+                    <h5>Model Serialization</h5>
+                </div>
+            </div>
+            </div>
+
+            <!-- Model Evaluation Section -->
+            <div class="section" id="model-evaluation">
+                <h2>Model Evaluation</h2>
+                <p>The model evaluation process involved assessing the performance of each model using multiple metrics.</p>
+                
+                <h3 class="mt-4">Evaluation Metrics</h3>
+                <ul class="list-disc list-inside">
+                    <li><strong>R² Score:</strong> Measures the proportion of variance in the dependent variable explained by the independent variables</li>
+                    <li><strong>Mean Absolute Error (MAE):</strong> Average of absolute differences between predicted and actual values</li>
+                    <li><strong>Root Mean Squared Error (RMSE):</strong> Square root of the average of squared differences between predicted and actual values</li>
+                </ul>
+                
+                <div class="feature-card mt-4">
+                    <h4>Best Model Performance:</h4>
+                    <p><strong>Ridge Regression</strong> achieved the highest R² Score of 0.88, indicating that it explains 88% of the variance in math scores.</p>
+                </div>
+                
+                <h3 class="mt-4">Cross-Validation</h3>
+                <p>Cross-validation was performed to ensure the model's robustness and generalization capability.</p>
+            </div>
+
+            <!-- Experiment Tracking Section -->
+            <div class="section" id="experiment-tracking">
+                <h2>Experiment Tracking</h2>
+                <p>The project includes experiment tracking to monitor the training process and model performance.</p>
+                
+                <h3 class="mt-4">CatBoost Info Directory</h3>
+                <p>The <code>catboost_info/</code> directory contains logs and metrics from CatBoost training:</p>
+                <ul class="list-disc list-inside">
+                    <li><code>catboost_training.json</code>: Training parameters and configuration</li>
+                    <li><code>learn_error.tsv</code>: Training errors across iterations</li>
+                    <li><code>time_left.tsv</code>: Time estimation logs</li>
+                    <li><code>events.out.tfevents</code>: TensorBoard compatible event files</li>
+                </ul>
+
+                            <p>While this project doesn't explicitly implement a dedicated experiment tracking system like MLflow or Weights & Biases, it employs structured logging and artifact management to track model development:</p>
+        
+        <h3>Logging System</h3>
+        <p>A custom logging module records all steps in the machine learning pipeline, capturing information about data processing, model training, and evaluation metrics. This creates a historical record of the model development process.</p>
+        
+        <div class="code-block">
+            <pre>
+import logging
+import os
+from datetime import datetime
+
+LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
+logs_path = os.path.join(os.getcwd(), "logs", LOG_FILE)
+os.makedirs(logs_path, exist_ok=True)
+
+LOG_FILE_PATH = os.path.join(logs_path, LOG_FILE)
+
+logging.basicConfig(
+    filename=LOG_FILE_PATH,
+    format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+)
+            </pre>
+        </div>
+        
+        <h3>Model Persistence</h3>
+        <p>Trained models and preprocessing objects are serialized and saved in the artifacts directory. This ensures that each model version can be retrieved and compared with other versions over time.</p>
+        
+        <div class="code-block">
+            <pre>
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+
+    except Exception as e:
+        raise CustomException(e, sys)
+            </pre>
+        </div>
+        
+        <h3>Performance Tracking</h3>
+        <p>Model performance metrics are logged for each trained model, allowing for comparison between different algorithms and hyperparameter configurations. This information guides the selection of the best model for deployment.</p>
+        
+            </div>
+
+
+
+            <!-- Deployment Section -->
+            <div class="section" id="deployment">
+                <h2>Deployment</h2>
+                <p>The model was deployed as a web application using Flask, allowing users to input student information and receive predicted math scores.</p>
+                
+                <h3 class="mt-4">Flask Web Application</h3>
+                <p>The <code>app.py</code> file sets up a Flask application with the following features:</p>
+                <ul class="list-disc list-inside">
+                    <li>Home page with an introduction</li>
+                    <li>Prediction form for user input</li>
+                    <li>RESTful endpoint for receiving prediction requests</li>
+                    <li>Integration with the prediction pipeline</li>
+                </ul>
+                
+                <pre>
+# Key implementation details from app.py
+from flask import Flask, request, render_template
+import numpy as np
+import pandas as pd
+
+from sklearn.preprocessing import StandardScaler
+from src.pipeline.predict_pipeline import CustomData, PredictPipeline
+
+application = Flask(__name__)
+app = application
+
+@app.route('/')
+def index():
+    return render_template('index.html') 
+
+@app.route('/predictdata', methods=['GET', 'POST'])
+def predict_datapoint():
+    if request.method == 'GET':
+        return render_template('home.html')
+    else:
+        data = CustomData(
+            gender=request.form.get('gender'),
+            race_ethnicity=request.form.get('ethnicity'),
+            parental_level_of_education=request.form.get('parental_level_of_education'),
+            lunch=request.form.get('lunch'),
+            test_preparation_course=request.form.get('test_preparation_course'),
+            reading_score=float(request.form.get('writing_score')),
+            writing_score=float(request.form.get('reading_score'))
+        )
+        pred_df = data.get_data_as_data_frame()
+        
+        predict_pipeline = PredictPipeline()
+        results = predict_pipeline.predict(pred_df)
+        
+        return render_template('home.html', results=results[0])
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=80)
+                </pre>
+                
+                <h3 class="mt-4">Prediction Pipeline</h3>
+                <p>The <code>src/pipeline/predict_pipeline.py</code> file implements the prediction functionality:</p>
+                <ul class="list-disc list-inside">
+                    <li>Loading the trained model and preprocessor</li>
+                    <li>Processing user input</li>
+                    <li>Generating predictions</li>
+                </ul>
+            </div>
+
+            <!-- Docker Containerization Section -->
+            <div class="section" id="docker">
+                <h2>Docker Containerization</h2>
+                <p>The application was containerized using Docker for consistent deployment across environments.</p>
+                
+                <h3 class="mt-4">Dockerfile</h3>
+                <pre>
+FROM python:3.9-slim
+WORKDIR /app
+COPY . /app
+RUN apt update -y
+RUN apt-get update && pip install -r requirements.txt
+CMD ["python3", "app.py"]
+                </pre>
+                
+                <p>The Dockerfile specifies:</p>
+                <ul class="list-disc list-inside">
+                    <li>Python 3.9 slim as the base image</li>
+                    <li>Setting the working directory to /app</li>
+                    <li>Copying all project files to the container</li>
+                    <li>Installing dependencies from requirements.txt</li>
+                    <li>Running the Flask application</li>
+                </ul>
+                
+                <h3 class="mt-4">.dockerignore</h3>
+                <p>The .dockerignore file excludes unnecessary files from the Docker build context:</p>
+                <pre>
+venv
+.git
+__pycache__
+*.log
+                </pre>
+            </div>
+
+            <!-- CI/CD Pipeline Section -->
+            <div class="section" id="cicd">
+                <h2>CI/CD Pipeline</h2>
+                <p>The project implements a CI/CD pipeline using GitHub Actions to automate the build and deployment process.</p>
+
+                 <div class="workflow-diagram">
+                <img src="../images/cicd workflow final.png" alt="CI/CD and Azure Deployment Workflow Diagram">
+            </div>
+            
+            
+            
+            <h3 class="text-xl font-semibold mb-3">GitHub Actions Workflow</h3>
+            <p class="mb-4">
+                The CI/CD pipeline is defined in <code>.github/workflows/main_studentperformancecheck.yml</code> and includes the following steps:
+            </p>
+            
+            <h4 class="text-lg font-semibold mb-2">Workflow Trigger:</h4>
+            <ul class="list-disc pl-6 mb-4">
+                <li>Automatically triggered on push to the main branch</li>
+                <li>Can also be manually triggered using workflow_dispatch</li>
+            </ul>
+                
+                <div class="feature-card">
+                    <h4>Build Job:</h4>
+                    <ol class="list-decimal pl-6 mb-4">
+                <li>Checkout repository code</li>
+                <li>Set up Docker Buildx for multi-platform builds</li>
+                <li>Log in to Azure Container Registry using secrets</li>
+                <li>Build Docker image from Dockerfile</li>
+                <li>Push the image to Azure Container Registry with a tag based on the commit SHA</li>
+            </ol>
+                </div>
+                
+                <div class="feature-card mt-4">
+                    <h4>Deploy Job:</h4>
+                    <ol class="list-decimal pl-6 mb-4">
+                <li>Run after the build job completes</li>
+                <li>Deploy to Azure Web App using the azure/webapps-deploy action</li>
+                <li>Configure the deployment with app name, slot, and authentication details</li>
+                <li>Specify the Docker image to deploy from Azure Container Registry</li>
+            </ol>
+                </div>
+                <img src="../images/github deployed .png" alt="github actions CI CD pipeline" />
+                <pre>
+name: Build and deploy container app to Azure Web App - studentperformancecheck
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Log in to registry
+      uses: docker/login-action@v2
+      with:
+        registry: https://testdockerafroz.azurecr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_f24c206db1e145f79bfb160d64f62f1d }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_2f191264d14048f9979084413f811090 }}
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: testdockerafroz.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_f24c206db1e145f79bfb160d64f62f1d }}/studentperformance1:${{ github.sha }}
+        file: ./Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'studentperformancecheck'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a291bb02fa174668a5f7d1ca7a8cc164 }}
+        images: 'testdockerafroz.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_f24c206db1e145f79bfb160d64f62f1d }}/studentperformance1:${{ github.sha }}'
+                </pre>
+
+            <!-- Azure Deployment Section -->
+            <div class="section" id="azure">
+                <h2>Cloud Deployment (Azure)</h2>
+                <p>The application is deployed on Azure using Azure Web App and Azure Container Registry.</p>
+                
+                <h3 class="mt-4">Azure Services Used</h3>
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-6 my-6">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h4 class="text-blue-800"><i class="fas fa-database mr-2"></i>Azure Container Registry (ACR)</h4>
+                <p>Hosts Docker images built by the CI/CD pipeline, providing version control and secure storage for container images.</p>
+                <img src="../images/azure container registry.png" alt="azure container registry">
+            </div>
+            
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h4 class="text-green-800"><i class="fas fa-cloud-upload-alt mr-2"></i>Azure Web App</h4>
+                <p>Hosts the containerized application, providing a fully managed platform for running the prediction service with automatic scaling and high availability.</p>
+                <img src="../images/azure web app with github.png" alt="azure web app">
+            </div>
+            <div class="bg-purple-50 p-6 rounded-lg">
+                <h4 class="text-purple-800"><i class="fas fa-sync mr-2"></i>Azure Deployed webpage</h4>
+                <p>Hosted the containerized application, providing a fully managed platform for running the prediction service with automatic scaling and high availability.</p>
+                <img src="../images/azure webpage.png" alt="azure web app">
+            </div>
+        </div>
+               
+                
+                <h3 class="mt-4">Deployment Architecture</h3>
+                <p>The deployment architecture follows these steps:</p>
+                <ol class="list-decimal list-inside">
+                    <li>Docker image is built and pushed to Azure Container Registry</li>
+                    <li>Azure Web App pulls the Docker image from the registry</li>
+                    <li>Web App runs the container and exposes the application</li>
+                    <li>The application is accessible via the URL provided by Azure Web App</li>
+                </ol>
+                
+                <h3>Azure Deployment Workflow</h3>
+                <div class="workflow-box">
+                    <div class="workflow-step">
+                        <i class="fab fa-github fa-2x text-blue-600"></i>
+                        <h5>GitHub Repository</h5>
+                    </div>
+                    <div class="workflow-step">
+                        <i class="fas fa-cogs fa-2x text-green-600"></i>
+                        <h5>GitHub Actions</h5>
+                    </div>
+                    <div class="workflow-step">
+                        <i class="fab fa-docker fa-2x text-purple-600"></i>
+                        <h5>Docker Image</h5>
+                    </div>
+                    <div class="workflow-step">
+                        <i class="fas fa-box fa-2x text-yellow-600"></i>
+                        <h5>Azure Container Registry</h5>
+                    </div>
+                    <div class="workflow-step">
+                        <i class="fas fa-window-restore fa-2x text-red-600"></i>
+                        <h5>Azure Web App</h5>
+                    </div>
+                    <div class="workflow-step">
+                        <i class="fas fa-check-circle fa-2x text-indigo-600"></i>
+                        <h5>Production Deployment</h5>
+                    </div>
+                </div>
+                
+                
+                <div class="feature-card mt-4">
+                    <h4>Security Considerations:</h4>
+                    <ul class="list-disc list-inside">
+                        <li>Secrets and credentials stored securely in GitHub repository secrets</li>
+                        <li>Azure publish profile used for secure deployment</li>
+                        <li>Container registry authentication required for accessing images</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Conclusion Section -->
+            <div class="section" id="conclusion">
+                <h2>Conclusion</h2>
+                <p>The Student Success Predictor project successfully demonstrates an end-to-end machine learning pipeline, from exploratory data analysis to model deployment in production.</p>
+                
+                <h3 class="mt-4">Key Achievements</h3>
+                <ul class="list-disc list-inside">
+                    <li>Comprehensive EDA revealing factors affecting student performance</li>
+                    <li>Modular implementation of data processing and model training components</li>
+                    <li>Evaluation of multiple regression models with hyperparameter tuning</li>
+                    <li>Achieving 88% accuracy (R² Score) with Ridge Regression</li>
+                    <li>Web application development with Flask for user-friendly predictions</li>
+                    <li>Containerization with Docker for reproducibility</li>
+                    <li>Automated CI/CD pipeline using GitHub Actions</li>
+                    <li>Cloud deployment on Azure for scalability and accessibility</li>
+                </ul>
+                
+                  <h3 class="text-xl font-semibold mb-3">Key Insights</h3>
+            <p class="mb-4">
+                The project provided several valuable insights:
+            </p>
+            <ul class="list-disc pl-6">
+                <li>Student performance is strongly influenced by socioeconomic factors (as indicated by lunch type)</li>
+                <li>Test preparation courses significantly improve performance across all subjects</li>
+                <li>There are gender differences in performance, with females generally performing better overall but males slightly better in mathematics</li>
+                <li>Linear models (Ridge and Linear Regression) outperformed more complex models for this prediction task</li>
+                <li>Reading and writing scores are strong predictors of math scores</li>
+            </ul>
+
+                <h3 class="mt-4">Future Improvements</h3>
+                <ul class="list-disc list-inside">
+                    <li>Collecting more data to improve model generalization</li>
+                    <li>Implementing more advanced feature engineering techniques</li>
+                    <li>Exploring deeper neural network architectures</li>
+                    <li>Adding monitoring and feedback mechanisms</li>
+                    <li>Implementing A/B testing for model improvements</li>
+                </ul>
+            </div>
+
+            <!-- Skills Showcased Section -->
+            <div class="section" id="skills">
+                <h2>Skills Showcased</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="feature-card">
+                        <h3>Data Science</h3>
+                        <ul class="list-disc list-inside">
+                            <li>Exploratory Data Analysis</li>
+                            <li>Data Preprocessing</li>
+                            <li>Feature Engineering</li>
+                            <li>Machine Learning Modeling</li>
+                            <li>Model Evaluation & Validation</li>
+                            <li>Hyperparameter Tuning</li>
+                        </ul>
+                    </div>
+                   
+                    <div class="feature-card ">
+                        <h3>Software Engineering</h3>
+                        <ul class="list-disc list-inside">
+                            <li>Object-Oriented Programming</li>
+                            <li>Modular Code Design</li>
+                            <li>Python Development</li>
+                            <li>Web Application Development</li>
+                            <li>API Development</li>
+                            <li>Error Handling & Logging</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>DevOps & MLOps</h3>
+                        <ul class="list-disc list-inside">
+                            <li>Containerization with Docker</li>
+                            <li>CI/CD Pipeline Implementation</li>
+                            <li>Cloud Deployment</li>
+                            <li>Version Control with Git</li>
+                            <li>Artifact Management</li>
+                            <li>Model Deployment</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>Tools & Technologies</h3>
+                        <ul class="list-disc list-inside">
+                            <li>Python (Pandas, NumPy, Scikit-learn)</li>
+                            <li>Machine Learning Libraries (XGBoost, CatBoost)</li>
+                            <li>Flask Web Framework</li>
+                            <li>Docker</li>
+                            <li>GitHub Actions</li>
+                            <li>Azure Cloud Services</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub & Contact Details Section -->
+            <div class="section" id="contact">
+                <h2>GitHub & Contact Details</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="feature-card">
+                        <h3>Project Repository</h3>
+                        <p><i class="fab fa-github"></i> <a href="https://github.com/MOHD-AFROZ-ALI/eduml-studentsuccesspredictor" target="_blank" class="text-blue-600 hover:text-blue-800">github.com/MOHD-AFROZ-ALI/eduml-studentsuccesspredictor</a></p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>Contact Information</h3>
+                        <ul class="list-none">
+                            <li><i class="fas fa-envelope"></i> Email: <a href="mailto:afrozali3001.aa@gmail.com" class="text-blue-600 hover:text-blue-800">afrozali3001.aa@gmail.com</a></li>
+                            <li><i class="fas fa-phone"></i> Phone: +91 9959786710</li>
+                            <li><i class="fab fa-linkedin"></i> LinkedIn: <a href="https://linkedin.com/in/mohd-afroz-ali" target="_blank" class="text-blue-600 hover:text-blue-800">linkedin.com/in/mohd-afroz-ali</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Score Distribution Chart
+        const scoreCtx = document.getElementById('scoreDistributionChart').getContext('2d');
+        const scoreChart = new Chart(scoreCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Math', 'Reading', 'Writing'],
+                datasets: [{
+                    label: 'Average Score',
+                    data: [66.09, 69.17, 68.05],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Average Scores by Subject',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Score',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Subject',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gender Performance Chart
+        const genderCtx = document.getElementById('genderPerformanceChart').getContext('2d');
+        const genderChart = new Chart(genderCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Math', 'Reading', 'Writing'],
+                datasets: [
+                    {
+                        label: 'Male',
+                        data: [69, 65, 63],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+                    },
+                    {
+                        label: 'Female',
+                        data: [63, 73, 72],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(255, 99, 132, 1)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Performance by Gender',
+                        font: {
+                            size: 16
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 50,
+                        suggestedMax: 80
+                    }
+                }
+            }
+        });
+
+        // Model Performance Chart
+        const modelCtx = document.getElementById('modelPerformanceChart').getContext('2d');
+        const modelChart = new Chart(modelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Ridge', 'Linear Regression', 'CatBoost', 'AdaBoost', 'Random Forest', 'Lasso', 'XGBoost', 'KNN', 'Decision Tree'],
+                datasets: [{
+                    label: 'R² Score',
+                    data: [0.880593, 0.880345, 0.851632, 0.849847, 0.847291, 0.825320, 0.821589, 0.783813, 0.760313],
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Model Performance Comparison (R² Score)',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 1,
+                        title: {
+                            display: true,
+                            text: 'R² Score',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Model',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

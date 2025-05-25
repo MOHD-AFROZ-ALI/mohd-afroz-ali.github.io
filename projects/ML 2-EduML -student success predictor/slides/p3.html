@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Predictor | EDA Insights</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1a56db;
+            --secondary: #4f46e5;
+            --accent: #0ea5e9;
+            --light: #f0f9ff;
+            --dark: #1e3a8a;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            background: linear-gradient(165deg, #ffffff 0%, #f0f9ff 100%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 1.5rem 3rem;
+            color: white;
+        }
+        .slide-content {
+            padding: 2rem 3rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 80px;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .insight-card {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        .insight-card:hover {
+            transform: translateY(-3px);
+            border-left: 3px solid var(--accent);
+        }
+        .chart-container {
+            height: 220px;
+            position: relative;
+        }
+        .animate-in {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.6s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+   
+    <div class="slide">
+        <div class="slide-header flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Exploratory Data Analysis Insights</h1>
+            <div class="flex items-center">
+                <span class="text-lg font-medium mr-2">3/8</span>
+                <i class="fas fa-chart-bar"></i>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="grid grid-cols-2 gap-6">
+                <!-- Left Column: Key Findings -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-800">Key Findings</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <div class="space-y-4 mt-4">
+                        <div class="insight-card bg-white p-4 rounded-lg shadow-sm animate-in delay-100">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-venus-mars text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Gender Differences</h3>
+                                    <p class="text-sm text-gray-600">Females have higher overall averages, but males slightly outperform in math</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-card bg-white p-4 rounded-lg shadow-sm animate-in delay-200">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-users text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Socioeconomic Impact</h3>
+                                    <p class="text-sm text-gray-600">Group E students excel; Groups A and B underperform consistently</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-card bg-white p-4 rounded-lg shadow-sm animate-in delay-300">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-utensils text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Lunch Type</h3>
+                                    <p class="text-sm text-gray-600">Standard lunch strongly correlated with better performance in all subjects</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-card bg-white p-4 rounded-lg shadow-sm animate-in delay-400">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-book-open text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Test Preparation</h3>
+                                    <p class="text-sm text-gray-600">Completing prep course leads to higher scores across all subjects</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-card bg-white p-4 rounded-lg shadow-sm animate-in delay-500">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-graduation-cap text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Parental Education</h3>
+                                    <p class="text-sm text-gray-600">Master's/bachelor's degrees correlate with higher student scores</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Data Visualizations -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-800">Performance Distribution</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <div class="chart-container mb-6 animate-in delay-200">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 animate-in delay-300">
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h3 class="font-medium text-gray-800 mb-2">Gender Distribution</h3>
+                            <div style="height: 120px;">
+                                <canvas id="genderChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h3 class="font-medium text-gray-800 mb-2">Test Prep Impact</h3>
+                            <div style="height: 120px;">
+                                <canvas id="prepChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 bg-blue-50 p-4 rounded-lg border border-blue-100 animate-in delay-400">
+                        <h3 class="font-medium text-gray-800 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Key Insight
+                        </h3>
+                        <p class="text-sm text-gray-700">Student success is more strongly correlated with lunch type (socioeconomic indicator) and test preparation than with gender or parental education level.</p>
+                    </div>
+                </div>
+              
+            </div>
+           
+        </div>
+        <div class="nav-buttons">
+            <div class="flex justify-between items-center">
+                <a href="p2.html" class="text-black text-2xl text-blue-500">Prev</a>
+                <span class="text-sm text-gray-400">Slide 3/8</span>
+                <a href="p4.html" class="text-black text-2xl text-blue-500">Next</a>
+            </div>
+        </div>
+       
+    </div>
+  
+    
+    <script>
+        // Score distribution chart
+        const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+        const scoreChart = new Chart(scoreCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Math', 'Reading', 'Writing'],
+                datasets: [
+                    {
+                        label: 'Female',
+                        backgroundColor: 'rgba(26, 86, 219, 0.7)',
+                        data: [63, 72, 74],
+                        borderWidth: 0
+                    },
+                    {
+                        label: 'Male',
+                        backgroundColor: 'rgba(14, 165, 233, 0.7)',
+                        data: [69, 65, 63],
+                        borderWidth: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Average Score'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Gender distribution pie chart
+        const genderCtx = document.getElementById('genderChart').getContext('2d');
+        const genderChart = new Chart(genderCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Female', 'Male'],
+                datasets: [{
+                    data: [48, 52],
+                    backgroundColor: [
+                        'rgba(26, 86, 219, 0.7)',
+                        'rgba(14, 165, 233, 0.7)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 15
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Test prep impact chart
+        const prepCtx = document.getElementById('prepChart').getContext('2d');
+        const prepChart = new Chart(prepCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Completed', 'None'],
+                datasets: [{
+                    label: 'Average Score',
+                    data: [76, 62],
+                    backgroundColor: [
+                        'rgba(14, 165, 233, 0.7)',
+                        'rgba(100, 116, 139, 0.7)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+     
+</body>
+</html>

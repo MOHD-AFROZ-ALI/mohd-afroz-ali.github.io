@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Predictor | Model Training & Hyperparameter Tuning</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1a56db;
+            --secondary: #4f46e5;
+            --accent: #0ea5e9;
+            --light: #f0f9ff;
+            --dark: #1e3a8a;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            background: linear-gradient(165deg, #ffffff 0%, #f0f9ff 100%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 1.5rem 3rem;
+            color: white;
+        }
+        .slide-content {
+            padding: 2rem 3rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 80px;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .model-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--accent);
+        }
+        .chart-container {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            opacity: 0.03;
+            background-image: radial-gradient(var(--primary) 2px, transparent 2px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.6s forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 9999px;
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(14, 165, 233, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="slide">
+        <div class="slide-header flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Model Training & Hyperparameter Tuning</h1>
+            <div class="flex items-center">
+                <span class="text-lg font-medium mr-2">5/8</span>
+                <i class="fas fa-cogs"></i>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="bg-pattern"></div>
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Left Column: Model Selection & Tuning Process -->
+                <div class="z-10">
+                    <h2 class="text-2xl font-semibold text-gray-800">Model Selection Strategy</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <div class="space-y-4 mt-6">
+                        <div class="model-card bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-100">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                    <i class="fas fa-tree text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="font-medium text-gray-800">Random Forest</h3>
+                                        <span class="badge bg-blue-100 text-blue-800">R² = 0.81</span>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1">n_estimators: [8, 16, 32, 64, 128, 256]</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="model-card bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-200">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                    <i class="fas fa-project-diagram text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="font-medium text-gray-800">Gradient Boosting</h3>
+                                        <span class="badge bg-blue-100 text-blue-800">R² = 0.83</span>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1">learning_rate, subsample, n_estimators</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="model-card bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-300">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                    <i class="fab fa-xing text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="font-medium text-gray-800">XGBoost</h3>
+                                        <span class="badge bg-blue-100 text-blue-800">R² = 0.84</span>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1">learning_rate, n_estimators</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="model-card bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-400 pulse">
+                            <div class="flex items-start">
+                                <div class="bg-green-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                    <i class="fas fa-award text-green-600"></i>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="font-medium text-gray-800">CatBoost Regressor</h3>
+                                        <span class="badge bg-green-100 text-green-800">R² = 0.87</span>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1">depth, learning_rate, iterations</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-2 animate-fade-in delay-500">
+                            <h3 class="font-medium text-gray-800 flex items-center">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Hyperparameter Tuning
+                            </h3>
+                            <div class="text-sm text-gray-700 mt-1">
+                                <p>GridSearchCV with 5-fold cross-validation</p>
+                                <p>Evaluation metric: R² Score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Performance Visualization -->
+                <div class="z-10">
+                    <h2 class="text-2xl font-semibold text-gray-800">Model Performance</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <div class="bg-white p-5 rounded-lg shadow-sm mt-6 animate-fade-in delay-200">
+                        <div class="chart-container">
+                            <canvas id="modelComparisonChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-300">
+                            <h3 class="font-medium text-gray-800 mb-1">Best Model Features</h3>
+                            <div class="h-px w-12 bg-blue-400 mb-3"></div>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>High accuracy on test data</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Handles categorical features</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Robust to outliers</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm animate-fade-in delay-400">
+                            <h3 class="font-medium text-gray-800 mb-1">Evaluation Metrics</h3>
+                            <div class="h-px w-12 bg-blue-400 mb-3"></div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm">R² Score:</span>
+                                    <span class="font-medium">0.87</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm">MAE:</span>
+                                    <span class="font-medium">3.42</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm">RMSE:</span>
+                                    <span class="font-medium">4.61</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons"> 
+            <div class="flex justify-between items-center"> 
+                <a href="p4.html" class="text-black text-2xl text-blue-500">Prev</a> 
+                <span class="text-sm text-gray-400">Slide 5/8</span> 
+                <a href="p6.html" class="text-black text-2xl text-blue-500">Next</a>
+             </div> 
+            </div>
+    </div>
+    
+    <div class="nav-buttons"> <div class="flex justify-between items-center"> <a href="p4.html" class="text-white text-base hover:text-blue-300">Prev</a> <span class="text-sm text-gray-400">Slide 5/8</span> <a href="p6.html" class="text-white text-base hover:text-blue-300">Next</a> </div> </div>
+    <script>
+        // Model comparison chart
+        const modelCtx = document.getElementById('modelComparisonChart').getContext('2d');
+        const modelChart = new Chart(modelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Linear Regression', 'Decision Tree', 'Random Forest', 'Gradient Boosting', 'XGBoost', 'CatBoost', 'AdaBoost'],
+                datasets: [{
+                    label: 'R² Score',
+                    data: [0.65, 0.72, 0.81, 0.83, 0.84, 0.87, 0.76],
+                    backgroundColor: [
+                        'rgba(100, 116, 139, 0.7)',
+                        'rgba(100, 116, 139, 0.7)',
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(100, 116, 139, 0.7)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `R² Score: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 1.0,
+                        title: {
+                            display: true,
+                            text: 'R² Score'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

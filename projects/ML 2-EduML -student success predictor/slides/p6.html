@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Predictor | Azure Deployment</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a56db;
+            --secondary: #4f46e5;
+            --accent: #0ea5e9;
+            --light: #f0f9ff;
+            --dark: #1e3a8a;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            background: linear-gradient(165deg, #ffffff 0%, #f0f9ff 100%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 1.5rem 3rem;
+            color: white;
+        }
+        .slide-content {
+            padding: 2rem 3rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 80px;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            opacity: 0.05;
+            background-image: radial-gradient(var(--primary) 2px, transparent 2px);
+            background-size: 30px 30px;
+            z-index: 0;
+        }
+        .pipeline-step {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .pipeline-step:hover {
+            transform: translateY(-5px);
+        }
+        .pipeline-arrow {
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            transform: translateY(-50%);
+            color: var(--accent);
+            z-index: 5;
+        }
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+        .delay-4 { animation-delay: 0.7s; }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .code-block {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #f8f9fc;
+            border-radius: 6px;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            font-size: 0.8rem;
+            overflow: auto;
+            white-space: pre;
+            color: #1a202c;
+            max-height: 220px;
+        }
+        .keyword { color: #3182ce; }
+        .function { color: #805ad5; }
+        .string { color: #38a169; }
+        .comment { color: #718096; font-style: italic; }
+        .branch-line {
+            position: absolute;
+            background: var(--accent);
+            z-index: 1;
+        }
+        .flow-icon {
+            position: absolute;
+            color: var(--accent);
+            font-size: 24px;
+            animation: flowPulse 2s infinite;
+        }
+        @keyframes flowPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        .azure-icon {
+            color: #0078d4;
+        }
+        .github-icon {
+            color: #333;
+        }
+        .docker-icon {
+            color: #2496ed;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="slide">
+        <div class="slide-header flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Azure Cloud Deployment</h1>
+            <div class="flex items-center">
+                <span class="text-lg font-medium mr-2">6/8</span>
+                <i class="fab fa-microsoft"></i>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="bg-pattern"></div>
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Left Column: Deployment Architecture -->
+                <div class="z-10">
+                    <h2 class="text-2xl font-semibold text-gray-800">Deployment Architecture</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <!-- Architecture Diagram -->
+                    <div class="relative h-96 mt-6">
+                        <!-- GitHub Repository -->
+                        <div class="absolute top-0 left-0 w-64 p-4 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in delay-1">
+                            <div class="flex items-center">
+                                <i class="fab fa-github text-3xl github-icon mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">GitHub Repository</h3>
+                                    <p class="text-xs text-gray-600">Source Code & Workflow</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow from GitHub to Actions -->
+                        <div class="flow-icon" style="top: 70px; left: 75px;">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        
+                        <!-- GitHub Actions -->
+                        <div class="absolute top-28 left-0 w-64 p-4 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in delay-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-code-branch text-3xl text-purple-600 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">GitHub Actions</h3>
+                                    <p class="text-xs text-gray-600">CI/CD Pipeline Workflow</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow from Actions to Docker -->
+                        <div class="flow-icon" style="top: 160px; left: 90px;">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        
+                        <!-- Docker Container -->
+                        <div class="absolute top-28 left-32 w-64 p-4 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in delay-2" style="left: 140px;">
+                            <div class="flex items-center">
+                                <i class="fab fa-docker text-3xl docker-icon mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">Docker Container</h3>
+                                    <p class="text-xs text-gray-600">Containerized Application</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow from Docker to ACR -->
+                        <div class="flow-icon" style="top: 210px; left: 180px;">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        
+                        <!-- Azure Container Registry -->
+                        <div class="absolute top-56 left-32 w-64 p-4 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in delay-3" style="left: 140px;">
+                            <div class="flex items-center">
+                                <i class="fas fa-box text-3xl azure-icon mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">Azure Container Registry</h3>
+                                    <p class="text-xs text-gray-600">testdockerafroz.azurecr.io</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow from ACR to Web App -->
+                        <div class="flow-icon" style="top: 270px; left: 90px;">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        
+                        <!-- Azure Web App -->
+                        <div class="absolute bottom-0 left-0 w-64 p-4 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in delay-4">
+                            <div class="flex items-center">
+                                <i class="fab fa-microsoft text-3xl azure-icon mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">Azure Web App</h3>
+                                    <p class="text-xs text-gray-600">studentperformancecheck</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: CI/CD Pipeline Details -->
+                <div class="z-10">
+                    <h2 class="text-2xl font-semibold text-gray-800">CI/CD Pipeline Implementation</h2>
+                    <div class="accent-bar"></div>
+                    
+                    <!-- GitHub Actions YAML -->
+                    <div class="code-block animate-fade-in delay-2">
+<span class="keyword">name:</span> Build and deploy container app to Azure Web App
+
+<span class="keyword">on:</span>
+  <span class="keyword">push:</span>
+    <span class="keyword">branches:</span>
+      - main
+  <span class="keyword">workflow_dispatch:</span>
+
+<span class="keyword">jobs:</span>
+  <span class="keyword">build:</span>
+    <span class="keyword">runs-on:</span> 'ubuntu-latest'
+    <span class="keyword">steps:</span>
+    - <span class="function">uses:</span> actions/checkout@v2
+    
+    - <span class="keyword">name:</span> Set up Docker Buildx
+      <span class="function">uses:</span> docker/setup-buildx-action@v2
+
+    - <span class="keyword">name:</span> Log in to registry
+      <span class="function">uses:</span> docker/login-action@v2
+      <span class="keyword">with:</span>
+        <span class="keyword">registry:</span> testdockerafroz.azurecr.io/
+        <span class="keyword">username:</span> ${{ secrets.AzureAppService_ContainerUsername }}
+        <span class="keyword">password:</span> ${{ secrets.AzureAppService_ContainerPassword }}
+
+    - <span class="keyword">name:</span> Build and push container image
+      <span class="function">uses:</span> docker/build-push-action@v3
+      <span class="keyword">with:</span>
+        <span class="keyword">push:</span> true
+        <span class="keyword">tags:</span> testdockerafroz.azurecr.io/studentperformance1:${{ github.sha }}
+                    </div>
+                    
+                    <!-- Deployment Benefits -->
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 animate-fade-in delay-3">
+                            <h3 class="text-lg font-medium text-gray-800 flex items-center">
+                                <i class="fas fa-shield-alt text-blue-600 mr-2"></i> Security
+                            </h3>
+                            <ul class="mt-2 text-sm space-y-1">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Secret management</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Private container registry</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Automated updates</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 animate-fade-in delay-4">
+                            <h3 class="text-lg font-medium text-gray-800 flex items-center">
+                                <i class="fas fa-tachometer-alt text-blue-600 mr-2"></i> Performance
+                            </h3>
+                            <ul class="mt-2 text-sm space-y-1">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Containerized isolation</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Autoscaling capability</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Global distribution</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Web App Interface Preview -->
+                    <div class="mt-4 bg-blue-50 p-4 rounded-lg border border-blue-100 animate-fade-in delay-4">
+                        <h3 class="font-medium text-gray-800 flex items-center mb-2">
+                            <i class="fas fa-globe text-blue-600 mr-2"></i> 
+                            Deployment Endpoints
+                        </h3>
+                        <div class="flex space-x-4 text-sm">
+                            <div class="bg-white py-1 px-3 rounded-full border border-blue-200">
+                                <i class="fas fa-link mr-1 text-blue-500"></i>
+                                studentperformancecheck.azurewebsites.net
+                            </div>
+                            <div class="bg-white py-1 px-3 rounded-full border border-blue-200">
+                                <i class="fas fa-code mr-1 text-blue-500"></i>
+                                /predictdata
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons"> 
+            <div class="flex justify-between items-center"> 
+                <a href="p5.html" class="text-black text-2xl text-blue-500">Prev</a> 
+                <span class="text-sm text-gray-400">Slide 6/8</span> 
+                <a href="p7.html" class="text-black text-2xl text-blue-500">Next</a>
+             </div> 
+            </div>
+    </div>
+</body>
+
+</html>
