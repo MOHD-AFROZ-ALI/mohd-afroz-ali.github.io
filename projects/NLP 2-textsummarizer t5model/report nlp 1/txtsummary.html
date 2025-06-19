@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-to-End Text Summarization Project - MOHD AFROZ ALI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .code-block {
+            background-color: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            margin: 2rem 0;
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .workflow-step {
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+        body {
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 {
+            font-weight: 700;
+        }
+        .toc-link {
+            transition: color 0.3s ease;
+        }
+        .toc-link:hover {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-4">End-to-End Text Summarization Project</h1>
+            <p class="text-xl mb-6">Advanced NLP Solution using T5 Transformer with Complete MLOps Pipeline</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#github-link" class="bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                    <i class="fab fa-github mr-2"></i>View on GitHub
+                </a>
+                <a href="#contact" class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition">
+                    <i class="fas fa-envelope mr-2"></i>Contact
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <h2 class="text-2xl font-bold mb-4 text-center">Table of Contents</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                <a href="#about-me" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">1. About Me</a>
+                <a href="#introduction" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">2. Introduction</a>
+                <a href="#project-overview" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">3. Project Overview</a>
+                <a href="#data-ingestion" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">4. Data Ingestion</a>
+                <a href="#data-validation" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">5. Data Validation</a>
+                <a href="#data-transformation" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">6. Data Transformation</a>
+                <a href="#model-training" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">7. Model Training</a>
+                <a href="#model-evaluation" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">8. Model Evaluation</a>
+                <a href="#deployment" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">9. Deployment</a>
+                <a href="#ci-cd" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">10. CI/CD Pipeline</a>
+                <a href="#skills-showcased" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">11. Skills Showcased</a>
+                <a href="#github-link" class="toc-link block py-2 px-4 rounded hover:bg-gray-100">12. GitHub & Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- About Me Section -->
+        <section id="about-me" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">About Me</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-2">MOHAMMAD AFROZ ALI</h3>
+                    <p class="text-xl text-gray-600 mb-4">Aspiring SDE, AIML Intern</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
+                        <h4 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-graduation-cap mr-2 text-blue-600"></i>Education
+                        </h4>
+                        <p class="text-gray-700 mb-2"><strong>Final Semester B.Tech (Information Technology)</strong></p>
+                        <p class="text-gray-600">8.0/10 CGPA</p>
+                        <p class="text-gray-600">Muffakham Jah College of Engineering & Technology</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg">
+                        <h4 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-bullseye mr-2 text-green-600"></i>Focused on
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li><i class="fas fa-robot mr-2 text-purple-600"></i>AI/ML</li>
+                            <li><i class="fas fa-code mr-2 text-blue-600"></i>Software Engineering</li>
+                            <li><i class="fas fa-cloud mr-2 text-cyan-600"></i>Cloud Technologies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-heart mr-2 text-red-600"></i>Interests
+                        </h4>
+                        <p class="text-gray-700">Keen on Artificial Intelligence & Machine Learning</p>
+                        <p class="text-gray-600">Focus on building end-to-end solutions that combine ML with software engineering best practices</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg">
+                        <h4 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-tools mr-2 text-orange-600"></i>Technical Proficiency
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Python</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Transformers</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">FastAPI</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Docker</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">AWS</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">MLOps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Introduction</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <p class="text-lg mb-6 leading-relaxed">
+                    Text summarization is a crucial natural language processing task that automatically generates concise and coherent summaries from lengthy documents. This project delivers an end-to-end machine learning solution for abstractive text summarization using the powerful T5 (Text-to-Text Transfer Transformer) model.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>Project Motivation
+                        </h3>
+                        <p class="text-gray-700">
+                            With the exponential growth of digital content, there's an increasing need for automated summarization systems that can help users quickly understand the essence of large documents. This project addresses this challenge by implementing a robust, scalable text summarization pipeline.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-database mr-2 text-green-500"></i>Dataset Information
+                        </h3>
+                        <p class="text-gray-700">
+                            The project utilizes the SAMSum dataset, which contains approximately 16,000 messenger-like conversations with their corresponding summaries. This dataset is ideal for training dialogue summarization models as it captures the nuances of conversational text.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Project Overview Section -->
+        <section id="project-overview" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Project Overview</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">Key Features of the Project</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                            <i class="fas fa-cogs mr-2 text-purple-600"></i>Modular Pipeline Architecture
+                        </h4>
+                        <p class="text-gray-700">Each component (ingestion, validation, transformation, training, evaluation) is implemented as a separate module with clear interfaces.</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                            <i class="fas fa-robot mr-2 text-blue-600"></i>T5 Transformer Model
+                        </h4>
+                        <p class="text-gray-700">Utilizes Google's T5-small model for high-quality abstractive text summarization with transfer learning capabilities.</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                            <i class="fas fa-cloud mr-2 text-green-600"></i>Cloud-Native Design
+                        </h4>
+                        <p class="text-gray-700">Seamless deployment to AWS infrastructure with containerization via Docker and CI/CD through GitHub Actions.</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                            <i class="fas fa-check-circle mr-2 text-yellow-600"></i>Automated Workflow
+                        </h4>
+                        <p class="text-gray-700">Complete automation from data ingestion to model deployment with robust logging and exception handling.</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                            <i class="fas fa-chart-line mr-2 text-red-600"></i>ROUGE Evaluation
+                        </h4>
+                        <p class="text-gray-700">Comprehensive evaluation using ROUGE metrics to assess summary quality and model performance.</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-3 text-gray-800">
+                            <i class="fas fa-api mr-2 text-indigo-600"></i>FastAPI Integration
+                        </h4>
+                        <p class="text-gray-700">RESTful API endpoints for training and prediction with interactive documentation and async support.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-6">Project Workflow Overview</h3>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="workflow-step">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">1. Data Ingestion</h4>
+                        <p class="text-gray-700">Download and extract SAMSum dataset from remote source, validate data integrity</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">2. Data Validation</h4>
+                        <p class="text-gray-700">Verify dataset structure, check for required files (train, test, validation)</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">3. Data Transformation</h4>
+                        <p class="text-gray-700">Tokenize conversations and summaries using T5 tokenizer, prepare training data</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">4. Model Training</h4>
+                        <p class="text-gray-700">Fine-tune T5-small model on SAMSum dataset with optimized hyperparameters</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">5. Model Evaluation</h4>
+                        <p class="text-gray-700">Assess model performance using ROUGE scores and generate evaluation metrics</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">6. Deployment</h4>
+                        <p class="text-gray-700">Containerize application, deploy to AWS with CI/CD pipeline automation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Data Ingestion Section -->
+        <section id="data-ingestion" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Data Ingestion</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">SAMSum Dataset Integration</h3>
+                <p class="text-lg mb-6">
+                    The data ingestion pipeline automatically downloads the SAMSum dataset from the configured source URL and extracts it to the designated directory. The process ensures data integrity and proper folder structure for subsequent pipeline stages.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-download mr-2 text-blue-600"></i>Data Source
+                        </h4>
+                        <p class="text-gray-700 mb-2"><strong>Dataset:</strong> SAMSum Corpus</p>
+                        <p class="text-gray-700 mb-2"><strong>Size:</strong> ~16,000 conversations</p>
+                        <p class="text-gray-700"><strong>Format:</strong> JSON with dialogue-summary pairs</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-folder-open mr-2 text-green-600"></i>Data Structure
+                        </h4>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• <strong>Train:</strong> Training conversations</li>
+                            <li>• <strong>Test:</strong> Test conversations</li>
+                            <li>• <strong>Validation:</strong> Validation conversations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4">Configuration Setup</h4>
+                <div class="code-block">
+                    <pre><code>data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://github.com/entbappy/Branching-tutorial/raw/master/summarizer-data.zip
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion</code></pre>
+                </div>
+
+                <p class="text-gray-700 mt-4">
+                    The ingestion process creates a structured artifact directory that maintains data versioning and ensures reproducibility across different pipeline runs. The downloaded data is automatically validated for completeness before proceeding to the next stage.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Data Validation Section -->
+        <section id="data-validation" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Data Validation</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">Schema-Based Validation</h3>
+                <p class="text-lg mb-6">
+                    Data validation ensures the integrity and completeness of the ingested dataset. The process verifies that all required files are present and accessible for the training pipeline.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-check-double mr-2 text-purple-600"></i>Validation Checks
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• File existence validation</li>
+                            <li>• Directory structure verification</li>
+                            <li>• Data format consistency</li>
+                            <li>• Schema compliance checking</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-file-alt mr-2 text-orange-600"></i>Required Files
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• <code>train</code> - Training dataset</li>
+                            <li>• <code>test</code> - Test dataset</li>
+                            <li>• <code>validation</code> - Validation dataset</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4">Validation Configuration</h4>
+                <div class="code-block">
+                    <pre><code>data_validation:
+  root_dir: artifacts/data_validation
+  STATUS_FILE: artifacts/data_validation/status.txt
+  ALL_REQUIRED_FILES: ["train", "test", "validation"]</code></pre>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg mt-6">
+                    <h4 class="text-lg font-semibold mb-3 text-gray-800">
+                        <i class="fas fa-info-circle mr-2 text-blue-600"></i>Validation Artifacts
+                    </h4>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>• <strong>status.txt:</strong> Validation status indicator (True/False)</li>
+                        <li>• <strong>Validation logs:</strong> Detailed validation results</li>
+                        <li>• <strong>Error reports:</strong> Issues identified during validation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Data Transformation Section -->
+        <section id="data-transformation" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Data Transformation</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">Tokenization & Preprocessing Pipeline</h3>
+                <p class="text-lg mb-6">
+                    Data transformation prepares the raw conversation data for training by tokenizing text using the T5 tokenizer. This process converts text into numerical representations that the transformer model can process effectively.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-cogs mr-2 text-blue-600"></i>T5 Tokenizer
+                        </h4>
+                        <p class="text-gray-700 mb-2"><strong>Model:</strong> t5-small</p>
+                        <p class="text-gray-700 mb-2"><strong>Vocabulary:</strong> 32,128 tokens</p>
+                        <p class="text-gray-700"><strong>Special tokens:</strong> Text-to-text format</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-exchange-alt mr-2 text-green-600"></i>Text Processing
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Input text tokenization</li>
+                            <li>• Summary target tokenization</li>
+                            <li>• Attention mask generation</li>
+                            <li>• Sequence length management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4">Transformation Configuration</h4>
+                <div class="code-block">
+                    <pre><code>data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion/samsum_dataset
+  tokenizer_name: t5-small</code></pre>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4 mt-6">Tokenization Process</h4>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">1. Text Preprocessing</h5>
+                        <p class="text-gray-700">Clean and normalize conversation text, handle special characters and formatting</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">2. Input Tokenization</h5>
+                        <p class="text-gray-700">Convert dialogue text to token IDs with appropriate prefixes for T5 text-to-text format</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">3. Target Tokenization</h5>
+                        <p class="text-gray-700">Tokenize summary text as target sequences for supervised learning</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">4. Dataset Creation</h5>
+                        <p class="text-gray-700">Create HuggingFace datasets with tokenized inputs and targets for efficient training</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Model Training Section -->
+        <section id="model-training" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Model Training & Fine-tuning</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">T5-Small Transformer Training</h3>
+                <p class="text-lg mb-6">
+                    The model training stage fine-tunes the pre-trained T5-small model on the SAMSum dataset using optimized hyperparameters. The training process leverages HuggingFace's Trainer API for efficient distributed training and gradient accumulation.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-brain mr-2 text-purple-600"></i>Model Architecture
+                        </h4>
+                        <p class="text-gray-700 mb-2"><strong>Base Model:</strong> T5-small</p>
+                        <p class="text-gray-700 mb-2"><strong>Parameters:</strong> 60M</p>
+                        <p class="text-gray-700 mb-2"><strong>Encoder-Decoder:</strong> Transformer</p>
+                        <p class="text-gray-700"><strong>Task:</strong> Text-to-text generation</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-chart-line mr-2 text-blue-600"></i>Training Strategy
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Transfer learning approach</li>
+                            <li>• Fine-tuning on SAMSum</li>
+                            <li>• Gradient accumulation</li>
+                            <li>• Learning rate scheduling</li>
+                        </ul>
+                    </div>
+                </div>
+                <img src="../image-txtsummary/gpu train.png" alt="GPU Training - fine tune on T5 model" class="w-full rounded-lg mb-6">
+                <h4 class="text-xl font-bold mb-4">Training Configuration</h4>
+                <div class="code-block">
+                    <pre><code>model_trainer:
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_transformation/samsum_dataset
+  model_ckpt: t5-small</code></pre>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4 mt-6">Training Parameters</h4>
+                <div class="code-block">
+                    <pre><code>TrainingArguments:
+  num_train_epochs: 1
+  warmup_steps: 500
+  per_device_train_batch_size: 4
+  weight_decay: 0.01
+  logging_steps: 10
+  evaluation_strategy: steps
+  eval_steps: 500
+  save_steps: 1000000
+  gradient_accumulation_steps: 8</code></pre>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg mt-6">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-800">
+                        <i class="fas fa-info-circle mr-2 text-blue-600"></i>Training Highlights
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold text-gray-800 mb-2">Optimization</h5>
+                            <ul class="text-gray-700 space-y-1 text-sm">
+                                <li>• AdamW optimizer</li>
+                                <li>• Linear learning rate scheduler</li>
+                                <li>• Gradient clipping</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-gray-800 mb-2">Memory Efficiency</h5>
+                            <ul class="text-gray-700 space-y-1 text-sm">
+                                <li>• Gradient accumulation</li>
+                                <li>• Mixed precision training</li>
+                                <li>• Optimized batch sizes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Model Evaluation Section -->
+        <section id="model-evaluation" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Model Evaluation</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">ROUGE Metrics Assessment</h3>
+                <p class="text-lg mb-6">
+                    Model evaluation employs ROUGE (Recall-Oriented Understudy for Gisting Evaluation) metrics to assess the quality of generated summaries. ROUGE measures the overlap between generated and reference summaries, providing comprehensive evaluation of summarization performance.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-chart-bar mr-2 text-red-600"></i>ROUGE-1
+                        </h4>
+                        <p class="text-gray-700">Measures unigram overlap between generated and reference summaries</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-chart-line mr-2 text-blue-600"></i>ROUGE-2
+                        </h4>
+                        <p class="text-gray-700">Evaluates bigram overlap, capturing phrase-level similarity</p>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-chart-area mr-2 text-green-600"></i>ROUGE-L
+                        </h4>
+                        <p class="text-gray-700">Assesses longest common subsequence, measuring structural similarity</p>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4">Evaluation Configuration</h4>
+                <div class="code-block">
+                    <pre><code>model_evaluation:
+  root_dir: artifacts/model_evaluation
+  data_path: artifacts/data_transformation/samsum_dataset
+  model_path: artifacts/model_trainer/t5-small-samsum-model
+  tokenizer_path: artifacts/model_trainer/tokenizer
+  metric_file_name: artifacts/model_evaluation/metrics.csv</code></pre>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg mt-6">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-800">
+                        <i class="fas fa-clipboard-check mr-2 text-blue-600"></i>Evaluation Process
+                    </h4>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">1. Model Loading</h5>
+                        <p class="text-gray-700">Load fine-tuned T5 model and tokenizer from training artifacts</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">2. Summary Generation</h5>
+                        <p class="text-gray-700">Generate summaries for test dataset using beam search decoding</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">3. ROUGE Calculation</h5>
+                        <p class="text-gray-700">Calculate ROUGE-1, ROUGE-2, and ROUGE-L scores against reference summaries</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">4. Metrics Export</h5>
+                        <p class="text-gray-700">Save evaluation metrics to CSV file for analysis and reporting</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Deployment Section -->
+        <section id="deployment" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Deployment</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">FastAPI & Docker Containerization</h3>
+                <p class="text-lg mb-6">
+                    The deployment strategy leverages FastAPI for creating robust REST API endpoints and Docker for containerization. This approach ensures consistent deployment across different environments and provides scalable inference capabilities.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-rocket mr-2 text-blue-600"></i>FastAPI Application
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Async request handling</li>
+                            <li>• Interactive API documentation</li>
+                            <li>• Training and prediction endpoints</li>
+                            <li>• Error handling and logging</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-cube mr-2 text-green-600"></i>Docker Integration
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Lightweight container image</li>
+                            <li>• Dependency isolation</li>
+                            <li>• Cross-platform compatibility</li>
+                            <li>• Production-ready configuration</li>
+                        </ul>
+                    </div>
+                </div>
+               
+                <h4 class="text-xl font-bold mb-4">FastAPI Implementation</h4>
+                <div class="code-block">
+                    <pre><code>from fastapi import FastAPI
+import uvicorn
+from textSummarizer.pipeline.prediction import PredictionPipeline
+
+app = FastAPI()
+
+@app.get("/", tags=["authentication"])
+async def index():
+    return RedirectResponse(url="/docs")
+
+@app.get("/train")
+async def training():
+    try:
+        os.system("python main.py")
+        return Response("Training successful !!")
+    except Exception as e:
+        return Response(f"Error Occurred! {e}")
+
+@app.post("/predict")
+async def predict_route(text):
+    try:
+        obj = PredictionPipeline()
+        text = obj.predict(text)
+        return text
+    except Exception as e:
+        raise e
+
+if __name__=="__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8080)</code></pre>
+                </div>
+                <img src="../image-txtsummary/ecr image.png" alt="ECR Image" class="w-full rounded-lg mb-6">
+                <h4 class="text-xl font-bold mb-4 mt-6">Docker Configuration</h4>
+                <div class="code-block">
+                    <pre><code>FROM python:3.8-slim-buster
+
+RUN apt update -y && apt install awscli -y
+WORKDIR /app
+
+COPY . /app
+RUN apt-get update && apt-get install -y build-essential python3-dev
+RUN pip install -r requirements.txt
+RUN pip install --upgrade accelerate
+RUN pip uninstall -y transformers accelerate
+RUN pip install transformers accelerate
+
+CMD ["python3", "app.py"]</code></pre>
+                </div>
+                <img src="../image-txtsummary/fastapi predict.png" alt="FastAPI Prediction" class="w-full rounded-lg mb-6">
+                <div class="bg-gray-50 p-6 rounded-lg mt-6">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-800">
+                        <i class="fas fa-server mr-2 text-blue-600"></i>API Endpoints
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold text-gray-800 mb-2">GET /</h5>
+                            <p class="text-gray-700 text-sm">Redirects to interactive API documentation</p>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-gray-800 mb-2">GET /train</h5>
+                            <p class="text-gray-700 text-sm">Triggers complete training pipeline execution</p>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-gray-800 mb-2">POST /predict</h5>
+                            <p class="text-gray-700 text-sm">Accepts text input and returns generated summary</p>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-gray-800 mb-2">GET /docs</h5>
+                            <p class="text-gray-700 text-sm">Automatic OpenAPI documentation interface</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- CI/CD Pipeline Section -->
+        <section id="ci-cd" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">CI/CD Pipeline & AWS Deployment</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold mb-6">GitHub Actions Workflow</h3>
+                <p class="text-lg mb-6">
+                    The CI/CD pipeline automates the entire deployment process from code push to production deployment on AWS. The workflow includes testing, building Docker images, pushing to AWS ECR, and deploying to EC2 instances.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="feature-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fab fa-github mr-2 text-purple-600"></i>GitHub Actions
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Automated testing</li>
+                            <li>• Docker image building</li>
+                            <li>• AWS integration</li>
+                            <li>• Deployment automation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fab fa-aws mr-2 text-orange-600"></i>AWS Services
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• ECR (Container Registry)</li>
+                            <li>• EC2 (Compute)</li>
+                            <li>• IAM (Access Management)</li>
+                            <li>• S3 (Storage)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4">AWS Deployment Architecture</h4>
+                <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">1. IAM User Creation</h5>
+                        <p class="text-gray-700">Create IAM user with specific permissions for EC2 and ECR access</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">2. ECR Repository Setup</h5>
+                        <p class="text-gray-700">Create Elastic Container Registry to store Docker images</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">3. EC2 Instance Configuration</h5>
+                        <p class="text-gray-700">Launch Ubuntu EC2 instance and install Docker</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">4. Self-Hosted Runner Setup</h5>
+                        <p class="text-gray-700">Configure EC2 as GitHub Actions self-hosted runner</p>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-bold mb-4">Required AWS Policies</h4>
+                <div class="code-block">
+                    <pre><code># IAM Policies Required:
+1. AmazonEC2ContainerRegistryFullAccess
+2. AmazonEC2FullAccess
+
+# Description: About the deployment
+1. Build docker image of the source code
+2. Push your docker image to ECR
+3. Launch Your EC2 
+4. Pull Your image from ECR in EC2
+5. Launch your docker image in EC2</code></pre>
+                </div>
+                <img src="../image-txtsummary/Iam key.png" alt="AWS I am key" class="w-full rounded-lg mb-6">
+                <h4 class="text-xl font-bold mb-4 mt-6">GitHub Secrets Configuration</h4>
+                <div class="code-block">
+                    <pre><code>AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_REGION=us-east-1
+AWS_ECR_LOGIN_URI=12345678.dkr.ecr.us-east-1.amazonaws.com
+ECR_REPOSITORY_NAME=textsummarize</code></pre>
+                </div>
+                <img src="../image-txtsummary/ci--cd deply.png" alt="GitHub Secrets" class="w-full rounded-lg mb-6">
+                <h4 class="text-xl font-bold mb-4 mt-6">Docker Installation on EC2</h4>
+                <div class="code-block">
+                    <pre><code># Optional
+sudo apt-get update -y
+sudo apt-get upgrade
+
+# Required
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker ubuntu
+newgrp docker</code></pre>
+                </div>
+                <img src="../image-txtsummary/ec2 instance.png" alt="Docker Installation" class="w-full rounded-lg mb-6">
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Skills Showcased Section -->
+        <section id="skills-showcased" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">Skills Showcased</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-robot mr-2 text-blue-600"></i>Natural Language Processing
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Transformer models (T5)</li>
+                            <li>• Text summarization</li>
+                            <li>• Tokenization & preprocessing</li>
+                            <li>• ROUGE evaluation metrics</li>
+                            <li>• HuggingFace ecosystem</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-code mr-2 text-green-600"></i>Software Engineering
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Modular code architecture</li>
+                            <li>• Object-oriented programming</li>
+                            <li>• Exception handling</li>
+                            <li>• Configuration management</li>
+                            <li>• API development (FastAPI)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-infinity mr-2 text-purple-600"></i>MLOps & DevOps
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Docker containerization</li>
+                            <li>• CI/CD pipelines</li>
+                            <li>• GitHub Actions</li>
+                            <li>• Model versioning</li>
+                            <li>• Pipeline orchestration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-cloud mr-2 text-orange-600"></i>Cloud Computing
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• AWS EC2 deployment</li>
+                            <li>• AWS ECR container registry</li>
+                            <li>• IAM security management</li>
+                            <li>• Cloud infrastructure</li>
+                            <li>• Scalable deployments</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-database mr-2 text-red-600"></i>Data Engineering
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Data pipeline design</li>
+                            <li>• ETL processes</li>
+                            <li>• Data validation</li>
+                            <li>• Schema management</li>
+                            <li>• Artifact management</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-tools mr-2 text-indigo-600"></i>Technical Tools
+                        </h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Python ecosystem</li>
+                            <li>• PyTorch framework</li>
+                            <li>• Transformers library</li>
+                            <li>• YAML configuration</li>
+                            <li>• REST API design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- GitHub & Contact Section -->
+        <section id="github-link" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 text-center">GitHub & Contact Details</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="feature-card bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fab fa-github mr-2 text-blue-600"></i>Project Repository
+                        </h3>
+                        <p class="text-gray-700 mb-4">Access the complete source code, documentation, and implementation details:</p>
+                        <a href="https://github.com/MOHD-AFROZ-ALI/textsummarize" 
+                           class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                            <i class="fab fa-github mr-2"></i>View Repository
+                        </a>
+                    </div>
+                    
+                    <div id="contact" class="feature-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-envelope mr-2 text-green-600"></i>Contact Information
+                        </h3>
+                        <div class="space-y-3">
+                            <p class="text-gray-700">
+                                <i class="fas fa-envelope mr-2 text-blue-600"></i>
+                                <a href="mailto:afrozali3001.aa@gmail.com" class="hover:text-blue-600 transition">
+                                    afrozali3001.aa@gmail.com
+                                </a>
+                            </p>
+                            <p class="text-gray-700">
+                                <i class="fas fa-phone mr-2 text-green-600"></i>
+                                +91 9959786710
+                            </p>
+                            <p class="text-gray-700">
+                                <i class="fab fa-linkedin mr-2 text-blue-600"></i>
+                                <a href="https://linkedin.com/in/mohd-afroz-ali" class="hover:text-blue-600 transition">
+                                    linkedin.com/in/mohd-afroz-ali
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8 p-6 bg-gray-50 rounded-lg">
+                    <p class="text-gray-600 mb-2">© 2025 Mohammad Afroz Ali. All rights reserved.</p>
+                    <p class="text-gray-500 text-sm">
+                        Built with Python, Transformers, FastAPI, Docker, and AWS
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4">Thank you for reviewing my Text Summarization Project!</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://github.com/MOHD-AFROZ-ALI/textsummarize" 
+                   class="hover:text-gray-300 transition">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="mailto:afrozali3001.aa@gmail.com" 
+                   class="hover:text-gray-300 transition">
+                    <i class="fas fa-envelope text-2xl"></i>
+                </a>
+                <a href="https://linkedin.com/in/mohd-afroz-ali" 
+                   class="hover:text-gray-300 transition">
+                    <i class="fab fa-linkedin text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation to feature cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
